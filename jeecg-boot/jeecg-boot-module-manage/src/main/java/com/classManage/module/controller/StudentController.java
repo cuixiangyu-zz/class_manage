@@ -45,7 +45,7 @@ import org.jeecg.common.aspect.annotation.AutoLog;
  */
 @Api(tags="学生表")
 @RestController
-@RequestMapping("/module/student")
+@RequestMapping("/manage/student")
 @Slf4j
 public class StudentController extends JeecgController<Student, IStudentService> {
 	@Autowired

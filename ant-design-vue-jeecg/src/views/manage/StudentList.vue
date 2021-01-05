@@ -214,11 +214,11 @@
           }
         ],
         url: {
-          list: "/module/student/list",
-          delete: "/module/student/delete",
-          deleteBatch: "/module/student/deleteBatch",
-          exportXlsUrl: "/module/student/exportXls",
-          importExcelUrl: "module/student/importExcel",
+          list: "/manage/student/list",
+          delete: "/manage/student/delete",
+          deleteBatch: "/manage/student/deleteBatch",
+          exportXlsUrl: "/manage/student/exportXls",
+          importExcelUrl: "manage/student/importExcel",
         },
         dictOptions:{},
       }

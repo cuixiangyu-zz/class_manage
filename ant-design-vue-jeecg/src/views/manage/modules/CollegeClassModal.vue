@@ -7,41 +7,32 @@
     switchFullscreen
     @ok="handleOk"
     @cancel="handleCancel"
+    :destroyOnClose="true"
     cancelText="关闭">
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
 
-        <a-form-item label="姓名" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['name']" placeholder="请输入姓名"></a-input>
+        <a-form-item label="父级节点" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-tree-select
+            ref="treeSelect"
+            placeholder="请选择父级节点"
+            v-decorator="['pid']"
+            dict="college_class,name,id"
+            pidField="pid"
+            pidValue="0"
+            hasChildField="has_child">
+          </j-tree-select>
         </a-form-item>
-        <a-form-item label="性别" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="radio" v-decorator="['sex']" :trigger-change="true" dictCode="" placeholder="请选择性别"/>
+        <a-form-item label="名字" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <a-input v-decorator="['name']" placeholder="请输入名字"></a-input>
         </a-form-item>
-        <a-form-item label="年龄" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['age']" placeholder="请输入年龄"></a-input>
+        <a-form-item label="编码" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <a-input v-decorator="['code']" placeholder="请输入编码"></a-input>
         </a-form-item>
-        <a-form-item label="学号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['studentCode']" placeholder="请输入学号"></a-input>
+        <a-form-item label="类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag type="list" v-decorator="['type']" :trigger-change="true" dictCode="class_type" placeholder="请选择类型"/>
         </a-form-item>
-        <a-form-item label="入学年份" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['entranceYear']" :trigger-change="true" dictCode="" placeholder="请选择入学年份"/>
-        </a-form-item>
-        <a-form-item label="学院" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-search-select-tag v-decorator="['institute']" dict="" />
-        </a-form-item>
-        <a-form-item label="专业" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-search-select-tag v-decorator="['major']" dict="" />
-        </a-form-item>
-        <a-form-item label="班级" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-search-select-tag v-decorator="['class']" dict="" />
-        </a-form-item>
-        <a-form-item label="电话" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['phone']" placeholder="请输入电话"></a-input>
-        </a-form-item>
-        <a-form-item label="头像" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['imgUrl']" placeholder="请输入头像"></a-input>
-        </a-form-item>
-
+        
       </a-form>
     </a-spin>
   </j-modal>
@@ -53,14 +44,13 @@
   import pick from 'lodash.pick'
   import { validateDuplicateValue } from '@/utils/util'
   import JDictSelectTag from "@/components/dict/JDictSelectTag"
-  import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
-
-
+  import JTreeSelect from '@/components/jeecg/JTreeSelect'
+  
   export default {
-    name: "StudentModal",
+    name: "CollegeClassModal",
     components: { 
       JDictSelectTag,
-      JSearchSelectTag,
+      JTreeSelect
     },
     data () {
       return {
@@ -77,27 +67,31 @@
           xs: { span: 24 },
           sm: { span: 16 },
         },
+
         confirmLoading: false,
         validatorRules: {
         },
         url: {
-          add: "/manage/student/add",
-          edit: "/manage/student/edit",
-        }
+          add: "/manage/collegeClass/add",
+          edit: "/manage/collegeClass/edit",
+        },
+        expandedRowKeys:[],
+        pidField:"pid"
+     
       }
     },
     created () {
     },
     methods: {
-      add () {
-        this.edit({});
+      add (obj) {
+        this.edit(obj);
       },
       edit (record) {
         this.form.resetFields();
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'name','sex','age','studentCode','entranceYear','institute','major','class','phone','imgUrl'))
+          this.form.setFieldsValue(pick(this.model,'pid','name','code','type'))
         })
       },
       close () {
@@ -119,12 +113,14 @@
               httpurl+=this.url.edit;
                method = 'put';
             }
+            let old_pid = this.model[this.pidField]
             let formData = Object.assign(this.model, values);
+            let new_pid = this.model[this.pidField]
             console.log("表单提交数据",formData)
             httpAction(httpurl,formData,method).then((res)=>{
               if(res.success){
                 that.$message.success(res.message);
-                that.$emit('ok');
+                that.submitSuccess(formData,old_pid==new_pid)
               }else{
                 that.$message.warning(res.message);
               }
@@ -140,9 +136,31 @@
         this.close()
       },
       popupCallback(row){
-        this.form.setFieldsValue(pick(row,'name','sex','age','studentCode','entranceYear','institute','major','class','phone','imgUrl'))
+        this.form.setFieldsValue(pick(row,'pid','name','code','type'))
       },
-
+      submitSuccess(formData,flag){
+        if(!formData.id){
+          let treeData = this.$refs.treeSelect.getCurrTreeData()
+          this.expandedRowKeys=[]
+          this.getExpandKeysByPid(formData[this.pidField],treeData,treeData)
+          this.$emit('ok',formData,this.expandedRowKeys.reverse());
+        }else{
+          this.$emit('ok',formData,flag);
+        }
+      },
+      getExpandKeysByPid(pid,arr,all){
+        if(pid && arr && arr.length>0){
+          for(let i=0;i<arr.length;i++){
+            if(arr[i].key==pid){
+              this.expandedRowKeys.push(arr[i].key)
+              this.getExpandKeysByPid(arr[i]['parentId'],all,all)
+            }else{
+              this.getExpandKeysByPid(pid,arr[i].children,all)
+            }
+          }
+        }
+      }
+      
       
     }
   }

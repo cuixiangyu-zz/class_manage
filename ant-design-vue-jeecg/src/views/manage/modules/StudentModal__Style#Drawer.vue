@@ -79,8 +79,8 @@
         validatorRules: {
         },
         url: {
-          add: "/module/student/add",
-          edit: "/module/student/edit",
+          add: "/manage/student/add",
+          edit: "/manage/student/edit",
         }
       }
     },
