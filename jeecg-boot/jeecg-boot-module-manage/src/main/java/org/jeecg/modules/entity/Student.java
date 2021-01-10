@@ -61,6 +61,7 @@ public class Student implements Serializable {
 	/**性别*/
 	@Excel(name = "性别", width = 15)
     @ApiModelProperty(value = "性别")
+    @Dict(dicCode = "sex")
     private String sex;
 	/**年龄*/
 	@Excel(name = "年龄", width = 15)
@@ -73,18 +74,22 @@ public class Student implements Serializable {
 	/**入学年份*/
 	@Excel(name = "入学年份", width = 15)
     @ApiModelProperty(value = "入学年份")
+    @Dict(dicCode = "entrance_year")
     private String entranceYear;
 	/**学院*/
 	@Excel(name = "学院", width = 15)
     @ApiModelProperty(value = "学院")
+    @Dict(dicCode = "code",dictTable="college_class",dicText="name")
     private String institute;
 	/**专业*/
 	@Excel(name = "专业", width = 15)
     @ApiModelProperty(value = "专业")
+    @Dict(dicCode = "code",dictTable="college_class",dicText="name")
     private String major;
 	/**班级*/
 	@Excel(name = "班级", width = 15)
     @ApiModelProperty(value = "班级")
+    @Dict(dicCode = "code",dictTable="college_class",dicText="name")
     private String className;
 	/**电话*/
 	@Excel(name = "电话", width = 15)

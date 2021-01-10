@@ -27,7 +27,7 @@
             </a-col>
             <a-col :xl="6" :lg="7" :md="8" :sm="24">
               <a-form-item label="班级">
-                <j-search-select-tag placeholder="请选择班级" v-model="queryParam.class" dict=",,"/>
+                <j-search-select-tag placeholder="请选择班级" v-model="queryParam.className" dict=",,"/>
               </a-form-item>
             </a-col>
           </template>
@@ -192,7 +192,7 @@
           {
             title:'班级',
             align:"center",
-            dataIndex: 'class_dictText'
+            dataIndex: 'className_dictText'
           },
           {
             title:'电话',

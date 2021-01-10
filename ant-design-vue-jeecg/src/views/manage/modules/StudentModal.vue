@@ -15,7 +15,7 @@
           <a-input v-decorator="['name']" placeholder="请输入姓名"></a-input>
         </a-form-item>
         <a-form-item label="性别" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="radio" v-decorator="['sex']" :trigger-change="true" dictCode="" placeholder="请选择性别"/>
+          <j-dict-select-tag type="radio" v-decorator="['sex']" :trigger-change="true" dictCode="sex" placeholder="请选择性别"/>
         </a-form-item>
         <a-form-item label="年龄" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['age']" placeholder="请输入年龄"></a-input>
@@ -24,16 +24,19 @@
           <a-input v-decorator="['studentCode']" placeholder="请输入学号"></a-input>
         </a-form-item>
         <a-form-item label="入学年份" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['entranceYear']" :trigger-change="true" dictCode="" placeholder="请选择入学年份"/>
+          <j-dict-select-tag type="list" v-decorator="['entranceYear']" :trigger-change="true" dictCode="	entrance_year" placeholder="请选择入学年份"/>
         </a-form-item>
         <a-form-item label="学院" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-search-select-tag v-decorator="['institute']" dict="" />
+          <j-dict-select-tag  :triggerChange="true" v-decorator="['institute']" placeholder="请选择用户名称" dictCode="college_class,name,code,type = 'institute'"/>
+<!--          <j-search-select-tag v-decorator="['institute']" dict="" />-->
         </a-form-item>
         <a-form-item label="专业" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-search-select-tag v-decorator="['major']" dict="" />
+          <j-dict-select-tag :triggerChange="true" v-decorator="['major']" placeholder="请选择用户名称" dictCode="college_class,name,code,type = 'major'"/>
+<!--          <j-search-select-tag v-decorator="['major']" dict="" />-->
         </a-form-item>
         <a-form-item label="班级" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-search-select-tag v-decorator="['class']" dict="" />
+          <j-dict-select-tag :triggerChange="true" v-decorator="['className']" placeholder="请选择用户名称" dictCode="college_class,name,code,type = 'class'"/>
+<!--          <j-search-select-tag v-decorator="['class']" dict="" />-->
         </a-form-item>
         <a-form-item label="电话" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['phone']" placeholder="请输入电话"></a-input>
@@ -97,7 +100,7 @@
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'name','sex','age','studentCode','entranceYear','institute','major','class','phone','imgUrl'))
+          this.form.setFieldsValue(pick(this.model,'name','sex','age','studentCode','entranceYear','institute','major','className','phone','imgUrl'))
         })
       },
       close () {
@@ -140,7 +143,7 @@
         this.close()
       },
       popupCallback(row){
-        this.form.setFieldsValue(pick(row,'name','sex','age','studentCode','entranceYear','institute','major','class','phone','imgUrl'))
+        this.form.setFieldsValue(pick(row,'name','sex','age','studentCode','entranceYear','institute','major','className','phone','imgUrl'))
       },
 
       
