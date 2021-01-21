@@ -77,6 +77,7 @@ public class StudentLeave implements Serializable {
 	/**状态*/
 	@Excel(name = "状态", width = 15)
     @ApiModelProperty(value = "状态")
+    @Dict(dicCode = "student_leave_status")
     private String status;
 	/**是否删除*/
 	@Excel(name = "是否删除", width = 15)

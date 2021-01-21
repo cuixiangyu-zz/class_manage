@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mysql
+ Source Server         : LocalHost
  Source Server Type    : MySQL
  Source Server Version : 80019
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 10/01/2021 23:47:01
+ Date: 21/01/2021 17:30:35
 */
 
 SET NAMES utf8mb4;
@@ -357,7 +357,7 @@ CREATE TABLE `jeecg_monthly_growth_analysis`  (
   `main_income` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '佣金/主营收入',
   `other_income` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '其他收入',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of jeecg_monthly_growth_analysis
@@ -585,7 +585,7 @@ CREATE TABLE `jeecg_project_nature_income`  (
   `bidding_consulting_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '投标咨询费',
   `interol_consulting_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '内控咨询费',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of jeecg_project_nature_income
@@ -1786,7 +1786,7 @@ CREATE TABLE `qrtz_blob_triggers`  (
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `BLOB_DATA` blob NULL,
   PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
-  CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'InnoDB free: 504832 kB; (`SCHED_NAME` `TRIGGER_NAME` `TRIGGE' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -1811,7 +1811,7 @@ CREATE TABLE `qrtz_cron_triggers`  (
   `CRON_EXPRESSION` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `TIME_ZONE_ID` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
-  CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'InnoDB free: 504832 kB; (`SCHED_NAME` `TRIGGER_NAME` `TRIGGE' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -1909,7 +1909,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', '崔祥瑜1610275376858', 1610293612514, 10000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', 'cuixiangyu1610521950037', 1610532665265, 10000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -1923,7 +1923,7 @@ CREATE TABLE `qrtz_simple_triggers`  (
   `REPEAT_INTERVAL` bigint(0) NOT NULL,
   `TIMES_TRIGGERED` bigint(0) NOT NULL,
   PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
-  CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'InnoDB free: 504832 kB; (`SCHED_NAME` `TRIGGER_NAME` `TRIGGE' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -1946,7 +1946,7 @@ CREATE TABLE `qrtz_simprop_triggers`  (
   `BOOL_PROP_1` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `BOOL_PROP_2` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
-  CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'InnoDB free: 504832 kB; (`SCHED_NAME` `TRIGGER_NAME` `TRIGGE' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -2073,6 +2073,11 @@ CREATE TABLE `student_leave`  (
   `is_del` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of student_leave
+-- ----------------------------
+INSERT INTO `student_leave` VALUES ('1349253103425769473', 'admin', '2021-01-13 15:13:02', NULL, NULL, 'A01', '111', '2021-01-08 00:00:00', '2021-01-16 00:00:00', '2222', '0', NULL);
 
 -- ----------------------------
 -- Table structure for sys_announcement
@@ -2453,6 +2458,7 @@ INSERT INTO `sys_dict` VALUES ('1250687930947620866', '定时任务状态', 'qua
 INSERT INTO `sys_dict` VALUES ('1280401766745718786', '租户状态', 'tenant_status', '租户状态', 0, 'admin', '2020-07-07 15:22:25', NULL, NULL, 0);
 INSERT INTO `sys_dict` VALUES ('1344179841679290369', '班级类型', 'class_type', '', 0, 'admin', '2020-12-30 15:13:43', NULL, NULL, 0);
 INSERT INTO `sys_dict` VALUES ('1348161621899034625', '入学年份', 'entrance_year', '', 0, 'admin', '2021-01-10 14:55:53', NULL, NULL, 0);
+INSERT INTO `sys_dict` VALUES ('1349251702242967554', '请假状态', 'student_leave_status', '', 0, 'admin', '2021-01-13 15:07:28', NULL, NULL, 0);
 INSERT INTO `sys_dict` VALUES ('236e8a4baff0db8c62c00dd95632834f', '同步工作流引擎', 'activiti_sync', '同步工作流引擎', 0, 'admin', '2019-05-15 15:27:33', NULL, NULL, 0);
 INSERT INTO `sys_dict` VALUES ('2e02df51611a4b9632828ab7e5338f00', '权限策略', 'perms_type', '权限策略', 0, 'admin', '2019-04-26 18:26:55', NULL, NULL, 0);
 INSERT INTO `sys_dict` VALUES ('2f0320997ade5dd147c90130f7218c3e', '推送类别', 'msg_type', '', 0, 'admin', '2019-03-17 21:21:32', 'admin', '2019-03-26 19:57:45', 0);
@@ -2563,6 +2569,9 @@ INSERT INTO `sys_dict_item` VALUES ('1348161747551993858', '1348161621899034625'
 INSERT INTO `sys_dict_item` VALUES ('1348161775100182530', '1348161621899034625', '2018', '2018', '', 1, 1, 'admin', '2021-01-10 14:56:29', NULL, NULL);
 INSERT INTO `sys_dict_item` VALUES ('1348161803692752898', '1348161621899034625', '2019', '2019', '', 1, 1, 'admin', '2021-01-10 14:56:36', NULL, NULL);
 INSERT INTO `sys_dict_item` VALUES ('1348161831513571330', '1348161621899034625', '2020', '2020', '', 1, 1, 'admin', '2021-01-10 14:56:43', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1349251816244150274', '1349251702242967554', '未审批', '0', '', 1, 1, 'admin', '2021-01-13 15:07:56', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1349251854697529345', '1349251702242967554', '审批通过', '1', '', 1, 1, 'admin', '2021-01-13 15:08:05', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1349251894384033794', '1349251702242967554', '审批驳回', '2', '', 1, 1, 'admin', '2021-01-13 15:08:14', NULL, NULL);
 INSERT INTO `sys_dict_item` VALUES ('147c48ff4b51545032a9119d13f3222a', 'd6e1152968b02d69ff358c75b48a6ee1', '测试流程', 'test', NULL, 1, 1, 'admin', '2019-03-22 19:27:05', NULL, NULL);
 INSERT INTO `sys_dict_item` VALUES ('1543fe7e5e26fb97cdafe4981bedc0c8', '4c03fca6bf1f0299c381213961566349', '单排布局', 'single', NULL, 2, 1, 'admin', '2022-07-12 17:43:39', 'admin', '2019-04-12 17:43:57');
 INSERT INTO `sys_dict_item` VALUES ('1ce390c52453891f93514c1bd2795d44', 'ad7c65ba97c20a6805d5dcdf13cdaf36', '000', '00', NULL, 1, 1, 'admin', '2019-03-22 16:34:34', NULL, NULL);
@@ -4476,6 +4485,18 @@ INSERT INTO `sys_log` VALUES ('1348219127316750337', 2, '课程表-分页列表�
 INSERT INTO `sys_log` VALUES ('1348219173483454465', 2, '学院班级表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.queryPageList()', NULL, '  collegeClass: CollegeClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, pid=null, hasChild=null, name=null, code=null, type=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@562473a1', NULL, 29, 'admin', '2021-01-10 18:44:34', NULL, NULL);
 INSERT INTO `sys_log` VALUES ('1348219181532323841', 2, '学院班级表-获取子数据', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.queryPageList()', NULL, '  collegeClass: CollegeClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, pid=1348158341466767361, hasChild=null, name=null, code=null, type=null, isDel=null)  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@513f8cd4', NULL, 6, 'admin', '2021-01-10 18:44:36', NULL, NULL);
 INSERT INTO `sys_log` VALUES ('1348219186984919042', 2, '活动-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.ActivityController.queryPageList()', NULL, '  activity: Activity(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, startTime=null, endTime=null, classes=null, introduce=null, pics=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3c87a59b', NULL, 11, 'admin', '2021-01-10 18:44:38', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349248069359140865', 1, '用户名: 管理员,退出成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-01-13 14:53:02', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349248088195760130', 1, '用户名: admin,登录成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-01-13 14:53:07', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349250115340632065', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@6076d49f', NULL, 141, 'admin', '2021-01-13 15:01:10', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349251068798205953', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, jwcAccount=null, weekDay=null, section=null, subjectName=null, className=null, teacher=null, weekSeq=null, weekStr=null, location=null, xnxqh=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7d0b745e', NULL, 14, 'admin', '2021-01-13 15:04:57', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349251113815670785', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@5aa51a65', NULL, 19, 'admin', '2021-01-13 15:05:08', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349253040385380354', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3703a5ba', NULL, 10, 'admin', '2021-01-13 15:12:47', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349253103530627073', 2, '请假-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.add()', NULL, '[{\"approvalTeacher\":\"2222\",\"createBy\":\"admin\",\"createTime\":1610521982421,\"endTime\":1610726400000,\"id\":\"1349253103425769473\",\"startTime\":1610035200000,\"status\":\"0\",\"studentCode\":\"111\",\"sysOrgCode\":\"A01\"}]', NULL, 14, 'admin', '2021-01-13 15:13:02', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349253103820034049', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@550c1228', NULL, 18, 'admin', '2021-01-13 15:13:03', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349253823642292226', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@521a9e5f', NULL, 17, 'admin', '2021-01-13 15:15:54', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349259556333113346', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@6bc2d72f', NULL, 17, 'admin', '2021-01-13 15:38:41', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349260389774872578', 2, '职务表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.system.controller.SysPositionController.queryPageList()', NULL, '  sysPosition: SysPosition(id=null, code=总经理,, name=null, postRank=null, companyId=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null)  pageNo: 1  pageSize: 1  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@2e97d886', NULL, 41, 'admin', '2021-01-13 15:42:00', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1349260389800038402', 2, '职务表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.system.controller.SysPositionController.queryPageList()', NULL, '  sysPosition: SysPosition(id=null, code=null, name=null, postRank=null, companyId=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null)  pageNo: 1  pageSize: 5  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@45529601', NULL, 49, 'admin', '2021-01-13 15:42:00', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_permission
