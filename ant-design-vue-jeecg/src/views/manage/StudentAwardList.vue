@@ -118,7 +118,7 @@
           {
             title:'学生',
             align:"center",
-            dataIndex: 'studentCode'
+            dataIndex: 'studentCode_dictText'
           },
           {
             title:'表彰名',

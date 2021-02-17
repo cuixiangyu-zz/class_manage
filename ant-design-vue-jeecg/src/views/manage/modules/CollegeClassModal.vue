@@ -14,6 +14,7 @@
 
         <a-form-item label="父级节点" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-tree-select
+            :disabled="title==='编辑'"
             ref="treeSelect"
             placeholder="请选择父级节点"
             v-decorator="['pid']"
@@ -26,12 +27,12 @@
         <a-form-item label="名字" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['name']" placeholder="请输入名字"></a-input>
         </a-form-item>
-        <a-form-item label="编码" :labelCol="labelCol" :wrapperCol="wrapperCol">
+<!--        <a-form-item label="编码" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['code']" placeholder="请输入编码"></a-input>
         </a-form-item>
         <a-form-item label="类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-dict-select-tag type="list" v-decorator="['type']" :trigger-change="true" dictCode="class_type" placeholder="请选择类型"/>
-        </a-form-item>
+        </a-form-item>-->
         
       </a-form>
     </a-spin>
@@ -81,6 +82,7 @@
       }
     },
     created () {
+
     },
     methods: {
       add (obj) {
@@ -91,7 +93,7 @@
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'pid','name','code','type'))
+          this.form.setFieldsValue(pick(this.model,'pid','name'))
         })
       },
       close () {
@@ -136,7 +138,7 @@
         this.close()
       },
       popupCallback(row){
-        this.form.setFieldsValue(pick(row,'pid','name','code','type'))
+        this.form.setFieldsValue(pick(row,'pid','name'))
       },
       submitSuccess(formData,flag){
         if(!formData.id){
@@ -159,8 +161,7 @@
             }
           }
         }
-      }
-      
+      },
       
     }
   }

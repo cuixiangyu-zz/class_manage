@@ -57,6 +57,7 @@ public class StudentAward implements Serializable {
 	/**学生*/
 	@Excel(name = "学生", width = 15)
     @ApiModelProperty(value = "学生")
+    @Dict(dicCode = "id",dicText = "name",dictTable = "student")
     private String studentCode;
 	/**表彰名*/
 	@Excel(name = "表彰名", width = 15)

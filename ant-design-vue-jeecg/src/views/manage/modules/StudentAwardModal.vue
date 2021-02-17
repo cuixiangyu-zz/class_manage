@@ -12,7 +12,13 @@
       <a-form :form="form">
 
         <a-form-item label="学生" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['studentCode']" placeholder="请输入学生"></a-input>
+          <j-search-select-tag
+            placeholder="请做出你的选择"
+            v-decorator="['studentCode']"
+            dict="student,name,id"
+            :async="true">
+          </j-search-select-tag>
+<!--          <a-input v-decorator="['studentCode']" placeholder="请输入学生"></a-input>-->
         </a-form-item>
         <a-form-item label="表彰名" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['awardName']" placeholder="请输入表彰名"></a-input>
@@ -21,7 +27,8 @@
           <a-input v-decorator="['awardReason']" placeholder="请输入表彰原因"></a-input>
         </a-form-item>
         <a-form-item label="学年" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['xnxq']" placeholder="请输入学年"></a-input>
+          <j-dict-select-tag type="list" v-decorator="['xnxq']" :trigger-change="true"
+                             dictCode="	entrance_year" placeholder="请选择学年"/>
         </a-form-item>
 
       </a-form>
@@ -34,11 +41,11 @@
   import { httpAction } from '@/api/manage'
   import pick from 'lodash.pick'
   import { validateDuplicateValue } from '@/utils/util'
-
+  import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
 
   export default {
     name: "StudentAwardModal",
-    components: { 
+    components: { JSearchSelectTag
     },
     data () {
       return {

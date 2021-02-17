@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jeecg.common.system.vo.DictModel;
 import org.jeecg.modules.entity.CollegeClass;
 import org.jeecg.modules.service.ICollegeClassService;
 import org.jeecg.common.api.vo.Result;
@@ -81,7 +82,14 @@ public class CollegeClassController extends JeecgController<CollegeClass, IColle
 		List<CollegeClass> list = collegeClassService.list(queryWrapper);
 		return Result.ok(list);
 	}
-	
+
+
+	 @AutoLog(value = "学院班级表-获取树形数据")
+	 @ApiOperation(value="学院班级表-获取树形数据", notes="学院班级表-获取树形数据")
+	 @GetMapping(value = "/queryTreeData")
+	 public Result<?> queryTreeData() {
+		 return collegeClassService.getCollegeClassTreeData();
+	 }
 	
 	/**
 	 *   添加
@@ -93,8 +101,7 @@ public class CollegeClassController extends JeecgController<CollegeClass, IColle
 	@ApiOperation(value="学院班级表-添加", notes="学院班级表-添加")
 	@PostMapping(value = "/add")
 	public Result<?> add(@RequestBody CollegeClass collegeClass) {
-		collegeClassService.addCollegeClass(collegeClass);
-		return Result.ok("添加成功！");
+		return collegeClassService.addCollegeClass(collegeClass);
 	}
 	
 	/**
@@ -155,6 +162,14 @@ public class CollegeClassController extends JeecgController<CollegeClass, IColle
 		}
 		return Result.ok(collegeClass);
 	}
+
+	 @AutoLog(value = "学院班级表-通过父code查询")
+	 @ApiOperation(value="学院班级表-通过父code查询", notes="学院班级表-通过父code查询")
+	 @GetMapping(value = "/getChildOption")
+	 public Result<?> getChildOption(@RequestParam(name="code",required=true) String code) {
+		 List<DictModel> dictModelList = collegeClassService.getByCode(code);
+		 return Result.ok(dictModelList);
+	 }
 
     /**
     * 导出excel

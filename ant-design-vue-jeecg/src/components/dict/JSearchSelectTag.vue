@@ -136,6 +136,8 @@
       initDictData(){
         if(!this.async){
           //如果字典项集合有数据
+          this.options =[]
+          console.log(this.dictOptions)
           if(this.dictOptions && this.dictOptions.length>0){
             this.options = [...this.dictOptions]
           }else{

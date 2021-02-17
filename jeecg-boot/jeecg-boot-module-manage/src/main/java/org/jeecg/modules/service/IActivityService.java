@@ -11,4 +11,5 @@ import org.jeecg.modules.entity.Activity;
  */
 public interface IActivityService extends IService<Activity> {
 
+
 }

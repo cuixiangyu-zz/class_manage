@@ -1,8 +1,12 @@
 package org.jeecg.modules.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.jeecg.common.api.vo.Result;
+import org.jeecg.common.system.vo.DictModel;
 import org.jeecg.modules.entity.CollegeClass;
 import org.jeecg.common.exception.JeecgBootException;
+
+import java.util.List;
 
 /**
  * @Description: 学院班级表
@@ -22,7 +26,7 @@ public interface ICollegeClassService extends IService<CollegeClass> {
 	public static final String NOCHILD = "0";
 
 	/**新增节点*/
-	void addCollegeClass(CollegeClass collegeClass);
+	Result<?> addCollegeClass(CollegeClass collegeClass);
 	
 	/**修改节点*/
 	void updateCollegeClass(CollegeClass collegeClass) throws JeecgBootException;
@@ -30,4 +34,7 @@ public interface ICollegeClassService extends IService<CollegeClass> {
 	/**删除节点*/
 	void deleteCollegeClass(String id) throws JeecgBootException;
 
+    List<DictModel> getByCode(String code);
+
+	Result<?> getCollegeClassTreeData();
 }

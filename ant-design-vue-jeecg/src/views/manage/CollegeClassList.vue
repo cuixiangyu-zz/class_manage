@@ -85,6 +85,7 @@
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import CollegeClassModal from './modules/CollegeClassModal'
   import {filterMultiDictText} from '@/components/dict/JDictSelectUtil'
+  import {filterDictTextByCache} from '@/components/dict/JDictSelectUtil'
   
   export default {
     name: "CollegeClassList",
@@ -110,7 +111,11 @@
           {
             title:'类型',
             align:"left",
-            dataIndex: 'type_dictText'
+            dataIndex: 'type',
+            customRender: (text) => {
+              //字典值翻译通用方法
+              return filterDictTextByCache('class_type', text);
+            }
           },
           {
             title: '操作',

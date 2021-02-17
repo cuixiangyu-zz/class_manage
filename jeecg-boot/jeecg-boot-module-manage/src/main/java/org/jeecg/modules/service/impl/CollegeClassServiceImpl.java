@@ -1,14 +1,22 @@
 package org.jeecg.modules.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.jeecg.common.api.vo.Result;
+import org.jeecg.common.system.vo.DictModel;
 import org.jeecg.modules.entity.CollegeClass;
 import org.jeecg.modules.mapper.CollegeClassMapper;
 import org.jeecg.modules.service.ICollegeClassService;
 import org.jeecg.common.exception.JeecgBootException;
 import org.jeecg.common.util.oConvertUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: 学院班级表
@@ -19,8 +27,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 @Service
 public class CollegeClassServiceImpl extends ServiceImpl<CollegeClassMapper, CollegeClass> implements ICollegeClassService {
 
+	@Autowired
+	CollegeClassMapper collegeClassMapper;
+
 	@Override
-	public void addCollegeClass(CollegeClass collegeClass) {
+	public Result<?> addCollegeClass(CollegeClass collegeClass) {
 		if(oConvertUtils.isEmpty(collegeClass.getPid())){
 			collegeClass.setPid(ICollegeClassService.ROOT_PID_VALUE);
 		}else{
@@ -31,7 +42,42 @@ public class CollegeClassServiceImpl extends ServiceImpl<CollegeClassMapper, Col
 				baseMapper.updateById(parent);
 			}
 		}
+		String code = collegeClassMapper.getNextCode(collegeClass.getPid());
+		if(StringUtils.isEmpty(code)){
+			code = "001";
+		}
+		if(ICollegeClassService.ROOT_PID_VALUE.equals(collegeClass.getPid())){
+			if(code.length()==1){
+				collegeClass.setCode("00"+code);
+			}else if(code.length()==2){
+				collegeClass.setCode("0"+code);
+			}else if(code.length()==3){
+				collegeClass.setCode(code);
+			}
+			collegeClass.setType("school");
+		}else{
+			CollegeClass collegeClass1 = baseMapper.selectById(collegeClass.getPid());
+			if(collegeClass1.getType().equals("class")){
+				return Result.error("上级不可以是班级!");
+			}
+			if(code.length()==1){
+				collegeClass.setCode(collegeClass1.getCode()+"-00"+code);
+			}else if(code.length()==2){
+				collegeClass.setCode(collegeClass1.getCode()+"-0"+code);
+			}else if(code.length()==3){
+				collegeClass.setCode(collegeClass1.getCode()+"-"+code);
+			}
+
+			if(collegeClass1.getType().equals("school")){
+				collegeClass.setType("institute");
+			}else if(collegeClass1.getType().equals("institute")){
+				collegeClass.setType("major");
+			}else if(collegeClass1.getType().equals("major")){
+				collegeClass.setType("class");
+			}
+		}
 		baseMapper.insert(collegeClass);
+		return Result.ok();
 	}
 	
 	@Override
@@ -61,11 +107,32 @@ public class CollegeClassServiceImpl extends ServiceImpl<CollegeClassMapper, Col
 			throw new JeecgBootException("未找到对应实体");
 		}
 		updateOldParentNode(collegeClass.getPid());
-		baseMapper.deleteById(id);
+		collegeClassMapper.deleteById(id);
 	}
-	
-	
-	
+
+	@Override
+	public List<DictModel> getByCode(String code) {
+		return collegeClassMapper.getByCode(code);
+	}
+
+	@Override
+	public Result<?> getCollegeClassTreeData() {
+		List<Map<String,Object>> data = collegeClassMapper.getRootData(ICollegeClassService.ROOT_PID_VALUE);
+		List<Map<String,Object>> tree = treeData(data);
+		return Result.ok(tree);
+	}
+
+	private List<Map<String,Object>> treeData(List<Map<String,Object>> parent){
+		for (Map<String, Object> map : parent) {
+			List<Map<String,Object>> data = collegeClassMapper.getChildDataByCode(map.get("key").toString());
+			if(data!=null&&data.size()>0){
+				treeData(data);
+				map.put("children",data);
+			}
+		}
+		return parent;
+	}
+
 	/**
 	 * 根据所传pid查询旧的父级节点的子节点并修改相应状态值
 	 * @param pid
@@ -78,5 +145,4 @@ public class CollegeClassServiceImpl extends ServiceImpl<CollegeClassMapper, Col
 			}
 		}
 	}
-
 }
