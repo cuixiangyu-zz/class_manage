@@ -118,7 +118,7 @@
           {
             title:'学生',
             align:"center",
-            dataIndex: 'studentCode'
+            dataIndex: 'studentCode_dictText'
           },
           {
             title:'请假开始时间',
@@ -139,7 +139,7 @@
           {
             title:'审批教师',
             align:"center",
-            dataIndex: 'approvalTeacher'
+            dataIndex: 'approvalTeacher_dictText'
           },
           {
             title:'状态',

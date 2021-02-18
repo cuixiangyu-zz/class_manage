@@ -16,4 +16,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 @Service
 public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, StudentClass> implements IStudentClassService {
 
+    @Override
+    public boolean save(StudentClass entity) {
+        super.save(entity);
+
+        return true;
+    }
 }

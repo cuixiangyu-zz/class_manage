@@ -116,19 +116,14 @@
             }
           },
           {
-            title:'学号',
-            align:"center",
-            dataIndex: 'jwcAccount'
-          },
-          {
             title:'周几',
             align:"center",
-            dataIndex: 'weekDay'
+            dataIndex: 'weekDay_dictText'
           },
           {
             title:'第几节课程',
             align:"center",
-            dataIndex: 'section'
+            dataIndex: 'section_dictText'
           },
           {
             title:'课程名称',
@@ -136,14 +131,9 @@
             dataIndex: 'subjectName'
           },
           {
-            title:'上课班级',
-            align:"center",
-            dataIndex: 'className'
-          },
-          {
             title:'老师',
             align:"center",
-            dataIndex: 'teacher'
+            dataIndex: 'teacher_dictText'
           },
           {
             title:'课程详细周数',
@@ -151,9 +141,14 @@
             dataIndex: 'weekSeq'
           },
           {
-            title:'课程周范围',
+            title:'课程开始周',
             align:"center",
-            dataIndex: 'weekStr'
+            dataIndex: 'weekStart'
+          },
+          {
+            title:'课程结束周',
+            align:"center",
+            dataIndex: 'weekEnd'
           },
           {
             title:'教室',
@@ -161,9 +156,29 @@
             dataIndex: 'location'
           },
           {
-            title:'学年,学期',
+            title:'学年',
             align:"center",
-            dataIndex: 'xnxqh'
+            dataIndex: 'xn_dictText'
+          },
+          {
+            title:'学期',
+            align:"center",
+            dataIndex: 'xq_dictText'
+          },
+          {
+            title:'学院',
+            align:"center",
+            dataIndex: 'institute_dictText'
+          },
+          {
+            title:'专业',
+            align:"center",
+            dataIndex: 'major_dictText'
+          },
+          {
+            title:'班级',
+            align:"center",
+            dataIndex: 'className_dictText'
           },
           {
             title: '操作',

@@ -26,7 +26,7 @@
         </a-form-item>
         <a-form-item label="入学年份" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-dict-select-tag type="list" v-decorator="['entranceYear']" :trigger-change="true"
-                             dictCode="	entrance_year" placeholder="请选择入学年份"/>
+                             dictCode="entrance_year" placeholder="请选择入学年份"/>
         </a-form-item>
         <a-form-item label="学院" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-dict-select-tag @change="changeMajor" :triggerChange="true" v-decorator="['institute']"

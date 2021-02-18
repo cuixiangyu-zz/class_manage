@@ -57,6 +57,7 @@ public class StudentLeave implements Serializable {
 	/**学生*/
 	@Excel(name = "学生", width = 15)
     @ApiModelProperty(value = "学生")
+    @Dict(dicCode = "id",dicText = "name",dictTable = "student")
     private String studentCode;
 	/**请假开始时间*/
 	@Excel(name = "请假开始时间", width = 15, format = "yyyy-MM-dd")
@@ -73,6 +74,7 @@ public class StudentLeave implements Serializable {
 	/**审批教师*/
 	@Excel(name = "审批教师", width = 15)
     @ApiModelProperty(value = "审批教师")
+    @Dict(dicCode = "id",dicText = "realname",dictTable = "sys_user")
     private String approvalTeacher;
 	/**状态*/
 	@Excel(name = "状态", width = 15)

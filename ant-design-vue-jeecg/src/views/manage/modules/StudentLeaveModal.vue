@@ -12,8 +12,12 @@
       <a-form :form="form">
 
         <a-form-item label="学生" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag  :triggerChange="true" v-decorator="['studentCode']" placeholder="请选择学生" dictCode="college_class,name,code,type = 'institute'"/>
-          <a-input v-decorator="['studentCode']" placeholder="请输入学生"></a-input>
+          <j-search-select-tag
+            placeholder="请选择学生"
+            v-decorator="['studentCode']"
+            dict="student,name,id"
+            :async="true">
+          </j-search-select-tag>
         </a-form-item>
         <a-form-item label="请假开始时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-date placeholder="请选择请假开始时间" v-decorator="['startTime']" :trigger-change="true" style="width: 100%"/>
@@ -22,7 +26,12 @@
           <j-date placeholder="请选择请假结束时间" v-decorator="['endTime']" :trigger-change="true" style="width: 100%"/>
         </a-form-item>
         <a-form-item label="审批教师" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['approvalTeacher']" placeholder="请输入审批教师"></a-input>
+          <j-search-select-tag
+            placeholder="请选择审批教师"
+            v-decorator="['approvalTeacher']"
+            dict="sys_user,realname,id"
+            :async="true">
+          </j-search-select-tag>
         </a-form-item>
         <a-form-item label="状态" :labelCol="labelCol" :wrapperCol="wrapperCol">
 <!--          <a-input v-decorator="['status']" placeholder="请输入状态"></a-input>-->
@@ -39,13 +48,14 @@
   import { httpAction } from '@/api/manage'
   import pick from 'lodash.pick'
   import { validateDuplicateValue } from '@/utils/util'
-  import JDate from '@/components/jeecg/JDate'  
-
+  import JDate from '@/components/jeecg/JDate'
+  import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
 
   export default {
     name: "StudentLeaveModal",
     components: { 
       JDate,
+      JSearchSelectTag
     },
     data () {
       return {

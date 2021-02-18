@@ -11,37 +11,81 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
 
-        <a-form-item label="学号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['jwcAccount']" placeholder="请输入学号"></a-input>
+        <a-form-item label="学院" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag @change="changeMajor" :triggerChange="true" v-decorator="['institute']"
+                             placeholder="请选择用户名称" dictCode="college_class,name,code,type = 'institute'"/>
+          <!--          <j-search-select-tag v-decorator="['institute']" dict="" />-->
+        </a-form-item>
+        <a-form-item label="专业" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-search-select-tag
+            @change="changeClass"
+            ref="majorSelect"
+            placeholder="请选择专业"
+            v-decorator="['major']"
+            :triggerChange="true"
+            :dictOptions="majorOptions">
+          </j-search-select-tag>
+          <!--          <j-dict-select-tag :triggerChange="true" v-decorator="['major']" placeholder="请选择用户名称" dictCode="college_class,name,code,type = 'major',"/>-->
+        </a-form-item>
+        <a-form-item label="班级" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-search-select-tag
+            ref="classSelect"
+            placeholder="请选择班级"
+            v-decorator="['className']"
+            :triggerChange="true"
+            :dictOptions="classOptions">
+          </j-search-select-tag>
+          <!--          <j-dict-select-tag :triggerChange="true" v-decorator="['className']" placeholder="请选择用户名称"
+                                       dictCode="college_class,name,code,type = 'class'"/>-->
+          <!--          <j-search-select-tag v-decorator="['class']" dict="" />-->
         </a-form-item>
         <a-form-item label="周几" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['weekDay']" placeholder="请输入周几"></a-input>
+          <j-dict-select-tag type="list" v-decorator="['weekDay']" :triggerChange="true" placeholder="请输入周几"
+                             dictCode="week_num"/>
+<!--          <a-input v-decorator="['weekDay']" placeholder="请输入周几"></a-input>-->
         </a-form-item>
         <a-form-item label="第几节课程" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['section']" placeholder="请输入第几节课程"></a-input>
+          <j-dict-select-tag type="list" v-decorator="['section']" :triggerChange="true" placeholder="请输入第几节课程"
+                             dictCode="sections"/>
+<!--          <a-input v-decorator="['section']" placeholder="请输入第几节课程"></a-input>-->
         </a-form-item>
         <a-form-item label="课程名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['subjectName']" placeholder="请输入课程名称"></a-input>
         </a-form-item>
-        <a-form-item label="上课班级" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['className']" placeholder="请输入上课班级"></a-input>
-        </a-form-item>
+
         <a-form-item label="老师" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['teacher']" placeholder="请输入老师"></a-input>
+          <j-search-select-tag
+            placeholder="请选择审批教师"
+            v-decorator="['teacher']"
+            dict="sys_user,realname,id"
+            :async="true">
+          </j-search-select-tag>
+<!--          <a-input v-decorator="['teacher']" placeholder="请输入老师"></a-input>-->
         </a-form-item>
         <a-form-item label="课程详细周数" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['weekSeq']" placeholder="请输入课程详细周数"></a-input>
         </a-form-item>
-        <a-form-item label="课程周范围" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['weekStr']" placeholder="请输入课程周范围"></a-input>
+        <a-form-item label="课程开始周" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <a-week-picker v-decorator="['weekStart', validatorRules.weekStart]"  placeholder="请输入课程开始周" format="YYYY-ww"/>
+<!--          <a-input v-decorator="['weekStart']" placeholder="请输入课程开始周"></a-input>-->
+        </a-form-item>
+        <a-form-item label="课程结束周" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <a-week-picker v-decorator="['weekEnd', validatorRules.weekEnd]"  placeholder="请输入课程结束周" format="YYYY-ww" />
+<!--          <a-input v-decorator="['weekEnd']" placeholder="请输入课程结束周"></a-input>-->
         </a-form-item>
         <a-form-item label="教室" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['location']" placeholder="请输入教室"></a-input>
         </a-form-item>
-        <a-form-item label="学年,学期" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['xnxqh']" placeholder="请输入学年,学期"></a-input>
+        <a-form-item label="学年" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag type="list" v-decorator="['xn']" :triggerChange="true" placeholder="请输入学年"
+                              dictCode="entrance_year"/>
+<!--          <a-input v-decorator="['xn']" placeholder="请输入学年"></a-input>-->
         </a-form-item>
-
+        <a-form-item label="学期" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag type="list" v-decorator="['xq']" :triggerChange="true" placeholder="请输入学期"
+                             dictCode="xq"/>
+<!--          <a-input v-decorator="['xq']" placeholder="请输入学期"></a-input>-->
+        </a-form-item>
       </a-form>
     </a-spin>
   </j-modal>
@@ -52,11 +96,15 @@
   import { httpAction } from '@/api/manage'
   import pick from 'lodash.pick'
   import { validateDuplicateValue } from '@/utils/util'
-
+  import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
+  import JDictSelectTag from "@comp/dict/JDictSelectTag";
+  import moment from 'moment';
 
   export default {
     name: "StudentClassModal",
-    components: { 
+    components: {
+      JSearchSelectTag,
+      JDictSelectTag,
     },
     data () {
       return {
@@ -75,11 +123,15 @@
         },
         confirmLoading: false,
         validatorRules: {
+          weekEnd:{rules:[{ required: true, message: '请选择结束时间!'} ,{validator: this.endTimeValidate}]},
+          weekStart:{rules:[{required: true, message: '请选择开始时间!'},{validator: this.startTimeValidate}]},
         },
         url: {
           add: "/manage/studentClass/add",
           edit: "/manage/studentClass/edit",
-        }
+        },
+        majorOptions: [],
+        classOptions: [],
       }
     },
     created () {
@@ -93,7 +145,7 @@
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'jwcAccount','weekDay','section','subjectName','className','teacher','weekSeq','weekStr','location','xnxqh'))
+          this.form.setFieldsValue(pick(this.model,'weekDay','section','subjectName','teacher','weekSeq','weekStart','weekEnd','location','xn','xq', 'institute', 'major', 'className'))
         })
       },
       close () {
@@ -116,6 +168,10 @@
                method = 'put';
             }
             let formData = Object.assign(this.model, values);
+            let startTime = this.form.getFieldValue("weekStart")
+            let endTime = this.form.getFieldValue("weekEnd")
+            formData.weekStart = moment(new Date(startTime)).format('YYYY-ww')
+            formData.weekEnd = moment(new Date(endTime)).format('YYYY-ww')
             console.log("表单提交数据",formData)
             httpAction(httpurl,formData,method).then((res)=>{
               if(res.success){
@@ -136,10 +192,58 @@
         this.close()
       },
       popupCallback(row){
-        this.form.setFieldsValue(pick(row,'jwcAccount','weekDay','section','subjectName','className','teacher','weekSeq','weekStr','location','xnxqh'))
+        this.form.setFieldsValue(pick(row,'weekDay','section','subjectName','teacher','weekSeq','weekStart','weekEnd','location','xn','xq', 'institute', 'major', 'className'))
       },
-
-      
+      changeMajor(e) {
+        this.form.setFieldsValue({major:'',className:''})
+        if (e!==undefined&&e!== null && e !== '') {
+          var httpurl = '/manage/collegeClass/getChildOption?code=' + e
+          httpAction(httpurl, null, 'get').then((res) => {
+            if (res.success) {
+              this.majorOptions = res.result
+              this.$refs.majorSelect.setCurrentDictOptions(this.majorOptions);
+              console.log(this.majorOptions)
+            } else {
+              that.$message.warning(res.message);
+            }
+          })
+        }
+      },
+      changeClass(e) {
+        this.form.setFieldsValue({className:''})
+        if (e!==undefined&&e!== null && e !== '') {
+          var httpurl = '/manage/collegeClass/getChildOption?code=' + e
+          httpAction(httpurl, null, 'get').then((res) => {
+            if (res.success) {
+              this.classOptions = res.result
+              this.$refs.classSelect.setCurrentDictOptions(this.classOptions);
+              console.log(this.classOptions)
+            } else {
+              that.$message.warning(res.message);
+            }
+          })
+        }
+      },
+      startTimeValidate(rule,value,callback){
+        let endTime = this.form.getFieldValue("weekEnd")
+        if(!value || !endTime){
+          callback()
+        }else if(moment(value).isBefore(endTime)){
+          callback()
+        }else{
+          callback("开始时间需小于结束时间")
+        }
+      },
+      endTimeValidate(rule,value,callback){
+        let startTime = this.form.getFieldValue("weekStart")
+        if(!value || !startTime){
+          callback()
+        }else if(moment(startTime).isBefore(value)){
+          callback()
+        }else{
+          callback("结束时间需大于开始时间")
+        }
+      }
     }
   }
 </script>

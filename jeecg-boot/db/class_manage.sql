@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : LocalHost
+ Source Server         : mysql
  Source Server Type    : MySQL
  Source Server Version : 80019
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 17/02/2021 19:05:58
+ Date: 18/02/2021 22:50:30
 */
 
 SET NAMES utf8mb4;
@@ -1916,7 +1916,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', 'cuixiangyu1613543142419', 1613544476801, 10000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', '崔祥瑜1613639292686', 1613650947100, 10000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -2054,16 +2054,39 @@ CREATE TABLE `student_class`  (
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
   `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
-  `jwc_account` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学号',
   `week_day` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '周几',
   `section` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '第几节课程',
   `subject_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '课程名称',
-  `class_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '上课班级',
   `teacher` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '老师',
   `week_seq` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '课程详细周数',
-  `week_str` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '课程周范围',
+  `week_start` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '课程周开始时间',
+  `week_end` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '课程周结束时间',
   `location` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '教室',
-  `xnxqh` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学年,学期',
+  `xn` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学年',
+  `xq` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学期',
+  `institute` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学院',
+  `major` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '专业',
+  `class_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '班级',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of student_class
+-- ----------------------------
+INSERT INTO `student_class` VALUES ('1362319742884057090', 'admin', '2021-02-18 16:35:12', NULL, NULL, 'A01', '4', '3', '阿达', '哒哒哒', '11', '2021-05', '2021-08', '阿萨打', '2019', 'down', '001-004', '001-004-003', '001-004-003-001');
+
+-- ----------------------------
+-- Table structure for student_class_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `student_class_detail`;
+CREATE TABLE `student_class_detail`  (
+  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
+  `jwc_account` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学号',
+  `student_class_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '课程id',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -2091,6 +2114,7 @@ CREATE TABLE `student_leave`  (
 -- Records of student_leave
 -- ----------------------------
 INSERT INTO `student_leave` VALUES ('1349253103425769473', 'admin', '2021-01-13 15:13:02', NULL, NULL, 'A01', '111', '2021-01-08 00:00:00', '2021-01-16 00:00:00', '2222', '0', NULL);
+INSERT INTO `student_leave` VALUES ('1362010980428279809', 'admin', '2021-02-17 20:08:17', NULL, NULL, 'A01', '1348165092563959810', '2021-02-11 00:00:00', '2021-02-18 00:00:00', 'e9ca23d68d884d4ebb19d07889727dae', '1', NULL);
 
 -- ----------------------------
 -- Table structure for sys_announcement
@@ -2472,6 +2496,9 @@ INSERT INTO `sys_dict` VALUES ('1280401766745718786', '租户状态', 'tenant_st
 INSERT INTO `sys_dict` VALUES ('1344179841679290369', '班级类型', 'class_type', '', 0, 'admin', '2020-12-30 15:13:43', NULL, NULL, 0);
 INSERT INTO `sys_dict` VALUES ('1348161621899034625', '入学年份', 'entrance_year', '', 0, 'admin', '2021-01-10 14:55:53', NULL, NULL, 0);
 INSERT INTO `sys_dict` VALUES ('1349251702242967554', '请假状态', 'student_leave_status', '', 0, 'admin', '2021-01-13 15:07:28', NULL, NULL, 0);
+INSERT INTO `sys_dict` VALUES ('1362237918736523266', '学期', 'xq', '', 0, 'admin', '2021-02-18 11:10:04', NULL, NULL, 0);
+INSERT INTO `sys_dict` VALUES ('1362238305078059010', '周', 'week_num', '', 0, 'admin', '2021-02-18 11:11:36', NULL, NULL, 0);
+INSERT INTO `sys_dict` VALUES ('1362238747963006977', '课时', 'sections', '', 0, 'admin', '2021-02-18 11:13:21', NULL, NULL, 0);
 INSERT INTO `sys_dict` VALUES ('236e8a4baff0db8c62c00dd95632834f', '同步工作流引擎', 'activiti_sync', '同步工作流引擎', 0, 'admin', '2019-05-15 15:27:33', NULL, NULL, 0);
 INSERT INTO `sys_dict` VALUES ('2e02df51611a4b9632828ab7e5338f00', '权限策略', 'perms_type', '权限策略', 0, 'admin', '2019-04-26 18:26:55', NULL, NULL, 0);
 INSERT INTO `sys_dict` VALUES ('2f0320997ade5dd147c90130f7218c3e', '推送类别', 'msg_type', '', 0, 'admin', '2019-03-17 21:21:32', 'admin', '2019-03-26 19:57:45', 0);
@@ -2585,6 +2612,19 @@ INSERT INTO `sys_dict_item` VALUES ('1348161831513571330', '1348161621899034625'
 INSERT INTO `sys_dict_item` VALUES ('1349251816244150274', '1349251702242967554', '未审批', '0', '', 1, 1, 'admin', '2021-01-13 15:07:56', NULL, NULL);
 INSERT INTO `sys_dict_item` VALUES ('1349251854697529345', '1349251702242967554', '审批通过', '1', '', 1, 1, 'admin', '2021-01-13 15:08:05', NULL, NULL);
 INSERT INTO `sys_dict_item` VALUES ('1349251894384033794', '1349251702242967554', '审批驳回', '2', '', 1, 1, 'admin', '2021-01-13 15:08:14', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362237999443320834', '1362237918736523266', '上学期', 'up', '', 1, 1, 'admin', '2021-02-18 11:10:23', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238094171676673', '1362237918736523266', '下学期', 'down', '', 1, 1, 'admin', '2021-02-18 11:10:45', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238460141477890', '1362238305078059010', '周一', '1', '', 1, 1, 'admin', '2021-02-18 11:12:13', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238496053108737', '1362238305078059010', '周二', '2', '', 1, 1, 'admin', '2021-02-18 11:12:21', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238526600224770', '1362238305078059010', '周三', '3', '', 1, 1, 'admin', '2021-02-18 11:12:29', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238560544727041', '1362238305078059010', '周四', '4', '', 1, 1, 'admin', '2021-02-18 11:12:37', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238589728694273', '1362238305078059010', '周五', '5', '', 1, 1, 'admin', '2021-02-18 11:12:44', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238616601600001', '1362238305078059010', '周六', '6', '', 1, 1, 'admin', '2021-02-18 11:12:50', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238643130572801', '1362238305078059010', '周日', '7', '', 1, 1, 'admin', '2021-02-18 11:12:56', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238805194285057', '1362238747963006977', '第一节', '1', '', 1, 1, 'admin', '2021-02-18 11:13:35', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238833858158594', '1362238747963006977', '第二节', '2', '', 1, 1, 'admin', '2021-02-18 11:13:42', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238863692242946', '1362238747963006977', '第三节', '3', '', 1, 1, 'admin', '2021-02-18 11:13:49', NULL, NULL);
+INSERT INTO `sys_dict_item` VALUES ('1362238915357679618', '1362238747963006977', '第四节', '4', '', 1, 1, 'admin', '2021-02-18 11:14:01', NULL, NULL);
 INSERT INTO `sys_dict_item` VALUES ('147c48ff4b51545032a9119d13f3222a', 'd6e1152968b02d69ff358c75b48a6ee1', '测试流程', 'test', NULL, 1, 1, 'admin', '2019-03-22 19:27:05', NULL, NULL);
 INSERT INTO `sys_dict_item` VALUES ('1543fe7e5e26fb97cdafe4981bedc0c8', '4c03fca6bf1f0299c381213961566349', '单排布局', 'single', NULL, 2, 1, 'admin', '2022-07-12 17:43:39', 'admin', '2019-04-12 17:43:57');
 INSERT INTO `sys_dict_item` VALUES ('1ce390c52453891f93514c1bd2795d44', 'ad7c65ba97c20a6805d5dcdf13cdaf36', '000', '00', NULL, 1, 1, 'admin', '2019-03-22 16:34:34', NULL, NULL);
@@ -4725,6 +4765,51 @@ INSERT INTO `sys_log` VALUES ('1361925069028323330', 2, '获奖学生信息-分�
 INSERT INTO `sys_log` VALUES ('1361925071511351298', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3a53ddc7', NULL, 36, 'admin', '2021-02-17 14:26:55', NULL, NULL);
 INSERT INTO `sys_log` VALUES ('1361925079014961153', 2, '获奖学生信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentAwardController.queryPageList()', NULL, '  studentAward: StudentAward(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, awardName=null, awardReason=null, xnxq=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@630f0bb8', NULL, 10, 'admin', '2021-02-17 14:26:57', NULL, NULL);
 INSERT INTO `sys_log` VALUES ('1361925102008135682', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@491d53b9', NULL, 16, 'admin', '2021-02-17 14:27:02', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362009897274437634', 1, '用户名: admin,登录成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-17 20:03:59', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362009927880273921', 2, '获奖学生信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentAwardController.queryPageList()', NULL, '  studentAward: StudentAward(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, awardName=null, awardReason=null, xnxq=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@20574f19', NULL, 92, 'admin', '2021-02-17 20:04:06', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362010059812106241', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@4c6b91a4', NULL, 22, 'admin', '2021-02-17 20:04:38', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362010845854035969', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7bbd7af0', NULL, 18, 'admin', '2021-02-17 20:07:45', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362010980520554497', 2, '请假-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.add()', NULL, '[{\"approvalTeacher\":\"e9ca23d68d884d4ebb19d07889727dae\",\"createBy\":\"admin\",\"createTime\":1613563697328,\"endTime\":1613577600000,\"id\":\"1362010980428279809\",\"startTime\":1612972800000,\"status\":\"1\",\"studentCode\":\"1348165092563959810\",\"sysOrgCode\":\"A01\"}]', NULL, 8, 'admin', '2021-02-17 20:08:17', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362010980784795649', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@8e1c579', NULL, 11, 'admin', '2021-02-17 20:08:17', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362011474991247361', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7cb21d92', NULL, 8, 'admin', '2021-02-17 20:10:15', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362011726238351361', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@123ece91', NULL, 122, 'admin', '2021-02-17 20:11:15', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362226938564550658', 1, '用户名: 管理员,退出成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-18 10:26:26', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362226965454233601', 1, '用户名: admin,登录成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-18 10:26:32', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362226969350742017', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@174df8d7', NULL, 190, 'admin', '2021-02-18 10:26:33', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362227076724924417', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3a316145', NULL, 54, 'admin', '2021-02-18 10:26:59', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362227083465170945', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, jwcAccount=null, weekDay=null, section=null, subjectName=null, className=null, teacher=null, weekSeq=null, weekStr=null, location=null, xnxqh=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@4d51a09e', NULL, 9, 'admin', '2021-02-18 10:27:00', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362233063494098945', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@68a89a58', NULL, 21, 'admin', '2021-02-18 10:50:46', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362236457428426753', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@35fc4703', NULL, 19, 'admin', '2021-02-18 11:04:15', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362240129789042690', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, jwcAccount=null, weekDay=null, section=null, subjectName=null, className=null, teacher=null, weekSeq=null, weekStr=null, location=null, xnxqh=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7dac8503', NULL, 3, 'admin', '2021-02-18 11:18:51', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362240146230714369', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-001', NULL, 13, 'admin', '2021-02-18 11:18:55', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362240158993981441', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-004', NULL, 2, 'admin', '2021-02-18 11:18:58', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362240166170435585', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-004-002', NULL, 2, 'admin', '2021-02-18 11:18:59', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362240297850609665', 2, '课程表-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.add()', NULL, '[{\"className\":\"001-004-002-001\",\"createBy\":\"admin\",\"createTime\":1613618370831,\"id\":\"1362240297724780545\",\"section\":\"2\",\"sysOrgCode\":\"A01\",\"weekDay\":\"4\"}]', NULL, 13, 'admin', '2021-02-18 11:19:31', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362258389536317442', 1, '用户名: 管理员,退出成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-18 12:31:24', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362258411120205826', 1, '用户名: admin,登录成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-18 12:31:29', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362258435006767106', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-004', NULL, 2, 'admin', '2021-02-18 12:31:35', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362258442137083906', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-004-002', NULL, 2, 'admin', '2021-02-18 12:31:37', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362258557073596418', 2, '课程表-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.add()', NULL, '[{\"className\":\"001-004-002-001\",\"createBy\":\"admin\",\"createTime\":1613622724199,\"id\":\"1362258557052624898\",\"location\":\"阿萨打\",\"section\":\"2\",\"subjectName\":\"阿达\",\"sysOrgCode\":\"A01\",\"teacher\":\"哒哒哒\",\"weekDay\":\"1\",\"weekSeq\":\"11\"}]', NULL, 4, 'admin', '2021-02-18 12:32:04', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362261419002404866', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-004', NULL, 2, 'admin', '2021-02-18 12:43:27', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362261428745773058', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-004-002', NULL, 2, 'admin', '2021-02-18 12:43:29', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362261548421849090', 2, '课程表-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.add()', NULL, '[{\"className\":\"001-004-002-001\",\"createBy\":\"admin\",\"createTime\":1613623437392,\"id\":\"1362261548400877570\",\"location\":\"阿萨打\",\"section\":\"3\",\"subjectName\":\"阿达\",\"sysOrgCode\":\"A01\",\"teacher\":\"哒哒哒\",\"weekDay\":\"3\",\"weekSeq\":\"11\"}]', NULL, 4, 'admin', '2021-02-18 12:43:57', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362262034239692802', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-004', NULL, 1, 'admin', '2021-02-18 12:45:53', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362262038937313282', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-004-002', NULL, 1, 'admin', '2021-02-18 12:45:54', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362262137306324994', 2, '课程表-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.add()', NULL, '[{\"className\":\"001-004-002-001\",\"createBy\":\"admin\",\"createTime\":1613623577793,\"id\":\"1362262137285353474\",\"location\":\"阿萨打\",\"section\":\"3\",\"subjectName\":\"阿达\",\"sysOrgCode\":\"A01\",\"teacher\":\"哒哒哒\",\"weekDay\":\"5\",\"weekSeq\":\"11\"}]', NULL, 5, 'admin', '2021-02-18 12:46:18', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362319395562131457', 1, '用户名: 管理员,退出成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-18 16:33:49', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362319422082715649', 1, '用户名: admin,登录成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-18 16:33:56', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362319427304624129', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@68fa5de0', NULL, 108, 'admin', '2021-02-18 16:33:57', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362319597207490561', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7fd0efa0', NULL, 4, 'admin', '2021-02-18 16:34:37', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362319615133945858', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-004', NULL, 8, 'admin', '2021-02-18 16:34:42', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362319622268456962', 2, '学院班级表-通过父code查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.getChildOption()', NULL, '  code: 001-004-003', NULL, 2, 'admin', '2021-02-18 16:34:43', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362319742997303298', 2, '课程表-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.add()', NULL, '[{\"className\":\"001-004-003-001\",\"createBy\":\"admin\",\"createTime\":1613637312033,\"id\":\"1362319742884057090\",\"institute\":\"001-004\",\"location\":\"阿萨打\",\"major\":\"001-004-003\",\"section\":\"3\",\"subjectName\":\"阿达\",\"sysOrgCode\":\"A01\",\"teacher\":\"哒哒哒\",\"weekDay\":\"4\",\"weekEnd\":\"2021-08\",\"weekSeq\":\"11\",\"weekStart\":\"2021-05\",\"xn\":\"2019\",\"xq\":\"down\"}]', NULL, 13, 'admin', '2021-02-18 16:35:12', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362319743475453954', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7a2212e5', NULL, 27, 'admin', '2021-02-18 16:35:12', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362327162486198273', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3759b9da', NULL, 58, 'admin', '2021-02-18 17:04:41', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362327184372076546', 2, '获奖学生信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentAwardController.queryPageList()', NULL, '  studentAward: StudentAward(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, awardName=null, awardReason=null, xnxq=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@982f635', NULL, 30, 'admin', '2021-02-18 17:04:46', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362327206736105474', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@12a98bd3', NULL, 31, 'admin', '2021-02-18 17:04:52', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362328657805889538', 1, '用户名: admin,登录成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-18 17:10:37', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362328662973272065', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@46640ed2', NULL, 92, 'admin', '2021-02-18 17:10:39', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1362328698641633282', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3e668cb7', NULL, 47, 'admin', '2021-02-18 17:10:47', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_permission
