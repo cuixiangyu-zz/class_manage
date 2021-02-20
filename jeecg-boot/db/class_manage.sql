@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mysql
+ Source Server         : LocalHost
  Source Server Type    : MySQL
  Source Server Version : 80019
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 18/02/2021 22:50:30
+ Date: 20/02/2021 18:21:48
 */
 
 SET NAMES utf8mb4;
@@ -1916,7 +1916,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', '崔祥瑜1613639292686', 1613650947100, 10000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', 'cuixiangyu1613723781449', 1613729077494, 10000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -2080,7 +2080,7 @@ INSERT INTO `student_class` VALUES ('1362319742884057090', 'admin', '2021-02-18 
 -- ----------------------------
 DROP TABLE IF EXISTS `student_class_detail`;
 CREATE TABLE `student_class_detail`  (
-  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
   `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',

@@ -1,5 +1,7 @@
 package org.jeecg.modules.mapper;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.jeecg.modules.entity.StudentClass;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -11,4 +13,23 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface StudentClassMapper extends BaseMapper<StudentClass> {
 
+    @Insert({
+
+    })
+    void updateStudentClassDetailByClassName(String id, String className);
+
+    @Insert({
+
+    })
+    void updateStudentClassDetailByMajor(String id, String major);
+
+    @Insert({
+
+    })
+    void updateStudentClassDetailByInstitute(String id, String institute);
+
+    @Delete({
+            "delete from  student_class_detail where student_class_id = #{id}"
+    })
+    void deleteDetailByInfoId(String id);
 }
