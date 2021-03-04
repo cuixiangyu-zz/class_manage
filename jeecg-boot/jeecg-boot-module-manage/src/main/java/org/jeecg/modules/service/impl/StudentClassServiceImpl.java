@@ -1,13 +1,18 @@
 package org.jeecg.modules.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.jeecg.modules.entity.Student;
 import org.jeecg.modules.entity.StudentClass;
 import org.jeecg.modules.mapper.StudentClassMapper;
+import org.jeecg.modules.mapper.StudentMapper;
 import org.jeecg.modules.service.IStudentClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: 课程表
@@ -20,6 +25,9 @@ public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, Stu
 
     @Autowired
     StudentClassMapper studentClassMapper;
+
+    @Autowired
+    StudentMapper studentMapper;
 
 
     @Override
@@ -34,5 +42,15 @@ public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, Stu
             studentClassMapper.updateStudentClassDetailByInstitute(entity.getId(),entity.getInstitute());
         }
         return true;
+    }
+
+    @Override
+    public List<Map<String, String>> getClasses(String studentName, String week) {
+        Student student = studentMapper.selectByName(studentName);
+        return getClassesByStudent(student.getId(),week);
+    }
+
+    private List<Map<String, String>> getClassesByStudent(String studentId, String week){
+        return studentClassMapper.getClassesByStudent(studentId,week);
     }
 }

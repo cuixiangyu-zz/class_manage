@@ -1,5 +1,6 @@
 package org.jeecg.modules.mapper;
 
+import org.apache.ibatis.annotations.Select;
 import org.jeecg.modules.entity.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -10,5 +11,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @Version: V1.0
  */
 public interface StudentMapper extends BaseMapper<Student> {
+
+    @Select({
+            "select * from student where name = #{name}"
+    })
+    Student selectByName(String name);
 
 }

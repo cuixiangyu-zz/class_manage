@@ -1,6 +1,8 @@
 package org.jeecg.modules.controller;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -85,6 +87,21 @@ public class StudentClassController extends JeecgController<StudentClass, IStude
 		studentClassService.updateById(studentClass);
 		return Result.ok("编辑成功!");
 	}
+
+	 /**
+	  *
+	  * @param studentName	学生名
+	  * @param week	周
+	  * @param req
+	  * @return	课程表
+	  */
+	 @AutoLog(value = "课程表-课程表查询")
+	 @ApiOperation(value="课程表-课程表查询", notes="课程表-课程表查询")
+	 @GetMapping(value = "/getClasses")
+	 public Result<?> getClasses(String studentName,String week,HttpServletRequest req) {
+		 List<Map<String,String>> classes = studentClassService.getClasses(studentName,week);
+		 return Result.ok(classes);
+	 }
 	
 	/**
 	 *   通过id删除
