@@ -14,5 +14,5 @@ import java.util.Map;
  */
 public interface IStudentClassService extends IService<StudentClass> {
 
-    List<Map<String, String>> getClasses(String studentName, String week);
+    List<Map<String, String>> getClasses(String studentName, String week,String xn,String xq);
 }

@@ -98,8 +98,8 @@ public class StudentClassController extends JeecgController<StudentClass, IStude
 	 @AutoLog(value = "课程表-课程表查询")
 	 @ApiOperation(value="课程表-课程表查询", notes="课程表-课程表查询")
 	 @GetMapping(value = "/getClasses")
-	 public Result<?> getClasses(String studentName,String week,HttpServletRequest req) {
-		 List<Map<String,String>> classes = studentClassService.getClasses(studentName,week);
+	 public Result<?> getClasses(String studentName,String week,String xn,String xq,HttpServletRequest req) {
+		 List<Map<String,String>> classes = studentClassService.getClasses(studentName,week,xn,xq);
 		 return Result.ok(classes);
 	 }
 	

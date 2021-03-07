@@ -45,12 +45,12 @@ public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, Stu
     }
 
     @Override
-    public List<Map<String, String>> getClasses(String studentName, String week) {
+    public List<Map<String, String>> getClasses(String studentName, String week,String xn,String xq) {
         Student student = studentMapper.selectByName(studentName);
-        return getClassesByStudent(student.getId(),week);
+        return getClassesByStudent(student.getId(),week,xn,xq);
     }
 
-    private List<Map<String, String>> getClassesByStudent(String studentId, String week){
-        return studentClassMapper.getClassesByStudent(studentId,week);
+    private List<Map<String, String>> getClassesByStudent(String studentId, String week,String xn,String xq){
+        return studentClassMapper.getClassesByStudent(studentId,week,xn,xq);
     }
 }

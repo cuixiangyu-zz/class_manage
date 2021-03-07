@@ -54,9 +54,10 @@ public interface StudentClassMapper extends BaseMapper<StudentClass> {
             " LEFT JOIN student_class_detail detail ON classes.id = detail.student_class_id  ",
             " WHERE detail.jwc_account = #{studentId}  ",
             " AND classes.week_start <= #{week} AND classes.week_end >= #{week}  ",
+            " and classes.xn = #{xn} and classes.xq = #{xq} ",
             " GROUP BY classes.section ) a  ",
             " right join sys_dict_item dict on a.section = dict.item_value ",
             " where dict_id = '1362238747963006977' order by dict.item_value "
     })
-    List<Map<String, String>> getClassesByStudent(String studentId, String week);
+    List<Map<String, String>> getClassesByStudent(String studentId, String week,String xn,String xq);
 }
