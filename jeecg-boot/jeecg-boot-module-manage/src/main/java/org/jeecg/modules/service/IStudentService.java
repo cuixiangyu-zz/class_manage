@@ -12,4 +12,5 @@ import org.jeecg.modules.entity.Student;
  */
 public interface IStudentService extends IService<Student> {
 
+    boolean checkStudentCode(String studentCode);
 }

@@ -12,13 +12,13 @@
       <a-form :form="form">
 
         <a-form-item label="活动名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['name']" placeholder="请输入活动名称"></a-input>
+          <a-input v-decorator="['name', { rules: [{ required: true}] }]" placeholder="请输入活动名称"></a-input>
         </a-form-item>
         <a-form-item label="活动开始时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-date placeholder="请选择活动开始时间" v-decorator="['startTime']" :trigger-change="true" style="width: 100%"/>
+          <j-date placeholder="请选择活动开始时间" v-decorator="['startTime', { rules: [{ required: true}] }]" :trigger-change="true" style="width: 100%"/>
         </a-form-item>
         <a-form-item label="活动结束时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-date placeholder="请选择活动结束时间" v-decorator="['endTime']" :trigger-change="true" style="width: 100%"/>
+          <j-date placeholder="请选择活动结束时间" v-decorator="['endTime', { rules: [{ required: true}] }]" :trigger-change="true" style="width: 100%"/>
         </a-form-item>
         <a-form-item label="班级" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-tree
@@ -31,7 +31,7 @@
             @expand="onExpand"
             @select="onSelect"
           />
-          <a-input style="display: none" v-decorator="['classes']" placeholder="请输入班级"></a-input>
+          <a-input style="display: none" v-decorator="['classes', { rules: [{ required: true}] }]" placeholder="请输入班级"></a-input>
         </a-form-item>
         <a-form-item label="介绍" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-textarea v-decorator="['introduce']" placeholder="请输入介绍"></a-textarea>

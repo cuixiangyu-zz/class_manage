@@ -17,4 +17,8 @@ public interface StudentMapper extends BaseMapper<Student> {
     })
     Student selectByName(String name);
 
+    @Select({
+            "select * from student where student_code = #{studentCode}"
+    })
+    Student selectByStudentCode(String studentCode);
 }

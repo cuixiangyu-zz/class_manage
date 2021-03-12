@@ -14,14 +14,14 @@
         <a-form-item label="学生" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-search-select-tag
             placeholder="请做出你的选择"
-            v-decorator="['studentCode']"
+            v-decorator="['studentCode', { rules: [{ required: true}] }]"
             dict="student,name,id"
             :async="true">
           </j-search-select-tag>
 <!--          <a-input v-decorator="['studentCode']" placeholder="请输入学生"></a-input>-->
         </a-form-item>
         <a-form-item label="表彰名" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['awardName']" placeholder="请输入表彰名"></a-input>
+          <a-input v-decorator="['awardName', { rules: [{ required: true}] }]" placeholder="请输入表彰名"></a-input>
         </a-form-item>
         <a-form-item label="表彰原因" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['awardReason']" placeholder="请输入表彰原因"></a-input>

@@ -12,7 +12,7 @@
       <a-form :form="form">
 
         <a-form-item label="学院" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag @change="changeMajor" :triggerChange="true" v-decorator="['institute']"
+          <j-dict-select-tag @change="changeMajor" :triggerChange="true" v-decorator="['institute', { rules: [{ required: true}] }]"
                              placeholder="请选择用户名称" dictCode="college_class,name,code,type = 'institute'"/>
           <!--          <j-search-select-tag v-decorator="['institute']" dict="" />-->
         </a-form-item>
@@ -40,23 +40,23 @@
           <!--          <j-search-select-tag v-decorator="['class']" dict="" />-->
         </a-form-item>
         <a-form-item label="周几" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['weekDay']" :triggerChange="true" placeholder="请输入周几"
+          <j-dict-select-tag type="list" v-decorator="['weekDay', { rules: [{ required: true}] }]" :triggerChange="true" placeholder="请输入周几"
                              dictCode="week_num"/>
 <!--          <a-input v-decorator="['weekDay']" placeholder="请输入周几"></a-input>-->
         </a-form-item>
         <a-form-item label="第几节课程" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['section']" :triggerChange="true" placeholder="请输入第几节课程"
+          <j-dict-select-tag type="list" v-decorator="['section', { rules: [{ required: true}] }]" :triggerChange="true" placeholder="请输入第几节课程"
                              dictCode="sections"/>
 <!--          <a-input v-decorator="['section']" placeholder="请输入第几节课程"></a-input>-->
         </a-form-item>
         <a-form-item label="课程名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['subjectName']" placeholder="请输入课程名称"></a-input>
+          <a-input v-decorator="['subjectName', { rules: [{ required: true}] }]" placeholder="请输入课程名称"></a-input>
         </a-form-item>
 
         <a-form-item label="老师" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-search-select-tag
             placeholder="请选择审批教师"
-            v-decorator="['teacher']"
+            v-decorator="['teacher', { rules: [{ required: true}] }]"
             dict="sys_user,realname,id"
             :async="true">
           </j-search-select-tag>
@@ -77,12 +77,12 @@
           <a-input v-decorator="['location']" placeholder="请输入教室"></a-input>
         </a-form-item>
         <a-form-item label="学年" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['xn']" :triggerChange="true" placeholder="请输入学年"
+          <j-dict-select-tag type="list" v-decorator="['xn', { rules: [{ required: true}] }]" :triggerChange="true" placeholder="请输入学年"
                               dictCode="entrance_year"/>
 <!--          <a-input v-decorator="['xn']" placeholder="请输入学年"></a-input>-->
         </a-form-item>
         <a-form-item label="学期" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['xq']" :triggerChange="true" placeholder="请输入学期"
+          <j-dict-select-tag type="list" v-decorator="['xq', { rules: [{ required: true}] }]" :triggerChange="true" placeholder="请输入学期"
                              dictCode="xq"/>
 <!--          <a-input v-decorator="['xq']" placeholder="请输入学期"></a-input>-->
         </a-form-item>

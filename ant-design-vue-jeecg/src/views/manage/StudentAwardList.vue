@@ -4,6 +4,26 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="学生名">
+              <j-dict-select-tag
+                placeholder="请选择学生"
+                v-model="queryParam.studentCode"
+                dictCode="student,name,id">
+              </j-dict-select-tag>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="表彰名">
+              <a-input placeholder="请输入表彰名" v-model="queryParam.awardName"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+              <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+              <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
+            </span>
+          </a-col>
         </a-row>
       </a-form>
     </div>
@@ -93,12 +113,17 @@
   import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import StudentAwardModal from './modules/StudentAwardModal'
+  import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
+  import {initDictOptions, filterDictText} from '@/components/dict/JDictSelectUtil'
+  import JDictSelectTag from '../../components/dict/JDictSelectTag.vue'
 
   export default {
     name: "StudentAwardList",
     mixins:[JeecgListMixin, mixinDevice],
     components: {
-      StudentAwardModal
+      JSearchSelectTag,
+      StudentAwardModal,
+      JDictSelectTag
     },
     data () {
       return {

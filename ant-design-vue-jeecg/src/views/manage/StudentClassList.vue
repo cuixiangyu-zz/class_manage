@@ -4,6 +4,45 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="课程名称">
+              <a-input placeholder="请输入课程名称" v-model="queryParam.subjectName"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="老师">
+              <j-search-select-tag
+                placeholder="请选择教师"
+                v-model="queryParam.teacher"
+                dict="sys_user,realname,id"
+                :async="true">
+              </j-search-select-tag>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="学年">
+              <j-dict-select-tag type="list" v-model="queryParam.xn"  placeholder="请输入学年"
+                                 dictCode="entrance_year"/>
+            </a-form-item>
+          </a-col>
+                    <template v-if="toggleSearchStatus">
+                      <a-col :xl="6" :lg="7" :md="8" :sm="24">
+                        <a-form-item label="学院">
+                          <j-dict-select-tag v-model="queryParam.institute"
+                                             placeholder="请选择学院" dictCode="college_class,name,code,type = 'institute'"/>
+                        </a-form-item>
+                      </a-col>
+                    </template>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+              <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+              <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
+                            <a @click="handleToggleSearch" style="margin-left: 8px">
+                              {{ toggleSearchStatus ? '收起' : '展开' }}
+                              <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
+                            </a>
+            </span>
+          </a-col>
         </a-row>
       </a-form>
     </div>
@@ -93,12 +132,14 @@
   import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import StudentClassModal from './modules/StudentClassModal'
+  import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
 
   export default {
     name: "StudentClassList",
     mixins:[JeecgListMixin, mixinDevice],
     components: {
-      StudentClassModal
+      StudentClassModal,
+      JSearchSelectTag
     },
     data () {
       return {

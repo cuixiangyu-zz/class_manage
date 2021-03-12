@@ -154,4 +154,15 @@ public class StudentController extends JeecgController<Student, IStudentService>
         return super.importExcel(request, response, Student.class);
     }
 
+	 @AutoLog(value = "学生表-查询学号是否存在")
+	 @ApiOperation(value="学生表-查询学号是否存在", notes="学生表-查询学号是否存在")
+	 @GetMapping(value = "/checkStudentCode")
+	 public Result<?> checkStudentCode(@RequestParam(name="studentCode",required=true) String studentCode) {
+		if(studentService.checkStudentCode(studentCode)){
+			return Result.error("学号已存在!");
+		}else{
+			return Result.ok(null);
+		}
+	 }
+
 }

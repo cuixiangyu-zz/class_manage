@@ -25,7 +25,7 @@
           </j-tree-select>
         </a-form-item>
         <a-form-item label="名字" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['name']" placeholder="请输入名字"></a-input>
+          <a-input v-decorator="['name', { rules: [{ required: true}] }]" placeholder="请输入名字"></a-input>
         </a-form-item>
 <!--        <a-form-item label="编码" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['code']" placeholder="请输入编码"></a-input>

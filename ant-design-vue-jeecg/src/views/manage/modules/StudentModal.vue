@@ -12,24 +12,24 @@
       <a-form :form="form">
 
         <a-form-item label="姓名" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['name']" placeholder="请输入姓名"></a-input>
+          <a-input v-decorator="['name', { rules: [{ required: true}] }]" placeholder="请输入姓名"></a-input>
         </a-form-item>
         <a-form-item label="性别" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="radio" v-decorator="['sex']" :trigger-change="true" dictCode="sex"
+          <j-dict-select-tag type="radio" v-decorator="['sex', { rules: [{ required: true}] }]" :trigger-change="true" dictCode="sex"
                              placeholder="请选择性别"/>
         </a-form-item>
         <a-form-item label="年龄" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['age']" placeholder="请输入年龄"></a-input>
+          <a-input v-decorator="['age', { rules: [{ required: true}] }]" placeholder="请输入年龄"></a-input>
         </a-form-item>
         <a-form-item label="学号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['studentCode']" placeholder="请输入学号"></a-input>
+          <a-input v-decorator="['studentCode',validatorRules.studentCode]" placeholder="请输入学号"></a-input>
         </a-form-item>
         <a-form-item label="入学年份" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['entranceYear']" :trigger-change="true"
+          <j-dict-select-tag type="list" v-decorator="['entranceYear', { rules: [{ required: true}] }]" :trigger-change="true"
                              dictCode="entrance_year" placeholder="请选择入学年份"/>
         </a-form-item>
         <a-form-item label="学院" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag @change="changeMajor" :triggerChange="true" v-decorator="['institute']"
+          <j-dict-select-tag @change="changeMajor" :triggerChange="true" v-decorator="['institute', { rules: [{ required: true}] }]"
                              placeholder="请选择用户名称" dictCode="college_class,name,code,type = 'institute'"/>
           <!--          <j-search-select-tag v-decorator="['institute']" dict="" />-->
         </a-form-item>
@@ -38,7 +38,7 @@
             @change="changeClass"
             ref="majorSelect"
             placeholder="请选择专业"
-            v-decorator="['major']"
+            v-decorator="['major', { rules: [{ required: true}] }]"
             :triggerChange="true"
             :dictOptions="majorOptions">
           </j-search-select-tag>
@@ -48,7 +48,7 @@
           <j-search-select-tag
             ref="classSelect"
             placeholder="请选择班级"
-            v-decorator="['className']"
+            v-decorator="['className', { rules: [{ required: true}] }]"
             :triggerChange="true"
             :dictOptions="classOptions">
           </j-search-select-tag>
@@ -99,7 +99,9 @@ export default {
         sm: {span: 16},
       },
       confirmLoading: false,
-      validatorRules: {},
+      validatorRules: {
+        studentCode:{rules:[{ required: true, message: '请输入学号!'} ,{validator: this.checkStudentCode}]},
+      },
       url: {
         add: "/manage/student/add",
         edit: "/manage/student/edit",
@@ -197,6 +199,21 @@ export default {
     },
     getChildOption(code) {
 
+    },
+    checkStudentCode(rule,value,callback){
+      let endTime = this.form.getFieldValue("weekEnd")
+      if(!value){
+        callback()
+      }else{
+        var httpurl = '/manage/student/checkStudentCode?studentCode=' + value
+        httpAction(httpurl, null, 'get').then((res) => {
+          if (res.success) {
+            callback()
+          } else {
+            callback("学号已存在")
+          }
+        })
+      }
     },
   }
 }

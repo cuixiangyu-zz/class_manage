@@ -4,6 +4,26 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="学生名">
+              <j-dict-select-tag
+                placeholder="请选择学生"
+                v-model="queryParam.studentCode"
+                dictCode="student,name,id">
+              </j-dict-select-tag>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="状态">
+              <j-dict-select-tag type="list" v-model="queryParam.status" dictCode="student_leave_status" placeholder="请选择状态"/>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+              <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+              <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
+            </span>
+          </a-col>
         </a-row>
       </a-form>
     </div>
@@ -93,12 +113,14 @@
   import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import StudentLeaveModal from './modules/StudentLeaveModal'
+  import JDictSelectTag from '../../components/dict/JDictSelectTag.vue'
 
   export default {
     name: "StudentLeaveList",
     mixins:[JeecgListMixin, mixinDevice],
     components: {
-      StudentLeaveModal
+      StudentLeaveModal,
+      JDictSelectTag
     },
     data () {
       return {

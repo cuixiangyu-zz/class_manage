@@ -14,28 +14,28 @@
         <a-form-item label="学生" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-search-select-tag
             placeholder="请选择学生"
-            v-decorator="['studentCode']"
+            v-decorator="['studentCode', { rules: [{ required: true}] }]"
             dict="student,name,id"
             :async="true">
           </j-search-select-tag>
         </a-form-item>
         <a-form-item label="请假开始时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-date placeholder="请选择请假开始时间" v-decorator="['startTime']" :trigger-change="true" style="width: 100%"/>
+          <j-date placeholder="请选择请假开始时间" v-decorator="['startTime',validatorRules.startTime]" :trigger-change="true" style="width: 100%"/>
         </a-form-item>
         <a-form-item label="请假结束时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-date placeholder="请选择请假结束时间" v-decorator="['endTime']" :trigger-change="true" style="width: 100%"/>
+          <j-date placeholder="请选择请假结束时间" v-decorator="['endTime',validatorRules.endTime]" :trigger-change="true" style="width: 100%"/>
         </a-form-item>
         <a-form-item label="审批教师" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-search-select-tag
             placeholder="请选择审批教师"
-            v-decorator="['approvalTeacher']"
+            v-decorator="['approvalTeacher', { rules: [{ required: true}] }]"
             dict="sys_user,realname,id"
             :async="true">
           </j-search-select-tag>
         </a-form-item>
         <a-form-item label="状态" :labelCol="labelCol" :wrapperCol="wrapperCol">
 <!--          <a-input v-decorator="['status']" placeholder="请输入状态"></a-input>-->
-          <j-dict-select-tag type="list" v-decorator="['status']" :trigger-change="true" dictCode="student_leave_status" placeholder="请选择状态"/>
+          <j-dict-select-tag type="list" v-decorator="['status', { rules: [{ required: true}] }]" :trigger-change="true" dictCode="student_leave_status" placeholder="请选择状态"/>
         </a-form-item>
 
       </a-form>
@@ -50,6 +50,7 @@
   import { validateDuplicateValue } from '@/utils/util'
   import JDate from '@/components/jeecg/JDate'
   import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
+  import moment from "moment";
 
   export default {
     name: "StudentLeaveModal",
@@ -74,6 +75,8 @@
         },
         confirmLoading: false,
         validatorRules: {
+          endTime:{rules:[{ required: true, message: '请选择结束时间!'} ,{validator: this.endTimeValidate}]},
+          startTime:{rules:[{required: true, message: '请选择开始时间!'},{validator: this.startTimeValidate}]},
         },
         url: {
           add: "/manage/studentLeave/add",
@@ -137,7 +140,26 @@
       popupCallback(row){
         this.form.setFieldsValue(pick(row,'studentCode','startTime','endTime','approvalTeacher','status'))
       },
-
+      startTimeValidate(rule,value,callback){
+        let endTime = this.form.getFieldValue("endTime")
+        if(!value || !endTime){
+          callback()
+        }else if(moment(value).isBefore(endTime)){
+          callback()
+        }else{
+          callback("开始时间需小于结束时间")
+        }
+      },
+      endTimeValidate(rule,value,callback){
+        let startTime = this.form.getFieldValue("startTime")
+        if(!value || !startTime){
+          callback()
+        }else if(moment(startTime).isBefore(value)){
+          callback()
+        }else{
+          callback("结束时间需大于开始时间")
+        }
+      }
       
     }
   }

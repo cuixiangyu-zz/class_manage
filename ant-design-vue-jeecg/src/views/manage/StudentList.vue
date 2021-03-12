@@ -14,31 +14,49 @@
               <a-input placeholder="请输入学号" v-model="queryParam.studentCode"></a-input>
             </a-form-item>
           </a-col>
-          <template v-if="toggleSearchStatus">
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="学院">
+              <j-dict-select-tag @change="changeMajor" v-model="queryParam.institute"
+                                 placeholder="请选择学院" dictCode="college_class,name,code,type = 'institute'"/>
+            </a-form-item>
+          </a-col>
+<!--          <template v-if="toggleSearchStatus">
             <a-col :xl="6" :lg="7" :md="8" :sm="24">
               <a-form-item label="学院">
-                <j-search-select-tag placeholder="请选择学院" v-model="queryParam.institute" dict=",,"/>
+                <j-dict-select-tag @change="changeMajor" v-model="queryParam.institute"
+                                   placeholder="请选择用户名称" dictCode="college_class,name,code,type = 'institute'"/>
               </a-form-item>
             </a-col>
             <a-col :xl="6" :lg="7" :md="8" :sm="24">
               <a-form-item label="专业">
-                <j-search-select-tag placeholder="请选择专业" v-model="queryParam.major" dict=",,"/>
+                <j-search-select-tag
+                  @change="changeClass"
+                  ref="majorSelect"
+                  placeholder="请选择专业"
+                  v-model="queryParam.major"
+                  :dictOptions="majorOptions">
+                </j-search-select-tag>
               </a-form-item>
             </a-col>
             <a-col :xl="6" :lg="7" :md="8" :sm="24">
               <a-form-item label="班级">
-                <j-search-select-tag placeholder="请选择班级" v-model="queryParam.className" dict=",,"/>
+                <j-search-select-tag
+                  ref="classSelect"
+                  placeholder="请选择班级"
+                  v-model="queryParam.className"
+                  :dictOptions="classOptions">
+                </j-search-select-tag>
               </a-form-item>
             </a-col>
-          </template>
+          </template>-->
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
-              <a @click="handleToggleSearch" style="margin-left: 8px">
+<!--              <a @click="handleToggleSearch" style="margin-left: 8px">
                 {{ toggleSearchStatus ? '收起' : '展开' }}
                 <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
-              </a>
+              </a>-->
             </span>
           </a-col>
         </a-row>
@@ -131,6 +149,7 @@
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import StudentModal from './modules/StudentModal'
   import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
+  import {httpAction} from "@api/manage";
 
   export default {
     name: "StudentList",
@@ -221,6 +240,8 @@
           importExcelUrl: "manage/student/importExcel",
         },
         dictOptions:{},
+        majorOptions: [],
+        classOptions: [],
       }
     },
     computed: {
@@ -230,7 +251,38 @@
     },
     methods: {
       initDictConfig(){
-      }
+      },
+      changeMajor(e) {
+        console.log('aaaaaaa')
+        this.form.setFieldsValue({major:'',className:''})
+        if (e!==undefined&&e!== null && e !== '') {
+          var httpurl = '/manage/collegeClass/getChildOption?code=' + e
+          httpAction(httpurl, null, 'get').then((res) => {
+            if (res.success) {
+              this.majorOptions = res.result
+              this.$refs.majorSelect.setCurrentDictOptions(this.majorOptions);
+              console.log(this.majorOptions)
+            } else {
+              that.$message.warning(res.message);
+            }
+          })
+        }
+      },
+      changeClass(e) {
+        this.form.setFieldsValue({className:''})
+        if (e!==undefined&&e!== null && e !== '') {
+          var httpurl = '/manage/collegeClass/getChildOption?code=' + e
+          httpAction(httpurl, null, 'get').then((res) => {
+            if (res.success) {
+              this.classOptions = res.result
+              this.$refs.classSelect.setCurrentDictOptions(this.classOptions);
+              console.log(this.classOptions)
+            } else {
+              that.$message.warning(res.message);
+            }
+          })
+        }
+      },
     }
   }
 </script>
