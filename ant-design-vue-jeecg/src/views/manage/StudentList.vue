@@ -121,7 +121,8 @@
 
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
-
+          <a-divider type="vertical" />
+          <a @click="showModal(record)">查看课程表</a>
           <a-divider type="vertical" />
           <a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
@@ -139,6 +140,58 @@
     </div>
 
     <student-modal ref="modalForm" @ok="modalFormOk"></student-modal>
+
+    <a-modal
+      title="课程表"
+      :visible="visible"
+      :confirm-loading="confirmLoading"
+      @ok="handleOk"
+      @cancel="handleCancel"
+      width="800px"
+    >
+      <div class="table-page-search-wrapper">
+        <a-form layout="inline" @keyup.enter.native="searchClasses">
+          <a-row :gutter="24">
+            <a-col :xl="6" :lg="7" :md="8" :sm="24">
+              <a-form-item label="周">
+                <a-week-picker v-model="classesQueryParam.week"  placeholder="请输入课程开始周" format="YYYY-ww"/>
+              </a-form-item>
+            </a-col>
+            <a-col :xl="6" :lg="7" :md="8" :sm="24">
+              <a-form-item label="学年">
+                <j-dict-select-tag type="list" v-model="classesQueryParam.xn"  placeholder="请输入学年"
+                                   dictCode="entrance_year"/>
+              </a-form-item>
+            </a-col><a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="学期">
+              <j-dict-select-tag type="list" v-model="classesQueryParam.xq"  placeholder="请输入学期"
+                                 dictCode="xq"/>
+            </a-form-item>
+          </a-col>
+
+            <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+              <a-button type="primary" @click="searchClasses" icon="search">查询</a-button>
+<!--              <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>-->
+            </span>
+            </a-col>
+          </a-row>
+        </a-form>
+      </div>
+      <a-table
+        ref="table"
+        size="middle"
+        bordered
+        rowKey="id"
+        :columns="classesColumns"
+        :dataSource="classesDataSource"
+        :loading="classesLoading"
+        pagination="false"
+        class="j-table-force-nowrap"
+        @change="handleTableChange">
+
+      </a-table>
+    </a-modal>
   </a-card>
 </template>
 
@@ -150,6 +203,7 @@
   import StudentModal from './modules/StudentModal'
   import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
   import {httpAction} from "@api/manage";
+  import moment from "moment";
 
   export default {
     name: "StudentList",
@@ -232,16 +286,69 @@
             scopedSlots: { customRender: 'action' }
           }
         ],
+        classesColumns: [
+          {
+            title: '时间',
+            align: "center",
+            dataIndex: 'section'
+          },
+          {
+            title: '星期一',
+            align: "center",
+            dataIndex: '星期一'
+          },
+          {
+            title: '星期二',
+            align: "center",
+            dataIndex: '星期二'
+          },
+          {
+            title: '星期三',
+            align: "center",
+            dataIndex: '星期三'
+          },
+          {
+            title: '星期四',
+            align: "center",
+            dataIndex: '星期四'
+          },
+          {
+            title: '星期五',
+            align: "center",
+            dataIndex: '星期五'
+          },
+          {
+            title: '星期六',
+            align: "center",
+            dataIndex: '星期六'
+          },
+          {
+            title: '星期日',
+            align: "center",
+            dataIndex: '星期日'
+          },
+        ],
+        classesLoading:false,
+        classesDataSource:[],
+        visible: false,
+        confirmLoading: false,
         url: {
           list: "/manage/student/list",
           delete: "/manage/student/delete",
           deleteBatch: "/manage/student/deleteBatch",
           exportXlsUrl: "/manage/student/exportXls",
           importExcelUrl: "manage/student/importExcel",
+          getClasses: "/manage/studentClass/getClasses",
         },
         dictOptions:{},
         majorOptions: [],
         classOptions: [],
+        classesQueryParam:{
+          xn:'2020',
+          xq:'up',
+          week:'',
+          studentName:''
+        }
       }
     },
     computed: {
@@ -249,7 +356,11 @@
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
       },
     },
+    created() {
+      //this.classesQueryParam.week = moment(new Date())
+    },
     methods: {
+      moment,
       initDictConfig(){
       },
       changeMajor(e) {
@@ -282,6 +393,44 @@
             }
           })
         }
+      },
+      },
+      showModal(record) {
+        this.visible = true;
+        console.log(record)
+        this.classesQueryParam.studentName = record.name
+        this.searchClasses();
+      },
+      handleOk(e) {
+        this.ModalText = 'The modal will be closed after two seconds';
+        this.confirmLoading = true;
+        setTimeout(() => {
+          this.visible = false;
+          this.confirmLoading = false;
+        }, 2000);
+      },
+      handleCancel(e) {
+        console.log('Clicked cancel button');
+        this.visible = false;
+      },
+      searchClasses() {
+        //this.visible = true;
+        let week = this.classesQueryParam.week
+        let param = this.classesQueryParam
+        if(this.classesQueryParam.week){
+          param.week = moment(new Date(week)).format('YYYY-ww')
+        }else{
+          param.week = moment().format('YYYY-ww')
+        }
+        let url = this.url.getClasses
+        url+='?xn='+param.xn+'&xq='+param.xq+'&week='+param.week+'&studentName='+param.studentName
+        httpAction(url, param, 'get').then((res) => {
+          if (res.success) {
+            this.classesDataSource = res.result
+          } else {
+            this.$message.warning(res.message);
+          }
+        })
       },
     }
   }
