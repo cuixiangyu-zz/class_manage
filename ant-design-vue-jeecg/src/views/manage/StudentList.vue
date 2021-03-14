@@ -394,7 +394,6 @@
           })
         }
       },
-      },
       showModal(record) {
         this.visible = true;
         console.log(record)
