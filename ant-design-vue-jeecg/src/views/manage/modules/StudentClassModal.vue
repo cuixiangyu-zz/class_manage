@@ -73,6 +73,11 @@
           <a-week-picker v-decorator="['weekEnd', validatorRules.weekEnd]"  placeholder="请输入课程结束周" format="YYYY-ww" />
 <!--          <a-input v-decorator="['weekEnd']" placeholder="请输入课程结束周"></a-input>-->
         </a-form-item>
+        <a-form-item label="单双周" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag type="list" v-decorator="['isSingle', { rules: [{ required: true}] }]" :triggerChange="true" placeholder="请选择"
+                             dictCode="is_single"/>
+          <!--          <a-input v-decorator="['xn']" placeholder="请输入学年"></a-input>-->
+        </a-form-item>
         <a-form-item label="教室" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['location']" placeholder="请输入教室"></a-input>
         </a-form-item>

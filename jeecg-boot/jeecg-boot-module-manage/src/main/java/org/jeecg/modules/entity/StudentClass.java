@@ -89,6 +89,12 @@ public class StudentClass implements Serializable {
     @ApiModelProperty(value = "课程周范围")
     private String weekEnd;
 
+    /**单双周*/
+    @Excel(name = "单双周", width = 15)
+    @ApiModelProperty(value = "单双周")
+    @Dict(dicCode = "is_single")
+    private String isSingle;
+
 	/**教室*/
 	@Excel(name = "教室", width = 15)
     @ApiModelProperty(value = "教室")

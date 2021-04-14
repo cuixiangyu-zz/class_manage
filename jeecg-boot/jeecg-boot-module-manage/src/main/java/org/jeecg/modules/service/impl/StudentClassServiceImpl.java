@@ -51,6 +51,10 @@ public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, Stu
     }
 
     private List<Map<String, String>> getClassesByStudent(String studentId, String week,String xn,String xq){
-        return studentClassMapper.getClassesByStudent(studentId,week,xn,xq);
+        String isSingle = "0";
+        if(Integer.parseInt(week.substring(5,7))%2==1){
+            isSingle = "1";
+        }
+        return studentClassMapper.getClassesByStudent(studentId,week,xn,xq,isSingle);
     }
 }

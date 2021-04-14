@@ -5,42 +5,40 @@
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-form-item label="课程名称">
-              <a-input placeholder="请输入课程名称" v-model="queryParam.subjectName"></a-input>
+            <a-form-item label="课程">
+              <a-input placeholder="请输入课程" v-model="queryParam.subjectId"></a-input>
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-form-item label="老师">
-              <j-search-select-tag
-                placeholder="请选择教师"
-                v-model="queryParam.teacher"
-                dict="sys_user,realname,id"
-                :async="true">
-              </j-search-select-tag>
+            <a-form-item label="作业名">
+              <a-input placeholder="请输入作业名" v-model="queryParam.taskName"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-form-item label="学年">
-              <j-dict-select-tag type="list" v-model="queryParam.xn"  placeholder="请输入学年"
-                                 dictCode="entrance_year"/>
-            </a-form-item>
-          </a-col>
-                    <template v-if="toggleSearchStatus">
-                      <a-col :xl="6" :lg="7" :md="8" :sm="24">
-                        <a-form-item label="学院">
-                          <j-dict-select-tag v-model="queryParam.institute"
-                                             placeholder="请选择学院" dictCode="college_class,name,code,type = 'institute'"/>
-                        </a-form-item>
-                      </a-col>
-                    </template>
+          <template v-if="toggleSearchStatus">
+            <a-col :xl="6" :lg="7" :md="8" :sm="24">
+              <a-form-item label="作业类型">
+                <a-input placeholder="请输入作业类型" v-model="queryParam.taskType"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :xl="6" :lg="7" :md="8" :sm="24">
+              <a-form-item label="班级id">
+                <a-input placeholder="请输入班级id" v-model="queryParam.classId"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :xl="6" :lg="7" :md="8" :sm="24">
+              <a-form-item label="截止时间">
+                <j-date placeholder="请选择截止时间" v-model="queryParam.endTime"></j-date>
+              </a-form-item>
+            </a-col>
+          </template>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
-                            <a @click="handleToggleSearch" style="margin-left: 8px">
-                              {{ toggleSearchStatus ? '收起' : '展开' }}
-                              <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
-                            </a>
+              <a @click="handleToggleSearch" style="margin-left: 8px">
+                {{ toggleSearchStatus ? '收起' : '展开' }}
+                <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
+              </a>
             </span>
           </a-col>
         </a-row>
@@ -51,7 +49,7 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('课程表')">导出</a-button>
+      <a-button type="primary" icon="download" @click="handleExportXls('作业表')">导出</a-button>
       <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
       </a-upload>
@@ -122,7 +120,7 @@
       </a-table>
     </div>
 
-    <studentClass-modal ref="modalForm" @ok="modalFormOk"></studentClass-modal>
+    <studentTask-modal ref="modalForm" @ok="modalFormOk"></studentTask-modal>
   </a-card>
 </template>
 
@@ -131,19 +129,19 @@
   import '@/assets/less/TableExpand.less'
   import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import StudentClassModal from './modules/StudentClassModal'
-  import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
+  import StudentTaskModal from './modules/StudentTaskModal'
+  import JDate from '@/components/jeecg/JDate.vue'
 
   export default {
-    name: "StudentClassList",
+    name: "StudentTaskList",
     mixins:[JeecgListMixin, mixinDevice],
     components: {
-      StudentClassModal,
-      JSearchSelectTag
+      JDate,
+      StudentTaskModal
     },
     data () {
       return {
-        description: '课程表管理页面',
+        description: '作业表管理页面',
         // 表头
         columns: [
           {
@@ -157,74 +155,38 @@
             }
           },
           {
-            title:'周几',
+            title:'课程',
             align:"center",
-            dataIndex: 'weekDay_dictText'
+            dataIndex: 'subjectId'
           },
           {
-            title:'第几节课程',
+            title:'作业名',
             align:"center",
-            dataIndex: 'section_dictText'
+            dataIndex: 'taskName'
           },
           {
-            title:'课程名称',
+            title:'作业类型',
             align:"center",
-            dataIndex: 'subjectName'
+            dataIndex: 'taskType'
           },
           {
-            title:'老师',
+            title:'班级id',
             align:"center",
-            dataIndex: 'teacher_dictText'
+            dataIndex: 'classId'
           },
           {
-            title:'课程详细周数',
+            title:'截止时间',
             align:"center",
-            dataIndex: 'weekSeq'
+            dataIndex: 'endTime',
+            customRender:function (text) {
+              return !text?"":(text.length>10?text.substr(0,10):text)
+            }
           },
           {
-            title:'课程开始周',
+            title:'附件',
             align:"center",
-            dataIndex: 'weekStart'
-          },
-          {
-            title:'课程结束周',
-            align:"center",
-            dataIndex: 'weekEnd'
-          },
-          {
-            title:'单双周',
-            align:"center",
-            dataIndex: 'isSingle_dictText'
-          },
-          {
-            title:'教室',
-            align:"center",
-            dataIndex: 'location'
-          },
-          {
-            title:'学年',
-            align:"center",
-            dataIndex: 'xn_dictText'
-          },
-          {
-            title:'学期',
-            align:"center",
-            dataIndex: 'xq_dictText'
-          },
-          {
-            title:'学院',
-            align:"center",
-            dataIndex: 'institute_dictText'
-          },
-          {
-            title:'专业',
-            align:"center",
-            dataIndex: 'major_dictText'
-          },
-          {
-            title:'班级',
-            align:"center",
-            dataIndex: 'className_dictText'
+            dataIndex: 'file',
+            scopedSlots: {customRender: 'fileSlot'}
           },
           {
             title: '操作',
@@ -236,11 +198,11 @@
           }
         ],
         url: {
-          list: "/manage/studentClass/list",
-          delete: "/manage/studentClass/delete",
-          deleteBatch: "/manage/studentClass/deleteBatch",
-          exportXlsUrl: "/manage/studentClass/exportXls",
-          importExcelUrl: "manage/studentClass/importExcel",
+          list: "/manage/studentTask/list",
+          delete: "/manage/studentTask/delete",
+          deleteBatch: "/manage/studentTask/deleteBatch",
+          exportXlsUrl: "/manage/studentTask/exportXls",
+          importExcelUrl: "manage/studentTask/importExcel",
         },
         dictOptions:{},
       }
