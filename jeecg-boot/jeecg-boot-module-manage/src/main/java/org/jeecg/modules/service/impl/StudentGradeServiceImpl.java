@@ -1,11 +1,19 @@
 package org.jeecg.modules.service.impl;
 
+import org.jeecg.common.api.vo.Result;
 import org.jeecg.modules.entity.StudentGrade;
+import org.jeecg.modules.mapper.StudentGradeItemMapper;
 import org.jeecg.modules.mapper.StudentGradeMapper;
+import org.jeecg.modules.service.IGradeRateService;
+import org.jeecg.modules.service.IStudentCheckService;
 import org.jeecg.modules.service.IStudentGradeService;
+import org.jeecg.modules.service.ITaskResultsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import java.util.Map;
 
 /**
  * @Description: 学生成绩表
@@ -16,4 +24,23 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 @Service
 public class StudentGradeServiceImpl extends ServiceImpl<StudentGradeMapper, StudentGrade> implements IStudentGradeService {
 
+    @Autowired
+    StudentGradeMapper studentGradeMapper;
+
+    @Autowired
+    StudentGradeItemMapper studentGradeItemMapper;
+
+    @Autowired
+    ITaskResultsService taskResultsService;
+
+    @Autowired
+    IStudentCheckService studentCheckService;
+
+    @Autowired
+    IGradeRateService gradeRateService;
+
+    public Result calculate(String studentId,String xq,String xn){
+        Map<String,Object> taskGrade = taskResultsService.calculateTask(studentId,xq,xn);
+        return Result.ok();
+    }
 }

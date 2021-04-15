@@ -11,4 +11,6 @@ import org.jeecg.modules.entity.GradeRate;
  */
 public interface IGradeRateService extends IService<GradeRate> {
 
+    GradeRate getBySubjectId(String id);
+
 }

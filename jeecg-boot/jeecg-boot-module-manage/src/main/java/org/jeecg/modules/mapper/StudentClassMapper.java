@@ -61,4 +61,12 @@ public interface StudentClassMapper extends BaseMapper<StudentClass> {
             " where dict_id = '1362238747963006977' order by dict.item_value "
     })
     List<Map<String, String>> getClassesByStudent(String studentId, String week,String xn,String xq,String isSingle);
+
+    @Select({
+          " select classes.subject_name as name ,classes.id as id FROM student_class classes ",
+            " LEFT JOIN student_class_detail detail ON classes.id = detail.student_class_id ",
+            " WHERE detail.jwc_account = #{studentId} ",
+            " and classes.xn = #{xn} and classes.xq = #{xq} ",
+    })
+    List<Map<String,Object>> getClassListByStudent(String studentId,String xq,String xn);
 }

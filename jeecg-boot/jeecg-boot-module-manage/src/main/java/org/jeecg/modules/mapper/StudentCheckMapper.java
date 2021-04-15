@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
 import org.jeecg.modules.entity.StudentCheck;
 
 /**
@@ -14,4 +15,10 @@ import org.jeecg.modules.entity.StudentCheck;
  */
 public interface StudentCheckMapper extends BaseMapper<StudentCheck> {
 
+    @Select({
+            " select sum(case when type='late' or type = 'leave_early' then 1 when type = 'absence' then 2) " ,
+            " from student_check " ,
+            " where student_id = #{studentId} and subject_id = #{subjectId} "
+    })
+    Double calculateGrade(String studentId, String subjectId);
 }
