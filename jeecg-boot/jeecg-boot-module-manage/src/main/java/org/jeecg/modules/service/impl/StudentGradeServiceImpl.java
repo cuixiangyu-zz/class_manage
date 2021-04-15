@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,7 +41,7 @@ public class StudentGradeServiceImpl extends ServiceImpl<StudentGradeMapper, Stu
     IGradeRateService gradeRateService;
 
     public Result calculate(String studentId,String xq,String xn){
-        Map<String,Object> taskGrade = taskResultsService.calculateTask(studentId,xq,xn);
-        return Result.ok();
+        List<Map<String,Object>> taskGrade = taskResultsService.calculateTask(studentId,xq,xn);
+        return Result.ok(taskGrade);
     }
 }

@@ -25,7 +25,6 @@
             :triggerChange="true"
             :dictOptions="majorOptions">
           </j-search-select-tag>
-          <!--          <j-dict-select-tag :triggerChange="true" v-decorator="['major']" placeholder="请选择用户名称" dictCode="college_class,name,code,type = 'major',"/>-->
         </a-form-item>
         <a-form-item label="班级" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-search-select-tag
@@ -84,12 +83,10 @@
         <a-form-item label="学年" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-dict-select-tag type="list" v-decorator="['xn', { rules: [{ required: true}] }]" :triggerChange="true" placeholder="请输入学年"
                               dictCode="entrance_year"/>
-<!--          <a-input v-decorator="['xn']" placeholder="请输入学年"></a-input>-->
         </a-form-item>
         <a-form-item label="学期" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-dict-select-tag type="list" v-decorator="['xq', { rules: [{ required: true}] }]" :triggerChange="true" placeholder="请输入学期"
                              dictCode="xq"/>
-<!--          <a-input v-decorator="['xq']" placeholder="请输入学期"></a-input>-->
         </a-form-item>
       </a-form>
     </a-spin>

@@ -105,7 +105,8 @@
 
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
-
+          <a-divider type="vertical" />
+          <a @click="addTask(record)">添加作业</a>
           <a-divider type="vertical" />
           <a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
@@ -115,6 +116,9 @@
                   <a>删除</a>
                 </a-popconfirm>
               </a-menu-item>
+              <a-menu-item>
+                <a @click="addRate(record)">添加作业成绩比例</a>
+              </a-menu-item>
             </a-menu>
           </a-dropdown>
         </span>
@@ -123,6 +127,10 @@
     </div>
 
     <studentClass-modal ref="modalForm" @ok="modalFormOk"></studentClass-modal>
+
+    <studentTask-modal ref="taskResultsForm" @ok="modalFormOk"></studentTask-modal>
+
+    <gradeRate-modal ref="gradeRateForm" @ok="modalFormOk"></gradeRate-modal>
   </a-card>
 </template>
 
@@ -133,13 +141,17 @@
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import StudentClassModal from './modules/StudentClassModal'
   import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
+  import StudentTaskModal from './modules/StudentTaskModal'
+  import GradeRateModal from './modules/GradeRateModal'
 
   export default {
     name: "StudentClassList",
     mixins:[JeecgListMixin, mixinDevice],
     components: {
       StudentClassModal,
-      JSearchSelectTag
+      JSearchSelectTag,
+      StudentTaskModal,
+      GradeRateModal
     },
     data () {
       return {
@@ -252,7 +264,17 @@
     },
     methods: {
       initDictConfig(){
-      }
+      },
+      addTask: function (record) {
+        this.$refs.taskResultsForm.add(record.id);
+        this.$refs.taskResultsForm.title = "新增";
+        this.$refs.taskResultsForm.disableSubmit = false;
+      },
+      addRate: function (record) {
+        this.$refs.gradeRateForm.add(record.id);
+        this.$refs.gradeRateForm.title = "新增";
+        this.$refs.gradeRateForm.disableSubmit = false;
+      },
     }
   }
 </script>

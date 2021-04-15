@@ -5,8 +5,13 @@
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-form-item label="课程id">
-              <a-input placeholder="请输入课程id" v-model="queryParam.subjectId"></a-input>
+            <a-form-item label="课程名">
+              <j-dict-select-tag
+                placeholder="请选择学生"
+                v-model="queryParam.subjectId"
+                dictCode="student_class,subject_name,id">
+              </j-dict-select-tag>
+<!--              <a-input placeholder="请输入课程id" v-model="queryParam.subjectId"></a-input>-->
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
@@ -26,11 +31,11 @@
     
     <!-- 操作按钮区域 -->
     <div class="table-operator">
-      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
+<!--      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>-->
       <a-button type="primary" icon="download" @click="handleExportXls('成绩比例')">导出</a-button>
-      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
+<!--      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
+      </a-upload>-->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
@@ -131,9 +136,9 @@
             }
           },
           {
-            title:'课程id',
+            title:'课程名',
             align:"center",
-            dataIndex: 'subjectId'
+            dataIndex: 'subjectId_dictText'
           },
           {
             title:'作业比例',

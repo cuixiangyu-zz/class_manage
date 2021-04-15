@@ -6,7 +6,12 @@
         <a-row :gutter="24">
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <a-form-item label="课程">
-              <a-input placeholder="请输入课程" v-model="queryParam.subjectId"></a-input>
+              <j-dict-select-tag
+                placeholder="请选择学生"
+                v-model="queryParam.subjectId"
+                dictCode="student_class,subject_name,id">
+              </j-dict-select-tag>
+<!--              <a-input placeholder="请输入课程" v-model="queryParam.subjectId"></a-input>-->
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
@@ -17,14 +22,14 @@
           <template v-if="toggleSearchStatus">
             <a-col :xl="6" :lg="7" :md="8" :sm="24">
               <a-form-item label="作业类型">
-                <a-input placeholder="请输入作业类型" v-model="queryParam.taskType"></a-input>
+                <j-dict-select-tag type="list" v-model="queryParam.taskType" dictCode="task_type" placeholder="请选择作业类型"/>
               </a-form-item>
             </a-col>
-            <a-col :xl="6" :lg="7" :md="8" :sm="24">
+<!--            <a-col :xl="6" :lg="7" :md="8" :sm="24">
               <a-form-item label="班级id">
                 <a-input placeholder="请输入班级id" v-model="queryParam.classId"></a-input>
               </a-form-item>
-            </a-col>
+            </a-col>-->
             <a-col :xl="6" :lg="7" :md="8" :sm="24">
               <a-form-item label="截止时间">
                 <j-date placeholder="请选择截止时间" v-model="queryParam.endTime"></j-date>
@@ -48,11 +53,11 @@
     
     <!-- 操作按钮区域 -->
     <div class="table-operator">
-      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
+<!--      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>-->
       <a-button type="primary" icon="download" @click="handleExportXls('作业表')">导出</a-button>
-      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
+<!--      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
+      </a-upload>-->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
@@ -103,7 +108,6 @@
 
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
-
           <a-divider type="vertical" />
           <a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
@@ -157,7 +161,7 @@
           {
             title:'课程',
             align:"center",
-            dataIndex: 'subjectId'
+            dataIndex: 'subjectId_dictText'
           },
           {
             title:'作业名',
@@ -167,13 +171,13 @@
           {
             title:'作业类型',
             align:"center",
-            dataIndex: 'taskType'
+            dataIndex: 'taskType_dictText'
           },
-          {
+          /*{
             title:'班级id',
             align:"center",
             dataIndex: 'classId'
-          },
+          },*/
           {
             title:'截止时间',
             align:"center",
@@ -214,7 +218,7 @@
     },
     methods: {
       initDictConfig(){
-      }
+      },
     }
   }
 </script>

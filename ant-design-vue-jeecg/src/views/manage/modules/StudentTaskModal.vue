@@ -11,7 +11,7 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
 
-        <a-form-item label="课程" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item v-show="false" label="课程" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['subjectId']" placeholder="请输入课程"></a-input>
         </a-form-item>
         <a-form-item label="作业名" :labelCol="labelCol" :wrapperCol="wrapperCol">
@@ -21,9 +21,10 @@
           <a-input v-decorator="['taskDetail']" placeholder="请输入作业详情"></a-input>
         </a-form-item>
         <a-form-item label="作业类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['taskType']" placeholder="请输入作业类型"></a-input>
+          <j-dict-select-tag type="list" v-decorator="['taskType', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="task_type" placeholder="请选择作业类型"/>
         </a-form-item>
-        <a-form-item label="班级id" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item v-show="false" label="班级id" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['classId']" placeholder="请输入班级id"></a-input>
         </a-form-item>
         <a-form-item label="截止时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
@@ -60,6 +61,7 @@
         width:800,
         visible: false,
         model: {},
+        subjectId : '',
         labelCol: {
           xs: { span: 24 },
           sm: { span: 5 },
@@ -80,7 +82,8 @@
     created () {
     },
     methods: {
-      add () {
+      add (id) {
+        this.subjectId = id
         this.edit({});
       },
       edit (record) {
@@ -111,6 +114,9 @@
                method = 'put';
             }
             let formData = Object.assign(this.model, values);
+            if(this.subjectId!==null&&this.subjectId!==''){
+              formData.subjectId = this.subjectId
+            }
             console.log("表单提交数据",formData)
             httpAction(httpurl,formData,method).then((res)=>{
               if(res.success){

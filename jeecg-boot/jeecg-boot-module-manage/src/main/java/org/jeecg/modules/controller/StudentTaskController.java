@@ -71,7 +71,12 @@ public class StudentTaskController extends JeecgController<StudentTask, IStudent
 		IPage<StudentTask> pageList = studentTaskService.page(page, queryWrapper);
 		return Result.ok(pageList);
 	}
-	
+
+	 @GetMapping(value = "/getTaskList")
+	 public Result<?> getTaskList(String studentId,String xq,String xn) {
+		 return studentTaskService.getTaskList(studentId,xq,xn);
+	 }
+
 	/**
 	 *   添加
 	 *

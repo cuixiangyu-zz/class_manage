@@ -11,20 +11,20 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
 
-        <a-form-item label="课程id" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="课程id" v-show="false" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['subjectId']" placeholder="请输入课程id"></a-input>
         </a-form-item>
         <a-form-item label="作业比例" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input-number v-decorator="['homeworkRate']" placeholder="请输入作业比例" style="width: 100%"/>
+          <a-input-number v-decorator="['homeworkRate',validatorRules.checkRate]" placeholder="请输入作业比例" style="width: 100%"/>
         </a-form-item>
         <a-form-item label="考勤比例" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input-number v-decorator="['checkRate']" placeholder="请输入考勤比例" style="width: 100%"/>
+          <a-input-number v-decorator="['checkRate',validatorRules.checkRate]" placeholder="请输入考勤比例" style="width: 100%"/>
         </a-form-item>
         <a-form-item label="期中成绩比例" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input-number v-decorator="['midTermGradeRate']" placeholder="请输入期中成绩比例" style="width: 100%"/>
+          <a-input-number v-decorator="['midTermGradeRate',validatorRules.checkRate]" placeholder="请输入期中成绩比例" style="width: 100%"/>
         </a-form-item>
         <a-form-item label="期末成绩比例" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input-number v-decorator="['finalTermGradeRate']" placeholder="请输入期末成绩比例" style="width: 100%"/>
+          <a-input-number v-decorator="['finalTermGradeRate',validatorRules.checkRate]" placeholder="请输入期末成绩比例" style="width: 100%"/>
         </a-form-item>
 
       </a-form>
@@ -37,6 +37,7 @@
   import { httpAction } from '@/api/manage'
   import pick from 'lodash.pick'
   import { validateDuplicateValue } from '@/utils/util'
+  import moment from "moment";
 
 
   export default {
@@ -50,6 +51,7 @@
         width:800,
         visible: false,
         model: {},
+        subjectId:'',
         labelCol: {
           xs: { span: 24 },
           sm: { span: 5 },
@@ -60,6 +62,7 @@
         },
         confirmLoading: false,
         validatorRules: {
+          checkRate:{rules:[{required: true, message: '请输入比例!'},{validator: this.checkRate}]},
         },
         url: {
           add: "/manage/gradeRate/add",
@@ -70,7 +73,8 @@
     created () {
     },
     methods: {
-      add () {
+      add (id) {
+        this.subjectId = id
         this.edit({});
       },
       edit (record) {
@@ -101,6 +105,9 @@
                method = 'put';
             }
             let formData = Object.assign(this.model, values);
+            if(this.subjectId!==null&&this.subjectId!==''){
+              formData.subjectId = this.subjectId
+            }
             console.log("表单提交数据",formData)
             httpAction(httpurl,formData,method).then((res)=>{
               if(res.success){
@@ -123,7 +130,18 @@
       popupCallback(row){
         this.form.setFieldsValue(pick(row,'subjectId','homeworkRate','checkRate','midTermGradeRate','finalTermGradeRate'))
       },
-
+      checkRate(rule,value,callback){
+        let homeworkRate = this.form.getFieldValue("homeworkRate")
+        let checkRate = this.form.getFieldValue("checkRate")
+        let midTermGradeRate = this.form.getFieldValue("midTermGradeRate")
+        let finalTermGradeRate = this.form.getFieldValue("finalTermGradeRate")
+        var totle = homeworkRate+checkRate+midTermGradeRate+finalTermGradeRate
+        if(totle!==undefined&&totle!==100){
+          callback("比例之和必须为100!")
+        }else{
+          callback()
+        }
+      },
       
     }
   }

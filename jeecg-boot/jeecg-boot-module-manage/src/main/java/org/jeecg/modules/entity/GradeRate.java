@@ -57,6 +57,7 @@ public class GradeRate implements Serializable {
 	/**课程id*/
 	@Excel(name = "课程id", width = 15)
     @ApiModelProperty(value = "课程id")
+    @Dict(dicCode = "id",dictTable="student_class",dicText="subject_name")
     private java.lang.String subjectId;
 	/**作业比例*/
 	@Excel(name = "作业比例", width = 15)

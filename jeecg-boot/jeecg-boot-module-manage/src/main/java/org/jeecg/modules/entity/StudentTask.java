@@ -57,6 +57,7 @@ public class StudentTask implements Serializable {
 	/**课程*/
 	@Excel(name = "课程", width = 15)
     @ApiModelProperty(value = "课程")
+    @Dict(dicCode = "id",dictTable="student_class",dicText="subject_name")
     private java.lang.String subjectId;
 	/**作业名*/
 	@Excel(name = "作业名", width = 15)
@@ -69,6 +70,7 @@ public class StudentTask implements Serializable {
 	/**作业类型*/
 	@Excel(name = "作业类型", width = 15)
     @ApiModelProperty(value = "作业类型")
+    @Dict(dicCode = "task_type")
     private java.lang.String taskType;
 	/**班级id*/
 	@Excel(name = "班级id", width = 15)

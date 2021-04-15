@@ -3,6 +3,7 @@ package org.jeecg.modules.service.impl;
 
 import org.jeecg.modules.entity.GradeRate;
 import org.jeecg.modules.mapper.GradeRateMapper;
+import org.jeecg.modules.online.cgreport.service.CgReportExcelServiceI;
 import org.jeecg.modules.service.IGradeRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,8 @@ public class GradeRateServiceImpl extends ServiceImpl<GradeRateMapper, GradeRate
         GradeRate gradeRate = gradeRateMapper.getBySubjectId(entity.getSubjectId());
         if(gradeRate!=null){
             entity.setId(gradeRate.getId());
+            return super.updateById(entity);
         }
-        return super.saveOrUpdate(entity);
+        return super.save(entity);
     }
 }

@@ -1,6 +1,7 @@
 package org.jeecg.modules.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.jeecg.common.api.vo.Result;
 import org.jeecg.modules.entity.StudentTask;
 
 /**
@@ -11,4 +12,5 @@ import org.jeecg.modules.entity.StudentTask;
  */
 public interface IStudentTaskService extends IService<StudentTask> {
 
+    Result<?> getTaskList(String studentId, String xq, String xn);
 }
