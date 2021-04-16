@@ -1,6 +1,8 @@
 package org.jeecg.modules.controller;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -163,6 +165,15 @@ public class StudentController extends JeecgController<Student, IStudentService>
 		}else{
 			return Result.ok(null);
 		}
+	 }
+
+	 @GetMapping(value = "/queryBySubjectId")
+	 public Result<?> queryBySubjectId(@RequestParam(name="subjectId",required=true) String subjectId) {
+		 List<Map<String,String>> result = studentService.getBySubjectId(subjectId);
+		 if(result==null) {
+			 return Result.error("未找到对应数据");
+		 }
+		 return Result.ok(result);
 	 }
 
 }

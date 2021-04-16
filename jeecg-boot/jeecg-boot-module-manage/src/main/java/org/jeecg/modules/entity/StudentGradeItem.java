@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -62,6 +63,12 @@ public class StudentGradeItem implements Serializable {
 	@Excel(name = "课程id", width = 15)
     @ApiModelProperty(value = "课程id")
     private java.lang.String subjectId;
+
+    @Excel(name = "课程id", width = 15)
+    @ApiModelProperty(value = "课程id")
+    @TableField(exist = false)
+    private java.lang.String subjectName;
+
 	/**作业成绩*/
 	@Excel(name = "作业成绩", width = 15)
     @ApiModelProperty(value = "作业成绩")

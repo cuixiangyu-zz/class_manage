@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Description: 学生表
  * @Author: jeecg-boot
@@ -28,5 +31,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         }
         Student student = studentMapper.selectByStudentCode(studentCode);
         return student != null;
+    }
+
+    @Override
+    public List<Map<String, String>> getBySubjectId(String subjectId) {
+        return studentMapper.getBySubjectId(subjectId);
     }
 }

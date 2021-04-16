@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
 import org.jeecg.modules.entity.StudentGrade;
 
 /**
@@ -14,4 +15,8 @@ import org.jeecg.modules.entity.StudentGrade;
  */
 public interface StudentGradeMapper extends BaseMapper<StudentGrade> {
 
+    @Select({
+            " select * from student_grade where student_id = #{studentId} and xq = #{xq} and xn=#{xn}"
+    })
+    StudentGrade getByStudentAndXqXn(String studentId, String xq, String xn);
 }

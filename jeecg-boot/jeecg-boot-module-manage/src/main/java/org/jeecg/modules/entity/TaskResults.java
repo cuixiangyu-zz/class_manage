@@ -57,10 +57,12 @@ public class TaskResults implements Serializable {
 	/**学生id*/
 	@Excel(name = "学生id", width = 15)
     @ApiModelProperty(value = "学生id")
+    @Dict(dicCode = "id",dictTable="student",dicText="name")
     private java.lang.String studentId;
 	/**作业id*/
 	@Excel(name = "作业id", width = 15)
     @ApiModelProperty(value = "作业id")
+    @Dict(dicCode = "id",dictTable="student_task",dicText="task_name")
     private java.lang.String taskId;
 	/**成绩*/
 	@Excel(name = "成绩", width = 15)

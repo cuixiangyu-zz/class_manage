@@ -2,6 +2,7 @@ package org.jeecg.modules.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.jeecg.common.api.vo.Result;
+import org.jeecg.modules.entity.StudentGradeItem;
 import org.jeecg.modules.entity.TaskResults;
 
 import java.util.List;
@@ -17,5 +18,7 @@ public interface ITaskResultsService extends IService<TaskResults> {
 
     Result updateTask(TaskResults taskResults);
 
-    List<Map<String,Object>> calculateTask(String studentId, String xq, String xn);
+    List<StudentGradeItem> calculateTask(String studentId, String xq, String xn);
+
+    List<StudentGradeItem> getGradeList(String studentId, String xq, String xn);
 }

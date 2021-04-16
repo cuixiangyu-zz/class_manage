@@ -16,7 +16,7 @@ import org.jeecg.modules.entity.StudentCheck;
 public interface StudentCheckMapper extends BaseMapper<StudentCheck> {
 
     @Select({
-            " select sum(case when type='late' or type = 'leave_early' then 1 when type = 'absence' then 2) " ,
+            " select sum(case when type='late' or type = 'leave_early' then 1 when type = 'absence' then 2 end) " ,
             " from student_check " ,
             " where student_id = #{studentId} and subject_id = #{subjectId} "
     })

@@ -136,14 +136,14 @@
             }
           },
           {
-            title:'学生id',
+            title:'学生',
             align:"center",
-            dataIndex: 'studentId'
+            dataIndex: 'studentId_dictText'
           },
           {
-            title:'作业id',
+            title:'作业',
             align:"center",
-            dataIndex: 'taskId'
+            dataIndex: 'taskId_dictText'
           },
           {
             title:'成绩',

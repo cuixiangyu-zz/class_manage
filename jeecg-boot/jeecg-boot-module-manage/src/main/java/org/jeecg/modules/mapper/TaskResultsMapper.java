@@ -22,7 +22,7 @@ public interface TaskResultsMapper extends BaseMapper<TaskResults> {
     TaskResults getByTaskAndStudent(String taskId,String studentId);
 
     @Select({
-            " select avg(case when result.results is null or result.results = '' then 0 else result.results ) " ,
+            " select avg(case when result.results is null or result.results = '' then 0 else result.results end ) " ,
             " from task_results result left join student_task task on result.task_id = task.id ",
             " where result.student_id = #{studentId} and task.subject_id = #{subjectId} and task.task_type = 'homeWork'"
     })
@@ -32,5 +32,5 @@ public interface TaskResultsMapper extends BaseMapper<TaskResults> {
             " select result.results   from task_results result left join student_task task on result.task_id = task.id ",
             " where result.student_id = #{studentId} and task.subject_id = #{subjectId} and task.task_type = #{taskType}"
     })
-    Double getByTaskType(String studentId, String id,String taskType);
+    Double getByTaskType(String studentId, String subjectId,String taskType);
 }

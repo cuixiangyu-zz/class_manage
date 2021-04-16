@@ -124,6 +124,8 @@
           <a-divider type="vertical" />
           <a @click="showModal(record)">查看课程表</a>
           <a-divider type="vertical" />
+          <a @click="showGrade(record)">查看成绩单</a>
+          <a-divider type="vertical" />
           <a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
             <a-menu slot="overlay">
@@ -141,6 +143,7 @@
 
     <student-modal ref="modalForm" @ok="modalFormOk"></student-modal>
 
+    <!--课程表-->
     <a-modal
       title="课程表"
       :visible="visible"
@@ -186,6 +189,55 @@
         :columns="classesColumns"
         :dataSource="classesDataSource"
         :loading="classesLoading"
+        pagination="false"
+        class="j-table-force-nowrap"
+        @change="handleTableChange">
+
+      </a-table>
+    </a-modal>
+
+
+    <!--成绩单-->
+    <a-modal
+      title="成绩单"
+      :visible="gradeVisible"
+      :confirm-loading="confirmLoading"
+      @ok="handleOk"
+      @cancel="handleCancel"
+      width="800px"
+    >
+      <div class="table-page-search-wrapper">
+        <a-form layout="inline" @keyup.enter.native="searchGrade">
+          <a-row :gutter="24">
+            <a-col :xl="6" :lg="7" :md="8" :sm="24">
+              <a-form-item label="学年">
+                <j-dict-select-tag type="list" v-model="gradeQueryParam.xn"  placeholder="请输入学年"
+                                   dictCode="entrance_year"/>
+              </a-form-item>
+            </a-col><a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="学期">
+              <j-dict-select-tag type="list" v-model="gradeQueryParam.xq"  placeholder="请输入学期"
+                                 dictCode="xq"/>
+            </a-form-item>
+          </a-col>
+
+            <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+              <a-button type="primary" @click="searchGrade" icon="search">查询</a-button>
+              <a-button type="primary" @click="calculateGrade" icon="search">重新计算成绩</a-button>
+            </span>
+            </a-col>
+          </a-row>
+        </a-form>
+      </div>
+      <a-table
+        ref="gradeTable"
+        size="middle"
+        bordered
+        rowKey="id"
+        :columns="gradeColumns"
+        :dataSource="gradeDataSource"
+        :loading="gradeLoading"
         pagination="false"
         class="j-table-force-nowrap"
         @change="handleTableChange">
@@ -330,7 +382,44 @@
         ],
         classesLoading:false,
         classesDataSource:[],
+
+        gradeColumns: [
+          {
+            title: '课程',
+            align: "center",
+            dataIndex: 'subjectName',
+          },
+          {
+            title: '作业成绩',
+            align: "center",
+            dataIndex: 'homeworkGrade'
+          },
+          {
+            title: '考勤成绩',
+            align: "center",
+            dataIndex: 'checkGrade'
+          },
+          {
+            title: '期中成绩',
+            align: "center",
+            dataIndex: 'midTermGrade'
+          },
+          {
+            title: '期末成绩',
+            align: "center",
+            dataIndex: 'finalTermGrade'
+          },
+          {
+            title: '总成绩',
+            align: "center",
+            dataIndex: 'totleGrade'
+          },
+        ],
+        gradeLoading:false,
+        gradeDataSource:[],
+
         visible: false,
+        gradeVisible: false,
         confirmLoading: false,
         url: {
           list: "/manage/student/list",
@@ -339,6 +428,8 @@
           exportXlsUrl: "/manage/student/exportXls",
           importExcelUrl: "manage/student/importExcel",
           getClasses: "/manage/studentClass/getClasses",
+          getGrade: "/manage/studentGrade/getGradeList",
+          calculateGrade: "/manage/studentGrade/calculateGrade"
         },
         dictOptions:{},
         majorOptions: [],
@@ -348,6 +439,11 @@
           xq:'up',
           week:'',
           studentName:''
+        },
+        gradeQueryParam:{
+          xn:'2020',
+          xq:'up',
+          studentId:''
         }
       }
     },
@@ -400,17 +496,25 @@
         this.classesQueryParam.studentName = record.name
         this.searchClasses();
       },
+      showGrade(record) {
+        this.gradeVisible = true;
+        console.log(record);
+        this.gradeQueryParam.studentId = record.id;
+        this.searchGrade();
+      },
       handleOk(e) {
         this.ModalText = 'The modal will be closed after two seconds';
         this.confirmLoading = true;
         setTimeout(() => {
           this.visible = false;
+          this.gradeVisible = false;
           this.confirmLoading = false;
         }, 2000);
       },
       handleCancel(e) {
         console.log('Clicked cancel button');
         this.visible = false;
+        this.gradeVisible = false;
       },
       searchClasses() {
         //this.visible = true;
@@ -426,6 +530,34 @@
         httpAction(url, param, 'get').then((res) => {
           if (res.success) {
             this.classesDataSource = res.result
+          } else {
+            this.$message.warning(res.message);
+          }
+        })
+      },
+
+      searchGrade() {
+        let param = this.gradeQueryParam;
+
+        let url = this.url.getGrade;
+        url+='?xn='+param.xn+'&xq='+param.xq+'&studentId='+param.studentId;
+        httpAction(url, param, 'get').then((res) => {
+          if (res.success) {
+            this.gradeDataSource = res.result
+          } else {
+            this.$message.warning(res.message);
+          }
+        })
+      },
+
+      calculateGrade() {
+        let param = this.gradeQueryParam;
+
+        let url = this.url.calculateGrade;
+        url+='?xn='+param.xn+'&xq='+param.xq+'&studentId='+param.studentId;
+        httpAction(url, param, 'get').then((res) => {
+          if (res.success) {
+            this.gradeDataSource = res.result
           } else {
             this.$message.warning(res.message);
           }

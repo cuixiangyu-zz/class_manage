@@ -57,10 +57,12 @@ public class StudentCheck implements Serializable {
 	/**课程id*/
 	@Excel(name = "课程id", width = 15)
     @ApiModelProperty(value = "课程id")
+    @Dict(dicCode = "id",dictTable="student_class",dicText="subject_name")
     private java.lang.String subjectId;
 	/**学生id*/
 	@Excel(name = "学生id", width = 15)
     @ApiModelProperty(value = "学生id")
+    @Dict(dicCode = "id",dictTable="student",dicText="name")
     private java.lang.String studentId;
 	/**日期*/
 	@Excel(name = "日期", width = 15, format = "yyyy-MM-dd")
@@ -71,5 +73,6 @@ public class StudentCheck implements Serializable {
 	/**类型*/
 	@Excel(name = "类型", width = 15)
     @ApiModelProperty(value = "类型")
+    @Dict(dicCode = "check_type")
     private java.lang.String type;
 }

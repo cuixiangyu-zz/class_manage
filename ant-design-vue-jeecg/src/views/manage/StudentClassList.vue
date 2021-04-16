@@ -119,6 +119,9 @@
               <a-menu-item>
                 <a @click="addRate(record)">添加作业成绩比例</a>
               </a-menu-item>
+              <a-menu-item>
+                <a @click="addCheck(record)">添加考勤信息</a>
+              </a-menu-item>
             </a-menu>
           </a-dropdown>
         </span>
@@ -131,6 +134,8 @@
     <studentTask-modal ref="taskResultsForm" @ok="modalFormOk"></studentTask-modal>
 
     <gradeRate-modal ref="gradeRateForm" @ok="modalFormOk"></gradeRate-modal>
+
+    <studentCheck-modal ref="studentCheckForm" @ok="modalFormOk"></studentCheck-modal>
   </a-card>
 </template>
 
@@ -143,6 +148,7 @@
   import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
   import StudentTaskModal from './modules/StudentTaskModal'
   import GradeRateModal from './modules/GradeRateModal'
+  import StudentCheckModal from './modules/StudentCheckModal'
 
   export default {
     name: "StudentClassList",
@@ -151,7 +157,8 @@
       StudentClassModal,
       JSearchSelectTag,
       StudentTaskModal,
-      GradeRateModal
+      GradeRateModal,
+      StudentCheckModal
     },
     data () {
       return {
@@ -274,6 +281,11 @@
         this.$refs.gradeRateForm.add(record.id);
         this.$refs.gradeRateForm.title = "新增";
         this.$refs.gradeRateForm.disableSubmit = false;
+      },
+      addCheck: function (record) {
+        this.$refs.studentCheckForm.add(record.id);
+        this.$refs.studentCheckForm.title = "新增";
+        this.$refs.studentCheckForm.disableSubmit = false;
       },
     }
   }

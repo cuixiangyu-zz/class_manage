@@ -43,11 +43,11 @@
     
     <!-- 操作按钮区域 -->
     <div class="table-operator">
-      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
+      <!--<a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>-->
       <a-button type="primary" icon="download" @click="handleExportXls('考勤表')">导出</a-button>
-      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
+      <!--<a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
+      </a-upload>-->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
@@ -152,12 +152,12 @@
           {
             title:'课程id',
             align:"center",
-            dataIndex: 'subjectId'
+            dataIndex: 'subjectId_dictText'
           },
           {
             title:'学生id',
             align:"center",
-            dataIndex: 'studentId'
+            dataIndex: 'studentId_dictText'
           },
           {
             title:'日期',
@@ -170,7 +170,7 @@
           {
             title:'类型',
             align:"center",
-            dataIndex: 'type'
+            dataIndex: 'type_dictText'
           },
           {
             title: '操作',

@@ -2,6 +2,7 @@ package org.jeecg.modules.service.impl;
 
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.modules.entity.StudentGrade;
+import org.jeecg.modules.entity.StudentGradeItem;
 import org.jeecg.modules.mapper.StudentGradeItemMapper;
 import org.jeecg.modules.mapper.StudentGradeMapper;
 import org.jeecg.modules.service.IGradeRateService;
@@ -41,7 +42,17 @@ public class StudentGradeServiceImpl extends ServiceImpl<StudentGradeMapper, Stu
     IGradeRateService gradeRateService;
 
     public Result calculate(String studentId,String xq,String xn){
-        List<Map<String,Object>> taskGrade = taskResultsService.calculateTask(studentId,xq,xn);
+        List<StudentGradeItem> taskGrade = taskResultsService.calculateTask(studentId,xq,xn);
         return Result.ok(taskGrade);
+    }
+
+    public Result getGradeList(String studentId,String xq,String xn){
+        List<StudentGradeItem> taskGrade = taskResultsService.getGradeList(studentId,xq,xn);
+        return Result.ok(taskGrade);
+    }
+
+    @Override
+    public StudentGrade getByStudentAndXqXn(String studentId, String xq, String xn) {
+        return studentGradeMapper.getByStudentAndXqXn(studentId,xq,xn);
     }
 }
