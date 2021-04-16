@@ -437,7 +437,7 @@
         classesQueryParam:{
           xn:'2020',
           xq:'up',
-          week:'',
+          week:null,
           studentName:''
         },
         gradeQueryParam:{

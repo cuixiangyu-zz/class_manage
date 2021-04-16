@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : mysql
  Source Server Type    : MySQL
- Source Server Version : 50717
+ Source Server Version : 80019
  Source Host           : localhost:3306
  Source Schema         : new_manage
 
  Target Server Type    : MySQL
- Target Server Version : 50717
+ Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 16/04/2021 18:38:24
+ Date: 16/04/2021 22:32:09
 */
 
 SET NAMES utf8mb4;
@@ -92,7 +92,7 @@ CREATE TABLE `ces_order_customer`  (
   `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '客户名字',
   `sex` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '客户性别',
   `birthday` datetime(0) NULL DEFAULT NULL COMMENT '客户生日',
-  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
+  `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
   `address` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '常用地址',
   `order_main_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '订单ID',
   PRIMARY KEY (`id`) USING BTREE
@@ -122,7 +122,7 @@ CREATE TABLE `ces_order_goods`  (
   `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   `good_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品名字',
   `price` double NULL DEFAULT NULL COMMENT '价格',
-  `num` int(11) NULL DEFAULT NULL COMMENT '数量',
+  `num` int(0) NULL DEFAULT NULL COMMENT '数量',
   `zong_price` double NULL DEFAULT NULL COMMENT '单品总价',
   `order_main_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '订单ID',
   PRIMARY KEY (`id`) USING BTREE
@@ -271,7 +271,7 @@ CREATE TABLE `demo`  (
   `salary_money` decimal(10, 3) NULL DEFAULT NULL COMMENT '工资',
   `bonus_money` double(10, 2) NULL DEFAULT NULL COMMENT '奖金',
   `sex` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别 {男:1,女:2}',
-  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
+  `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
   `birthday` date NULL DEFAULT NULL COMMENT '生日',
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `content` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '个人简介',
@@ -376,13 +376,14 @@ CREATE TABLE `grade_rate`  (
 -- Records of grade_rate
 -- ----------------------------
 INSERT INTO `grade_rate` VALUES ('1382704642866716673', 'admin', '2021-04-15 22:37:31', 'admin', '2021-04-15 22:37:42', 'A01', '1362319742884057090', 10, 20, 30, 40);
+INSERT INTO `grade_rate` VALUES ('1382704642866716674', 'admin', '2021-04-15 22:37:31', 'admin', '2021-04-15 22:37:42', 'A01', 'default', 10, 20, 30, 40);
 
 -- ----------------------------
 -- Table structure for jeecg_monthly_growth_analysis
 -- ----------------------------
 DROP TABLE IF EXISTS `jeecg_monthly_growth_analysis`;
 CREATE TABLE `jeecg_monthly_growth_analysis`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
   `year` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `month` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '月份',
   `main_income` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '佣金/主营收入',
@@ -607,7 +608,7 @@ INSERT INTO `jeecg_order_ticket` VALUES ('ff197da84a9a3af53878eddc91afbb2e', '33
 -- ----------------------------
 DROP TABLE IF EXISTS `jeecg_project_nature_income`;
 CREATE TABLE `jeecg_project_nature_income`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
   `nature` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目性质',
   `insurance_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '保险经纪佣金费',
   `risk_consulting_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '风险咨询费',
@@ -637,7 +638,7 @@ DROP TABLE IF EXISTS `joa_demo`;
 CREATE TABLE `joa_demo`  (
   `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ID',
   `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请假人',
-  `days` int(11) NULL DEFAULT NULL COMMENT '请假天数',
+  `days` int(0) NULL DEFAULT NULL COMMENT '请假天数',
   `begin_date` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
   `end_date` datetime(0) NULL DEFAULT NULL COMMENT '请假结束时间',
   `reason` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请假原因',
@@ -659,7 +660,7 @@ CREATE TABLE `onl_auth_data`  (
   `rule_column` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则列',
   `rule_operator` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则条件 大于小于like',
   `rule_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则值',
-  `status` int(11) NULL DEFAULT NULL COMMENT '1有效 0无效',
+  `status` int(0) NULL DEFAULT NULL COMMENT '1有效 0无效',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -675,10 +676,10 @@ CREATE TABLE `onl_auth_page`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT ' 主键',
   `cgform_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'online表id',
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字段名/按钮编码',
-  `type` int(11) NULL DEFAULT NULL COMMENT '1字段 2按钮',
-  `control` int(11) NULL DEFAULT NULL COMMENT '3可编辑 5可见(仅支持两种状态值3,5)',
-  `page` int(11) NULL DEFAULT NULL COMMENT '3列表 5表单(仅支持两种状态值3,5)',
-  `status` int(11) NULL DEFAULT NULL COMMENT '1有效 0无效',
+  `type` int(0) NULL DEFAULT NULL COMMENT '1字段 2按钮',
+  `control` int(0) NULL DEFAULT NULL COMMENT '3可编辑 5可见(仅支持两种状态值3,5)',
+  `page` int(0) NULL DEFAULT NULL COMMENT '3列表 5表单(仅支持两种状态值3,5)',
+  `status` int(0) NULL DEFAULT NULL COMMENT '1有效 0无效',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -694,7 +695,7 @@ CREATE TABLE `onl_auth_relation`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `role_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色id',
   `auth_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '权限id',
-  `type` int(11) NULL DEFAULT NULL COMMENT '1字段 2按钮 3数据权限',
+  `type` int(0) NULL DEFAULT NULL COMMENT '1字段 2按钮 3数据权限',
   `cgform_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'online表单ID',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
@@ -713,7 +714,7 @@ CREATE TABLE `onl_cgform_button`  (
   `EXP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表达式',
   `CGFORM_HEAD_ID` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表单ID',
   `OPT_TYPE` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '按钮类型',
-  `ORDER_NUM` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `ORDER_NUM` int(0) NULL DEFAULT NULL COMMENT '排序',
   `OPT_POSITION` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '按钮位置1侧面 2底部',
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `index_formid`(`CGFORM_HEAD_ID`) USING BTREE,
@@ -833,15 +834,15 @@ CREATE TABLE `onl_cgform_field`  (
   `db_is_key` tinyint(1) NULL DEFAULT NULL COMMENT '是否主键 0否 1是',
   `db_is_null` tinyint(1) NULL DEFAULT NULL COMMENT '是否允许为空0否 1是',
   `db_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '数据库字段类型',
-  `db_length` int(11) NOT NULL COMMENT '数据库字段长度',
-  `db_point_length` int(11) NULL DEFAULT NULL COMMENT '小数点',
+  `db_length` int(0) NOT NULL COMMENT '数据库字段长度',
+  `db_point_length` int(0) NULL DEFAULT NULL COMMENT '小数点',
   `db_default_val` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表字段默认值',
   `dict_field` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字典code',
   `dict_table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字典表',
   `dict_text` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字典Text',
   `field_show_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表单控件类型',
   `field_href` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '跳转URL',
-  `field_length` int(11) NULL DEFAULT NULL COMMENT '表单控件长度',
+  `field_length` int(0) NULL DEFAULT NULL COMMENT '表单控件长度',
   `field_valid_type` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表单字段校验规则',
   `field_must_input` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字段是否必填',
   `field_extend_json` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '扩展参数JSON',
@@ -853,7 +854,7 @@ CREATE TABLE `onl_cgform_field`  (
   `query_mode` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '查询模式',
   `main_table` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '外键主表名',
   `main_field` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '外键主键字段',
-  `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `order_num` int(0) NULL DEFAULT NULL COMMENT '排序',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
@@ -1656,8 +1657,8 @@ DROP TABLE IF EXISTS `onl_cgform_head`;
 CREATE TABLE `onl_cgform_head`  (
   `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键ID',
   `table_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '表名',
-  `table_type` int(11) NOT NULL COMMENT '表类型: 0单表、1主表、2附表',
-  `table_version` int(11) NULL DEFAULT 1 COMMENT '表版本',
+  `table_type` int(0) NOT NULL COMMENT '表类型: 0单表、1主表、2附表',
+  `table_version` int(0) NULL DEFAULT 1 COMMENT '表版本',
   `table_txt` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '表说明',
   `is_checkbox` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '是否带checkbox',
   `is_db_synch` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N' COMMENT '同步数据库状态',
@@ -1666,18 +1667,18 @@ CREATE TABLE `onl_cgform_head`  (
   `id_sequence` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '主键生成序列',
   `id_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '主键类型',
   `query_mode` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '查询模式',
-  `relation_type` int(11) NULL DEFAULT NULL COMMENT '映射关系 0一对多  1一对一',
+  `relation_type` int(0) NULL DEFAULT NULL COMMENT '映射关系 0一对多  1一对一',
   `sub_table_str` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '子表',
-  `tab_order_num` int(11) NULL DEFAULT NULL COMMENT '附表排序序号',
+  `tab_order_num` int(0) NULL DEFAULT NULL COMMENT '附表排序序号',
   `tree_parent_id_field` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '树形表单父id',
   `tree_id_field` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '树表主键字段',
   `tree_fieldname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '树开表单列字段',
   `form_category` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'bdfl_ptbd' COMMENT '表单分类',
   `form_template` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'PC表单模板',
   `form_template_mobile` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表单模板样式(移动端)',
-  `scroll` int(11) NULL DEFAULT 0 COMMENT '是否有横向滚动条',
-  `copy_version` int(11) NULL DEFAULT NULL COMMENT '复制版本号',
-  `copy_type` int(11) NULL DEFAULT 0 COMMENT '复制表类型1为复制表 0为原始表',
+  `scroll` int(0) NULL DEFAULT 0 COMMENT '是否有横向滚动条',
+  `copy_version` int(0) NULL DEFAULT NULL COMMENT '复制版本号',
+  `copy_type` int(0) NULL DEFAULT 0 COMMENT '复制表类型1为复制表 0为原始表',
   `physic_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '原始表ID',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
@@ -1746,7 +1747,7 @@ CREATE TABLE `onl_cgform_index`  (
   `update_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
   `is_db_synch` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'N' COMMENT '是否同步数据库 N未同步 Y已同步',
-  `del_flag` int(11) NULL DEFAULT 0 COMMENT '是否删除 0未删除 1删除',
+  `del_flag` int(0) NULL DEFAULT 0 COMMENT '是否删除 0未删除 1删除',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_table_id`(`cgform_head_id`) USING BTREE,
   INDEX `idx_oci_cgform_head_id`(`cgform_head_id`) USING BTREE
@@ -1792,15 +1793,15 @@ CREATE TABLE `onl_cgreport_item`  (
   `cgrhead_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '报表ID',
   `field_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字段名字',
   `field_txt` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字段文本',
-  `field_width` int(11) NULL DEFAULT NULL,
+  `field_width` int(0) NULL DEFAULT NULL,
   `field_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字段类型',
   `search_mode` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '查询模式',
-  `is_order` int(11) NULL DEFAULT 0 COMMENT '是否排序  0否,1是',
-  `is_search` int(11) NULL DEFAULT 0 COMMENT '是否查询  0否,1是',
+  `is_order` int(0) NULL DEFAULT 0 COMMENT '是否排序  0否,1是',
+  `is_search` int(0) NULL DEFAULT 0 COMMENT '是否查询  0否,1是',
   `dict_code` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字典CODE',
   `field_href` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字段跳转URL',
-  `is_show` int(11) NULL DEFAULT 1 COMMENT '是否显示  0否,1显示',
-  `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `is_show` int(0) NULL DEFAULT 1 COMMENT '是否显示  0否,1显示',
+  `order_num` int(0) NULL DEFAULT NULL COMMENT '排序',
   `replace_val` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '取值表达式',
   `is_total` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否合计 0否,1是（仅对数值有效）',
   `group_title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分组标题',
@@ -1853,7 +1854,7 @@ CREATE TABLE `onl_cgreport_param`  (
   `param_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '参数字段',
   `param_txt` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数文本',
   `param_value` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数默认值',
-  `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `order_num` int(0) NULL DEFAULT NULL COMMENT '排序',
   `create_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
   `update_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
@@ -1933,9 +1934,9 @@ CREATE TABLE `qrtz_fired_triggers`  (
   `TRIGGER_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `INSTANCE_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `FIRED_TIME` bigint(20) NOT NULL,
-  `SCHED_TIME` bigint(20) NOT NULL,
-  `PRIORITY` int(11) NOT NULL,
+  `FIRED_TIME` bigint(0) NOT NULL,
+  `SCHED_TIME` bigint(0) NOT NULL,
+  `PRIORITY` int(0) NOT NULL,
   `STATE` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `JOB_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `JOB_GROUP` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -2003,15 +2004,15 @@ DROP TABLE IF EXISTS `qrtz_scheduler_state`;
 CREATE TABLE `qrtz_scheduler_state`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `INSTANCE_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `LAST_CHECKIN_TIME` bigint(20) NOT NULL,
-  `CHECKIN_INTERVAL` bigint(20) NOT NULL,
+  `LAST_CHECKIN_TIME` bigint(0) NOT NULL,
+  `CHECKIN_INTERVAL` bigint(0) NOT NULL,
   PRIMARY KEY (`SCHED_NAME`, `INSTANCE_NAME`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', 'DESKTOP-3OU267B1618569146431', 1618569501166, 10000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', '崔祥瑜1618577942819', 1618583528502, 10000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -2021,9 +2022,9 @@ CREATE TABLE `qrtz_simple_triggers`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `TRIGGER_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `REPEAT_COUNT` bigint(20) NOT NULL,
-  `REPEAT_INTERVAL` bigint(20) NOT NULL,
-  `TIMES_TRIGGERED` bigint(20) NOT NULL,
+  `REPEAT_COUNT` bigint(0) NOT NULL,
+  `REPEAT_INTERVAL` bigint(0) NOT NULL,
+  `TIMES_TRIGGERED` bigint(0) NOT NULL,
   PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
   CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'InnoDB free: 504832 kB; (`SCHED_NAME` `TRIGGER_NAME` `TRIGGE' ROW_FORMAT = Dynamic;
@@ -2039,10 +2040,10 @@ CREATE TABLE `qrtz_simprop_triggers`  (
   `STR_PROP_1` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `STR_PROP_2` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `STR_PROP_3` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `INT_PROP_1` int(11) NULL DEFAULT NULL,
-  `INT_PROP_2` int(11) NULL DEFAULT NULL,
-  `LONG_PROP_1` bigint(20) NULL DEFAULT NULL,
-  `LONG_PROP_2` bigint(20) NULL DEFAULT NULL,
+  `INT_PROP_1` int(0) NULL DEFAULT NULL,
+  `INT_PROP_2` int(0) NULL DEFAULT NULL,
+  `LONG_PROP_1` bigint(0) NULL DEFAULT NULL,
+  `LONG_PROP_2` bigint(0) NULL DEFAULT NULL,
   `DEC_PROP_1` decimal(13, 4) NULL DEFAULT NULL,
   `DEC_PROP_2` decimal(13, 4) NULL DEFAULT NULL,
   `BOOL_PROP_1` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -2062,15 +2063,15 @@ CREATE TABLE `qrtz_triggers`  (
   `JOB_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `JOB_GROUP` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `DESCRIPTION` varchar(250) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `NEXT_FIRE_TIME` bigint(20) NULL DEFAULT NULL,
-  `PREV_FIRE_TIME` bigint(20) NULL DEFAULT NULL,
-  `PRIORITY` int(11) NULL DEFAULT NULL,
+  `NEXT_FIRE_TIME` bigint(0) NULL DEFAULT NULL,
+  `PREV_FIRE_TIME` bigint(0) NULL DEFAULT NULL,
+  `PRIORITY` int(0) NULL DEFAULT NULL,
   `TRIGGER_STATE` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `TRIGGER_TYPE` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `START_TIME` bigint(20) NOT NULL,
-  `END_TIME` bigint(20) NULL DEFAULT NULL,
+  `START_TIME` bigint(0) NOT NULL,
+  `END_TIME` bigint(0) NULL DEFAULT NULL,
   `CALENDAR_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `MISFIRE_INSTR` smallint(6) NULL DEFAULT NULL,
+  `MISFIRE_INSTR` smallint(0) NULL DEFAULT NULL,
   `JOB_DATA` blob NULL,
   PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
   INDEX `SCHED_NAME`(`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) USING BTREE,
@@ -2199,7 +2200,7 @@ INSERT INTO `student_class` VALUES ('1362319742884057090', 'admin', '2021-02-18 
 -- ----------------------------
 DROP TABLE IF EXISTS `student_class_detail`;
 CREATE TABLE `student_class_detail`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
   `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -2260,7 +2261,7 @@ CREATE TABLE `student_grade_item`  (
 -- ----------------------------
 -- Records of student_grade_item
 -- ----------------------------
-INSERT INTO `student_grade_item` VALUES ('1383005635710930946', 'admin', '2021-04-16 18:33:33', NULL, NULL, 'A01', '1382995869420810242', '1362319742884057090', 10, 99, 0, 0, 20.8);
+INSERT INTO `student_grade_item` VALUES ('1383052912948387841', 'admin', '2021-04-16 21:41:25', NULL, NULL, 'A01', '1382995869420810242', '1362319742884057090', 45, 99, 90, 60, 75.3);
 
 -- ----------------------------
 -- Table structure for student_leave
@@ -2313,6 +2314,9 @@ CREATE TABLE `student_task`  (
 -- Records of student_task
 -- ----------------------------
 INSERT INTO `student_task` VALUES ('1382690745824743425', 'admin', '2021-04-15 21:42:18', 'admin', '2021-04-15 22:37:59', 'A01', '1362319742884057090', '语文作业', '啊啊啊啊啊啊', 'homework', NULL, '2021-04-17 00:00:00', NULL);
+INSERT INTO `student_task` VALUES ('1383051971700432898', 'admin', '2021-04-16 21:37:41', NULL, NULL, 'A01', '1362319742884057090', '期中考试', '期中考试', 'mid_term', NULL, '2021-04-25 00:00:00', NULL);
+INSERT INTO `student_task` VALUES ('1383052033046323201', 'admin', '2021-04-16 21:37:55', NULL, NULL, 'A01', '1362319742884057090', '期末考试', '期末考试', 'final_term', NULL, '2021-04-25 00:00:00', NULL);
+INSERT INTO `student_task` VALUES ('1383052091787550722', 'admin', '2021-04-16 21:38:09', NULL, NULL, 'A01', '1362319742884057090', '数学作业', '数学作业', 'homework', NULL, '2021-04-30 00:00:00', NULL);
 
 -- ----------------------------
 -- Table structure for sys_announcement
@@ -2471,7 +2475,7 @@ CREATE TABLE `sys_data_log`  (
   `data_table` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表名',
   `data_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '数据ID',
   `data_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '数据内容',
-  `data_version` int(11) NULL DEFAULT NULL COMMENT '版本号',
+  `data_version` int(0) NULL DEFAULT NULL COMMENT '版本号',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sindex`(`data_table`, `data_id`) USING BTREE,
   INDEX `idx_sdl_data_table_id`(`data_table`, `data_id`) USING BTREE
@@ -2538,7 +2542,7 @@ CREATE TABLE `sys_depart`  (
   `depart_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '机构/部门名称',
   `depart_name_en` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '英文名',
   `depart_name_abbr` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '缩写',
-  `depart_order` int(11) NULL DEFAULT 0 COMMENT '排序',
+  `depart_order` int(0) NULL DEFAULT 0 COMMENT '排序',
   `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `org_category` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1' COMMENT '机构类别 1组织机构，2岗位',
   `org_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '机构类型 1一级部门 2子部门',
@@ -2665,7 +2669,7 @@ CREATE TABLE `sys_dict`  (
   `dict_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典名称',
   `dict_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典编码',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
-  `del_flag` int(11) NULL DEFAULT NULL COMMENT '删除状态',
+  `del_flag` int(0) NULL DEFAULT NULL COMMENT '删除状态',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -2739,8 +2743,8 @@ CREATE TABLE `sys_dict_item`  (
   `item_text` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典项文本',
   `item_value` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典项值',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
-  `sort_order` int(11) NULL DEFAULT NULL COMMENT '排序',
-  `status` int(11) NULL DEFAULT NULL COMMENT '状态（1启用 0不启用）',
+  `sort_order` int(0) NULL DEFAULT NULL COMMENT '排序',
+  `status` int(0) NULL DEFAULT NULL COMMENT '状态（1启用 0不启用）',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -2949,11 +2953,11 @@ CREATE TABLE `sys_gateway_route`  (
   `uri` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '服务地址',
   `predicates` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '断言',
   `filters` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '过滤器',
-  `retryable` int(11) NULL DEFAULT NULL COMMENT '是否重试:0-否 1-是',
-  `strip_prefix` int(11) NULL DEFAULT NULL COMMENT '是否忽略前缀0-否 1-是',
-  `persist` int(11) NULL DEFAULT NULL COMMENT '是否为保留数据:0-否 1-是',
-  `show_api` int(11) NULL DEFAULT NULL COMMENT '是否在接口文档中展示:0-否 1-是',
-  `status` int(11) NULL DEFAULT NULL COMMENT '状态:0-无效 1-有效',
+  `retryable` int(0) NULL DEFAULT NULL COMMENT '是否重试:0-否 1-是',
+  `strip_prefix` int(0) NULL DEFAULT NULL COMMENT '是否忽略前缀0-否 1-是',
+  `persist` int(0) NULL DEFAULT NULL COMMENT '是否为保留数据:0-否 1-是',
+  `show_api` int(0) NULL DEFAULT NULL COMMENT '是否在接口文档中展示:0-否 1-是',
+  `status` int(0) NULL DEFAULT NULL COMMENT '状态:0-无效 1-有效',
   `create_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
   `update_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -2976,9 +2980,9 @@ INSERT INTO `sys_gateway_route` VALUES ('jeecg-system', 'jeecg-system', 'jeecg-s
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log`  (
   `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `log_type` int(11) NULL DEFAULT NULL COMMENT '日志类型（1登录日志，2操作日志）',
+  `log_type` int(0) NULL DEFAULT NULL COMMENT '日志类型（1登录日志，2操作日志）',
   `log_content` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '日志内容',
-  `operate_type` int(11) NULL DEFAULT NULL COMMENT '操作类型',
+  `operate_type` int(0) NULL DEFAULT NULL COMMENT '操作类型',
   `userid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作用户账号',
   `username` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作用户名称',
   `ip` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'IP',
@@ -2986,7 +2990,7 @@ CREATE TABLE `sys_log`  (
   `request_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求路径',
   `request_param` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请求参数',
   `request_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求类型',
-  `cost_time` bigint(20) NULL DEFAULT NULL COMMENT '耗时',
+  `cost_time` bigint(0) NULL DEFAULT NULL COMMENT '耗时',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -3000,7 +3004,7 @@ CREATE TABLE `sys_log`  (
   INDEX `idx_sl_log_type`(`log_type`) USING BTREE,
   INDEX `idx_sl_operate_type`(`operate_type`) USING BTREE,
   INDEX `idx_sl_create_time`(`create_time`) USING BTREE
-) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_log
@@ -5394,6 +5398,75 @@ INSERT INTO `sys_log` VALUES ('1382998000395739138', 2, '学生表-分页列表�
 INSERT INTO `sys_log` VALUES ('1383002415886286849', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7c7bcedf', NULL, 155, 'admin', '2021-04-16 18:20:46', NULL, NULL);
 INSERT INTO `sys_log` VALUES ('1383004522601299969', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@f08fc6c', NULL, 33, 'admin', '2021-04-16 18:29:08', NULL, NULL);
 INSERT INTO `sys_log` VALUES ('1383005442647117826', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@f8e5dd2', NULL, 198, 'admin', '2021-04-16 18:32:47', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383051458372149249', 1, '用户名: admin,登录成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-16 21:35:38', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383051462407069697', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7f1e42e1', NULL, 141, 'admin', '2021-04-16 21:35:39', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383051699976642561', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@57ee1784', NULL, 70, 'admin', '2021-04-16 21:36:36', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383051726849548290', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@77140063', NULL, 10, 'admin', '2021-04-16 21:36:42', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383051856122191873', 2, '作业表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentTaskController.queryPageList()', NULL, '  studentTask: StudentTask(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, taskName=null, taskDetail=null, taskType=null, classId=null, endTime=null, file=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@77eecc66', NULL, 15, 'admin', '2021-04-16 21:37:13', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383051877479587842', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, isSingle=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@2e66ff8f', NULL, 42, 'admin', '2021-04-16 21:37:18', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383051971780124673', 2, '作业表-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentTaskController.add()', NULL, '[{\"createBy\":\"admin\",\"createTime\":1618580260570,\"endTime\":1619280000000,\"id\":\"1383051971700432898\",\"subjectId\":\"1362319742884057090\",\"sysOrgCode\":\"A01\",\"taskDetail\":\"期中考试\",\"taskName\":\"期中考试\",\"taskType\":\"mid_term\"}]', NULL, 6, 'admin', '2021-04-16 21:37:41', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383051972048560129', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, isSingle=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@4dfd73f2', NULL, 14, 'admin', '2021-04-16 21:37:41', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052033054711810', 2, '作业表-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentTaskController.add()', NULL, '[{\"createBy\":\"admin\",\"createTime\":1618580275198,\"endTime\":1619280000000,\"id\":\"1383052033046323201\",\"subjectId\":\"1362319742884057090\",\"sysOrgCode\":\"A01\",\"taskDetail\":\"期末考试\",\"taskName\":\"期末考试\",\"taskType\":\"final_term\"}]', NULL, 4, 'admin', '2021-04-16 21:37:55', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052033314758658', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, isSingle=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@652d086a', NULL, 12, 'admin', '2021-04-16 21:37:55', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052091812716545', 2, '作业表-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentTaskController.add()', NULL, '[{\"createBy\":\"admin\",\"createTime\":1618580289205,\"endTime\":1619712000000,\"id\":\"1383052091787550722\",\"subjectId\":\"1362319742884057090\",\"sysOrgCode\":\"A01\",\"taskDetail\":\"数学作业\",\"taskName\":\"数学作业\",\"taskType\":\"homework\"}]', NULL, 4, 'admin', '2021-04-16 21:38:09', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052092131483649', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, isSingle=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@55ea06a5', NULL, 13, 'admin', '2021-04-16 21:38:09', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052101744828418', 2, '作业表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentTaskController.queryPageList()', NULL, '  studentTask: StudentTask(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, taskName=null, taskDetail=null, taskType=null, classId=null, endTime=null, file=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@5797e519', NULL, 22, 'admin', '2021-04-16 21:38:12', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052130974932994', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3e79165', NULL, 8, 'admin', '2021-04-16 21:38:19', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052210415050754', 2, '作业成绩-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.add()', NULL, '[{\"createBy\":\"admin\",\"createTime\":1618580317472,\"id\":\"1383052210352136194\",\"results\":80.0,\"studentId\":\"1348165092563959810\",\"sysOrgCode\":\"A01\",\"taskId\":\"1383052091787550722\"}]', NULL, 9, 'admin', '2021-04-16 21:38:37', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052210654126082', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@75b6c226', NULL, 13, 'admin', '2021-04-16 21:38:38', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052264399937538', 2, '作业成绩-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.add()', NULL, '[{\"createBy\":\"admin\",\"createTime\":1618580330356,\"id\":\"1383052264387354625\",\"results\":90.0,\"studentId\":\"1348165092563959810\",\"sysOrgCode\":\"A01\",\"taskId\":\"1383051971700432898\"}]', NULL, 5, 'admin', '2021-04-16 21:38:50', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052264651595777', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@2a885d0f', NULL, 14, 'admin', '2021-04-16 21:38:50', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052320448421889', 2, '作业成绩-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.add()', NULL, '[{\"createBy\":\"admin\",\"createTime\":1618580343716,\"id\":\"1383052320427450369\",\"results\":98.0,\"studentId\":\"1348165092563959810\",\"sysOrgCode\":\"A01\",\"taskId\":\"1383052033046323201\"}]', NULL, 6, 'admin', '2021-04-16 21:39:04', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052320721051649', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@569118e4', NULL, 19, 'admin', '2021-04-16 21:39:04', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052372600397826', 2, '作业成绩-添加', 2, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.add()', NULL, '[{\"id\":\"1383052320427450369\",\"results\":60.0,\"studentId\":\"1348165092563959810\",\"taskId\":\"1383052033046323201\",\"updateBy\":\"admin\",\"updateTime\":1618580356148}]', NULL, 10, 'admin', '2021-04-16 21:39:16', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052372856250369', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@537a37ba', NULL, 13, 'admin', '2021-04-16 21:39:16', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052392942772225', 2, '成绩比例-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.GradeRateController.queryPageList()', NULL, '  gradeRate: GradeRate(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, homeworkRate=null, checkRate=null, midTermGradeRate=null, finalTermGradeRate=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@46f0b211', NULL, 15, 'admin', '2021-04-16 21:39:21', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052711927980033', 2, '成绩比例-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.GradeRateController.queryPageList()', NULL, '  gradeRate: GradeRate(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, homeworkRate=null, checkRate=null, midTermGradeRate=null, finalTermGradeRate=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@68a682e2', NULL, 12, 'admin', '2021-04-16 21:40:37', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052818069037057', 2, '考勤表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentCheckController.queryPageList()', NULL, '  studentCheck: StudentCheck(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, studentId=null, checkDate=null, type=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@51d01859', NULL, 14, 'admin', '2021-04-16 21:41:02', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052838151364609', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@208b21a7', NULL, 12, 'admin', '2021-04-16 21:41:07', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052849270464513', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@62c893af', NULL, 13, 'admin', '2021-04-16 21:41:10', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383052997090320386', 2, '课程表-课程表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.getClasses()', NULL, '  studentName: 崔祥瑜  week: 2021-15  xn: 2020  xq: up  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@73f55285', NULL, 8, 'admin', '2021-04-16 21:41:45', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383053870218584066', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@710c7be8', NULL, 15, 'admin', '2021-04-16 21:45:13', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383053931971321857', 2, '课程表-课程表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.getClasses()', NULL, '  studentName: 啊啊啊  week: 2021-15  xn: 2020  xq: up  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3b73b2ee', NULL, 5, 'admin', '2021-04-16 21:45:28', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383053953274191873', 2, '课程表-课程表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.getClasses()', NULL, '  studentName: 崔祥瑜  week: 2021-16  xn: 2020  xq: up  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@5f1f1837', NULL, 4, 'admin', '2021-04-16 21:45:33', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383053982927921154', 2, '课程表-课程表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.getClasses()', NULL, '  studentName: 崔祥瑜  week: 2021-14  xn: 2020  xq: up  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3398b2de', NULL, 3, 'admin', '2021-04-16 21:45:40', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383054054625353730', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, isSingle=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@5b58fbed', NULL, 10, 'admin', '2021-04-16 21:45:57', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383054059658518529', 2, '学院班级表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.queryPageList()', NULL, '  collegeClass: CollegeClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, pid=null, hasChild=null, name=null, code=null, type=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@8e10981', NULL, 18, 'admin', '2021-04-16 21:45:58', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383054061977968642', 2, '活动-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.ActivityController.queryPageList()', NULL, '  activity: Activity(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, startTime=null, endTime=null, classes=null, introduce=null, pics=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@e3a4e72', NULL, 12, 'admin', '2021-04-16 21:45:59', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383054064528105474', 2, '获奖学生信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentAwardController.queryPageList()', NULL, '  studentAward: StudentAward(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, awardName=null, awardReason=null, xnxq=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@80e72f', NULL, 15, 'admin', '2021-04-16 21:46:00', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383054066704949250', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@bdf2a58', NULL, 29, 'admin', '2021-04-16 21:46:00', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383054068302979074', 2, '考勤表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentCheckController.queryPageList()', NULL, '  studentCheck: StudentCheck(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, studentId=null, checkDate=null, type=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7cf20d60', NULL, 8, 'admin', '2021-04-16 21:46:00', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383054070387548162', 2, '作业表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentTaskController.queryPageList()', NULL, '  studentTask: StudentTask(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, taskName=null, taskDetail=null, taskType=null, classId=null, endTime=null, file=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@57ebc6ec', NULL, 14, 'admin', '2021-04-16 21:46:01', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383054072316928002', 2, '成绩比例-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.GradeRateController.queryPageList()', NULL, '  gradeRate: GradeRate(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, homeworkRate=null, checkRate=null, midTermGradeRate=null, finalTermGradeRate=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@55934067', NULL, 7, 'admin', '2021-04-16 21:46:01', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383054073994649602', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@43ace95a', NULL, 11, 'admin', '2021-04-16 21:46:02', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383054329465511937', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7f142253', NULL, 11, 'admin', '2021-04-16 21:47:03', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383055853381984258', 2, '考勤表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentCheckController.queryPageList()', NULL, '  studentCheck: StudentCheck(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, studentId=null, checkDate=null, type=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@477b1f4b', NULL, 8, 'admin', '2021-04-16 21:53:06', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383055878753329153', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, isSingle=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@210f619f', NULL, 10, 'admin', '2021-04-16 21:53:12', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383057114609197058', 2, '作业表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentTaskController.queryPageList()', NULL, '  studentTask: StudentTask(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, taskName=null, taskDetail=null, taskType=null, classId=null, endTime=null, file=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@47611e76', NULL, 20, 'admin', '2021-04-16 21:58:07', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383057130165870594', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@c674042', NULL, 15, 'admin', '2021-04-16 21:58:10', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383057160448745474', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, isSingle=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@45c7b4a1', NULL, 11, 'admin', '2021-04-16 21:58:18', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383057614456987650', 2, '成绩比例-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.GradeRateController.queryPageList()', NULL, '  gradeRate: GradeRate(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, homeworkRate=null, checkRate=null, midTermGradeRate=null, finalTermGradeRate=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@6bf90075', NULL, 9, 'admin', '2021-04-16 22:00:06', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383058329392881666', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, isSingle=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@6c89474', NULL, 11, 'admin', '2021-04-16 22:02:56', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383059232183263233', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@65e5554a', NULL, 11, 'admin', '2021-04-16 22:06:32', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383059714977013761', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, isSingle=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@2a98d709', NULL, 11, 'admin', '2021-04-16 22:08:27', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383060750336761857', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@620afe61', NULL, 11, 'admin', '2021-04-16 22:12:34', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383061991976574977', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@25c0d11c', NULL, 11, 'admin', '2021-04-16 22:17:30', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383062082498043906', 2, '成绩比例-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.GradeRateController.queryPageList()', NULL, '  gradeRate: GradeRate(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, homeworkRate=null, checkRate=null, midTermGradeRate=null, finalTermGradeRate=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3b5546a6', NULL, 8, 'admin', '2021-04-16 22:17:51', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383062103188545537', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3368b5d', NULL, 11, 'admin', '2021-04-16 22:17:56', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383062106128752641', 2, '成绩比例-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.GradeRateController.queryPageList()', NULL, '  gradeRate: GradeRate(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, homeworkRate=null, checkRate=null, midTermGradeRate=null, finalTermGradeRate=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@31afe5db', NULL, 6, 'admin', '2021-04-16 22:17:57', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383062115205226498', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@1c80701d', NULL, 13, 'admin', '2021-04-16 22:17:59', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383062304645160961', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@4d42660', NULL, 10, 'admin', '2021-04-16 22:18:44', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383064664368979969', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7107d3e9', NULL, 12, 'admin', '2021-04-16 22:28:07', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383065020998066178', 2, '作业成绩-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TaskResultsController.queryPageList()', NULL, '  taskResults: TaskResults(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentId=null, taskId=null, results=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@4b803da1', NULL, 15, 'admin', '2021-04-16 22:29:32', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383065480563761154', 2, '成绩比例-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.GradeRateController.queryPageList()', NULL, '  gradeRate: GradeRate(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, homeworkRate=null, checkRate=null, midTermGradeRate=null, finalTermGradeRate=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7f744538', NULL, 8, 'admin', '2021-04-16 22:31:21', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383065511274455041', 2, '作业表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentTaskController.queryPageList()', NULL, '  studentTask: StudentTask(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, taskName=null, taskDetail=null, taskType=null, classId=null, endTime=null, file=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@2bc542e0', NULL, 14, 'admin', '2021-04-16 22:31:29', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383065549635559426', 2, '考勤表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentCheckController.queryPageList()', NULL, '  studentCheck: StudentCheck(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subjectId=null, studentId=null, checkDate=null, type=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@35688d4e', NULL, 7, 'admin', '2021-04-16 22:31:38', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383065553544650754', 2, '请假-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentLeaveController.queryPageList()', NULL, '  studentLeave: StudentLeave(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, startTime=null, endTime=null, approvalTeacher=null, status=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7d31f7bd', NULL, 11, 'admin', '2021-04-16 22:31:39', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383065561132146690', 2, '获奖学生信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentAwardController.queryPageList()', NULL, '  studentAward: StudentAward(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, studentCode=null, awardName=null, awardReason=null, xnxq=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@21e90f95', NULL, 6, 'admin', '2021-04-16 22:31:41', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383065564592447489', 2, '活动-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.ActivityController.queryPageList()', NULL, '  activity: Activity(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, startTime=null, endTime=null, classes=null, introduce=null, pics=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@28e50f37', NULL, 6, 'admin', '2021-04-16 22:31:41', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383065569105518593', 2, '学院班级表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.CollegeClassController.queryPageList()', NULL, '  collegeClass: CollegeClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, pid=null, hasChild=null, name=null, code=null, type=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@796f0702', NULL, 8, 'admin', '2021-04-16 22:31:42', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383065578630782978', 2, '课程表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentClassController.queryPageList()', NULL, '  studentClass: StudentClass(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, weekDay=null, section=null, subjectName=null, teacher=null, weekSeq=null, weekStart=null, weekEnd=null, isSingle=null, location=null, xn=null, xq=null, institute=null, major=null, className=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7aa40897', NULL, 10, 'admin', '2021-04-16 22:31:45', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1383065593558310914', 2, '学生表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.StudentController.queryPageList()', NULL, '  student: Student(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, name=null, sex=null, age=null, studentCode=null, entranceYear=null, institute=null, major=null, className=null, phone=null, imgUrl=null, isDel=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@11e651b6', NULL, 11, 'admin', '2021-04-16 22:31:48', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_permission
@@ -5407,7 +5480,7 @@ CREATE TABLE `sys_permission`  (
   `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组件',
   `component_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组件名字',
   `redirect` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '一级菜单跳转地址',
-  `menu_type` int(11) NULL DEFAULT NULL COMMENT '菜单类型(0:一级菜单; 1:子菜单:2:按钮权限)',
+  `menu_type` int(0) NULL DEFAULT NULL COMMENT '菜单类型(0:一级菜单; 1:子菜单:2:按钮权限)',
   `perms` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单权限编码',
   `perms_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '权限策略1显示2禁用',
   `sort_no` double(8, 2) NULL DEFAULT NULL COMMENT '菜单排序',
@@ -5416,14 +5489,14 @@ CREATE TABLE `sys_permission`  (
   `is_route` tinyint(1) NULL DEFAULT 1 COMMENT '是否路由菜单: 0:不是  1:是（默认值1）',
   `is_leaf` tinyint(1) NULL DEFAULT NULL COMMENT '是否叶子节点:    1:是   0:不是',
   `keep_alive` tinyint(1) NULL DEFAULT NULL COMMENT '是否缓存该页面:    1:是   0:不是',
-  `hidden` int(11) NULL DEFAULT 0 COMMENT '是否隐藏路由: 0否,1是',
+  `hidden` int(0) NULL DEFAULT 0 COMMENT '是否隐藏路由: 0否,1是',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `del_flag` int(11) NULL DEFAULT 0 COMMENT '删除状态 0正常 1已删除',
-  `rule_flag` int(11) NULL DEFAULT 0 COMMENT '是否添加数据权限1是0否',
+  `del_flag` int(0) NULL DEFAULT 0 COMMENT '删除状态 0正常 1已删除',
+  `rule_flag` int(0) NULL DEFAULT 0 COMMENT '是否添加数据权限1是0否',
   `status` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '按钮权限状态(0无效1有效)',
   `internal_or_external` tinyint(1) NULL DEFAULT NULL COMMENT '外链菜单打开方式 0/内部打开 1/外部打开',
   PRIMARY KEY (`id`) USING BTREE,
@@ -5668,17 +5741,17 @@ CREATE TABLE `sys_quartz_job`  (
   `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `del_flag` int(11) NULL DEFAULT NULL COMMENT '删除状态',
+  `del_flag` int(0) NULL DEFAULT NULL COMMENT '删除状态',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   `job_class_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务类名',
   `cron_expression` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'cron表达式',
   `parameter` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
-  `status` int(11) NULL DEFAULT NULL COMMENT '状态 0正常 -1停止',
+  `status` int(0) NULL DEFAULT NULL COMMENT '状态 0正常 -1停止',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uniq_job_class_name`(`job_class_name`) USING BTREE
-) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_quartz_job
@@ -6127,7 +6200,7 @@ CREATE TABLE `sys_sms`  (
   `es_content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '推送内容',
   `es_send_time` datetime(0) NULL DEFAULT NULL COMMENT '推送时间',
   `es_send_status` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '推送状态 0未推送 1推送成功 2推送失败 -1失败不再发送',
-  `es_send_num` int(11) NULL DEFAULT NULL COMMENT '发送次数 超过5次不再发送',
+  `es_send_num` int(0) NULL DEFAULT NULL COMMENT '发送次数 超过5次不再发送',
   `es_result` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '推送失败原因',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
@@ -6189,13 +6262,13 @@ INSERT INTO `sys_sms_template` VALUES ('4028608164691b000164693108140003', '催�
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_tenant`;
 CREATE TABLE `sys_tenant`  (
-  `id` int(11) NOT NULL COMMENT '租户编码',
+  `id` int(0) NOT NULL COMMENT '租户编码',
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '租户名称',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `begin_date` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
   `end_date` datetime(0) NULL DEFAULT NULL COMMENT '结束时间',
-  `status` int(11) NULL DEFAULT NULL COMMENT '状态 1正常 0冻结',
+  `status` int(0) NULL DEFAULT NULL COMMENT '状态 1正常 0冻结',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '多租户信息表' ROW_FORMAT = Dynamic;
 
@@ -6387,6 +6460,9 @@ CREATE TABLE `task_results`  (
 -- Records of task_results
 -- ----------------------------
 INSERT INTO `task_results` VALUES ('1382719638510198786', 'admin', '2021-04-15 23:37:06', NULL, NULL, 'A01', '1348165092563959810', '1382690745824743425', 10);
+INSERT INTO `task_results` VALUES ('1383052210352136194', 'admin', '2021-04-16 21:38:37', NULL, NULL, 'A01', '1348165092563959810', '1383052091787550722', 80);
+INSERT INTO `task_results` VALUES ('1383052264387354625', 'admin', '2021-04-16 21:38:50', NULL, NULL, 'A01', '1348165092563959810', '1383051971700432898', 90);
+INSERT INTO `task_results` VALUES ('1383052320427450369', 'admin', '2021-04-16 21:39:04', 'admin', '2021-04-16 21:39:16', 'A01', '1348165092563959810', '1383052033046323201', 60);
 
 -- ----------------------------
 -- Table structure for test_demo
@@ -6400,7 +6476,7 @@ CREATE TABLE `test_demo`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
   `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
   `sex` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
-  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
+  `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
   `descc` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
   `user_code` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户编码',
@@ -6458,7 +6534,7 @@ CREATE TABLE `test_note`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
   `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
-  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
+  `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
   `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '性别',
   `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
   `contents` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请假原因',
@@ -6509,7 +6585,7 @@ CREATE TABLE `test_order_product`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
   `product_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品名字',
   `price` double(32, 0) NULL DEFAULT NULL COMMENT '价格',
-  `num` int(11) NULL DEFAULT NULL COMMENT '数量',
+  `num` int(0) NULL DEFAULT NULL COMMENT '数量',
   `descc` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `order_fk_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单外键ID',
   `pro_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品类型',
@@ -6554,7 +6630,7 @@ CREATE TABLE `test_person`  (
   `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
   `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请假原因',
   `be_date` datetime(0) NULL DEFAULT NULL COMMENT '请假时间',
-  `qj_days` int(11) NULL DEFAULT NULL COMMENT '请假天数',
+  `qj_days` int(0) NULL DEFAULT NULL COMMENT '请假天数',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
