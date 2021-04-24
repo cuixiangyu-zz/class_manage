@@ -5,8 +5,8 @@
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-form-item label="教师id">
-              <a-input placeholder="请输入教师id" v-model="queryParam.tercherId"></a-input>
+            <a-form-item label="教师">
+              <a-input placeholder="请输入教师" v-model="queryParam.tercherId"></a-input>
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
@@ -131,17 +131,17 @@
             }
           },
           {
-            title:'教师id',
+            title:'教师',
             align:"center",
-            dataIndex: 'tercherId'
+            dataIndex: 'tercherId_dictText'
           },
           {
-            title:'月份:yyyy-mm',
+            title:'月份',
             align:"center",
             dataIndex: 'month'
           },
           {
-            title:'发薪日:yyyy-mm-dd',
+            title:'发薪日',
             align:"center",
             dataIndex: 'payday'
           },

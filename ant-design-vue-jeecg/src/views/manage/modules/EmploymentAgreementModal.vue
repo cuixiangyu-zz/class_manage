@@ -11,8 +11,9 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
 
-        <a-form-item label="类型:派遣制,外聘制" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['type']" placeholder="请输入类型:派遣制,外聘制"></a-input>
+        <a-form-item label="类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag type="list" v-decorator="['type', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="employment_type" placeholder="请选择类型"/>
         </a-form-item>
         <a-form-item label="协议模板" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-upload v-decorator="['file']" :trigger-change="true"></j-upload>

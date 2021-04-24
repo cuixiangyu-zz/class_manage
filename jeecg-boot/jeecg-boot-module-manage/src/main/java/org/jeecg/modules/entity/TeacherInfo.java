@@ -77,10 +77,12 @@ public class TeacherInfo implements Serializable {
 	/**任教科目*/
 	@Excel(name = "任教科目", width = 15)
     @ApiModelProperty(value = "任教科目")
+    @Dict(dicCode = "subject")
     private String subject;
 	/**学历*/
 	@Excel(name = "学历", width = 15)
     @ApiModelProperty(value = "学历")
+    @Dict(dicCode = "education_type")
     private String education;
 	/**工龄*/
 	@Excel(name = "工龄", width = 15)
@@ -89,9 +91,11 @@ public class TeacherInfo implements Serializable {
 	/**毕业学校类型:985,211,一本*/
 	@Excel(name = "毕业学校类型:985,211,一本", width = 15)
     @ApiModelProperty(value = "毕业学校类型:985,211,一本")
+    @Dict(dicCode = "school_type")
     private String graduateSchoolType;
 	/**工作状态:已聘任,未聘任*/
 	@Excel(name = "工作状态:已聘任,未聘任", width = 15)
     @ApiModelProperty(value = "工作状态:已聘任,未聘任")
+    @Dict(dicCode = "work_status")
     private String workStatus;
 }

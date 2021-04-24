@@ -57,6 +57,7 @@ public class EmploymentAgreement implements Serializable {
 	/**类型:派遣制,外聘制*/
 	@Excel(name = "类型:派遣制,外聘制", width = 15)
     @ApiModelProperty(value = "类型:派遣制,外聘制")
+    @Dict(dicCode = "employment_type")
     private String type;
 	/**协议模板*/
 	@Excel(name = "协议模板", width = 15)

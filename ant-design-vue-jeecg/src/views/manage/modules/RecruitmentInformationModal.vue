@@ -12,25 +12,30 @@
       <a-form :form="form">
 
         <a-form-item label="课程" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['subject']" placeholder="请输入课程"></a-input>
+          <j-dict-select-tag type="list" v-decorator="['subject', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="subject" placeholder="请选择课程"/>
         </a-form-item>
         <a-form-item label="年龄" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['age']" placeholder="请输入年龄"></a-input>
+          <a-input-number v-decorator="['age']" placeholder="请输入年龄"></a-input-number>
         </a-form-item>
         <a-form-item label="学历" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['education']" placeholder="请输入学历"></a-input>
+          <j-dict-select-tag type="list" v-decorator="['education', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="education_type" placeholder="请选择学历"/>
         </a-form-item>
         <a-form-item label="性别" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['sex']" placeholder="请输入性别"></a-input>
+          <j-dict-select-tag type="list" v-decorator="['sex', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="sex" placeholder="请选择性别"/>
         </a-form-item>
         <a-form-item label="工龄" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['workingYears']" placeholder="请输入工龄"></a-input>
+          <a-input-number v-decorator="['workingYears']" placeholder="请输入工龄"></a-input-number>
         </a-form-item>
-        <a-form-item label="毕业学校类型:985,211,一本" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['graduateSchoolType']" placeholder="请输入毕业学校类型:985,211,一本"></a-input>
+        <a-form-item label="毕业学校类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag type="list" v-decorator="['graduateSchoolType', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="school_type" placeholder="请选择毕业学校类型"/>
         </a-form-item>
-        <a-form-item label="类型:派遣制,外聘制" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['type']" placeholder="请输入类型:派遣制,外聘制"></a-input>
+        <a-form-item label="类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag type="list" v-decorator="['type', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="employment_type" placeholder="请选择类型"/>
         </a-form-item>
         <a-form-item label="招聘数量" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['count']" placeholder="请输入招聘数量"></a-input>
@@ -46,11 +51,15 @@
   import { httpAction } from '@/api/manage'
   import pick from 'lodash.pick'
   import { validateDuplicateValue } from '@/utils/util'
+  import JDictSelectTag from "@/components/dict/JDictSelectTag"
+  import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
 
 
   export default {
     name: "RecruitmentInformationModal",
-    components: { 
+    components: {
+      JDictSelectTag,
+      JSearchSelectTag,
     },
     data () {
       return {

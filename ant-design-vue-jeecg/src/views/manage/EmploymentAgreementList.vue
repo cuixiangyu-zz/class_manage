@@ -5,8 +5,8 @@
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-form-item label="类型:派遣制,外聘制">
-              <a-input placeholder="请输入类型:派遣制,外聘制" v-model="queryParam.type"></a-input>
+            <a-form-item label="类型">
+              <a-input placeholder="请输入类型" v-model="queryParam.type"></a-input>
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
@@ -108,12 +108,16 @@
   import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import EmploymentAgreementModal from './modules/EmploymentAgreementModal'
+  import JDictSelectTag from "@comp/dict/JDictSelectTag";
+  import JSearchSelectTag from "@comp/dict/JSearchSelectTag";
 
   export default {
     name: "EmploymentAgreementList",
     mixins:[JeecgListMixin, mixinDevice],
     components: {
-      EmploymentAgreementModal
+      EmploymentAgreementModal,
+      JDictSelectTag,
+      JSearchSelectTag,
     },
     data () {
       return {
@@ -131,9 +135,9 @@
             }
           },
           {
-            title:'类型:派遣制,外聘制',
+            title:'类型',
             align:"center",
-            dataIndex: 'type'
+            dataIndex: 'type_dictText'
           },
           {
             title:'协议模板',

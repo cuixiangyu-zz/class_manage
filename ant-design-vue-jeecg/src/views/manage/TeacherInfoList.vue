@@ -10,13 +10,13 @@
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-form-item label="毕业学校类型:985,211,一本">
+            <a-form-item label="毕业学校类型:">
               <a-input placeholder="请输入毕业学校类型:985,211,一本" v-model="queryParam.graduateSchoolType"></a-input>
             </a-form-item>
           </a-col>
           <template v-if="toggleSearchStatus">
             <a-col :xl="6" :lg="7" :md="8" :sm="24">
-              <a-form-item label="工作状态:已聘任,未聘任">
+              <a-form-item label="工作状态:">
                 <a-input placeholder="请输入工作状态:已聘任,未聘任" v-model="queryParam.workStatus"></a-input>
               </a-form-item>
             </a-col>
@@ -143,11 +143,6 @@
             }
           },
           {
-            title:'基础信息表id',
-            align:"center",
-            dataIndex: 'baseInfoId'
-          },
-          {
             title:'试讲结果',
             align:"center",
             dataIndex: 'trialLecture'
@@ -163,7 +158,7 @@
             dataIndex: 'evaluation'
           },
           {
-            title:'上传文件:协议书,学历证明',
+            title:'上传文件',
             align:"center",
             dataIndex: 'files',
             scopedSlots: {customRender: 'fileSlot'}
@@ -171,12 +166,12 @@
           {
             title:'任教科目',
             align:"center",
-            dataIndex: 'subject'
+            dataIndex: 'subject_dictText'
           },
           {
             title:'学历',
             align:"center",
-            dataIndex: 'education'
+            dataIndex: 'education_dictText'
           },
           {
             title:'工龄',
@@ -184,14 +179,14 @@
             dataIndex: 'workingYears'
           },
           {
-            title:'毕业学校类型:985,211,一本',
+            title:'毕业学校类型',
             align:"center",
-            dataIndex: 'graduateSchoolType'
+            dataIndex: 'graduateSchoolType_dictText'
           },
           {
-            title:'工作状态:已聘任,未聘任',
+            title:'工作状态',
             align:"center",
-            dataIndex: 'workStatus'
+            dataIndex: 'workStatus_dictText'
           },
           {
             title: '操作',

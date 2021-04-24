@@ -57,7 +57,7 @@
             placeholder="请选择审批教师"
             v-decorator="['teacher', { rules: [{ required: true}] }]"
             dict="sys_user,realname,id"
-            :async="true">
+            :async="false">
           </j-search-select-tag>
 <!--          <a-input v-decorator="['teacher']" placeholder="请输入老师"></a-input>-->
         </a-form-item>

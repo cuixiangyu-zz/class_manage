@@ -57,6 +57,7 @@ public class RecruitmentInformation implements Serializable {
 	/**课程*/
 	@Excel(name = "课程", width = 15)
     @ApiModelProperty(value = "课程")
+    @Dict(dicCode = "subject")
     private String subject;
 	/**年龄*/
 	@Excel(name = "年龄", width = 15)
@@ -65,10 +66,12 @@ public class RecruitmentInformation implements Serializable {
 	/**学历*/
 	@Excel(name = "学历", width = 15)
     @ApiModelProperty(value = "学历")
+    @Dict(dicCode = "education_type")
     private String education;
 	/**性别*/
 	@Excel(name = "性别", width = 15)
     @ApiModelProperty(value = "性别")
+    @Dict(dicCode = "sex")
     private String sex;
 	/**工龄*/
 	@Excel(name = "工龄", width = 15)
@@ -77,10 +80,12 @@ public class RecruitmentInformation implements Serializable {
 	/**毕业学校类型:985,211,一本*/
 	@Excel(name = "毕业学校类型:985,211,一本", width = 15)
     @ApiModelProperty(value = "毕业学校类型:985,211,一本")
+    @Dict(dicCode = "school_type")
     private String graduateSchoolType;
 	/**类型:派遣制,外聘制*/
 	@Excel(name = "类型:派遣制,外聘制", width = 15)
     @ApiModelProperty(value = "类型:派遣制,外聘制")
+    @Dict(dicCode = "employment_type")
     private String type;
 	/**招聘数量*/
 	@Excel(name = "招聘数量", width = 15)

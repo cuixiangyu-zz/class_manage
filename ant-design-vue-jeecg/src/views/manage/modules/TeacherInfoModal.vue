@@ -10,36 +10,45 @@
     cancelText="关闭">
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
-
-        <a-form-item label="基础信息表id" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['baseInfoId']" placeholder="请输入基础信息表id"></a-input>
+        <a-form-item label="用户" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-search-select-tag
+            ref="userSelect"
+            placeholder="请选择用户"
+            v-decorator="['baseInfoId']"
+            :triggerChange="true"
+            :dictOptions="userOptions">
+          </j-search-select-tag>
         </a-form-item>
         <a-form-item label="试讲结果" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['trialLecture']" placeholder="请输入试讲结果"></a-input>
         </a-form-item>
         <a-form-item label="月工资" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['wages']" placeholder="请输入月工资"></a-input>
+          <a-input-number v-decorator="['wages']" placeholder="请输入月工资"></a-input-number>
         </a-form-item>
         <a-form-item label="评价结果" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['evaluation']" placeholder="请输入评价结果"></a-input>
         </a-form-item>
-        <a-form-item label="上传文件:协议书,学历证明" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="上传文件" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-upload v-decorator="['files']" :trigger-change="true"></j-upload>
         </a-form-item>
         <a-form-item label="任教科目" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['subject']" placeholder="请输入任教科目"></a-input>
+          <j-dict-select-tag type="list" v-decorator="['subject', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="subject" placeholder="请选择任教科目"/>
         </a-form-item>
         <a-form-item label="学历" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['education']" placeholder="请输入学历"></a-input>
+          <j-dict-select-tag type="list" v-decorator="['education', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="education_type" placeholder="请选择学历"/>
         </a-form-item>
         <a-form-item label="工龄" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['workingYears']" placeholder="请输入工龄"></a-input>
+          <a-input-number v-decorator="['workingYears']" placeholder="请输入工龄"></a-input-number>
         </a-form-item>
-        <a-form-item label="毕业学校类型:985,211,一本" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['graduateSchoolType']" placeholder="请输入毕业学校类型:985,211,一本"></a-input>
+        <a-form-item label="毕业学校类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag type="list" v-decorator="['graduateSchoolType', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="school_type" placeholder="请选择毕业学校"/>
         </a-form-item>
-        <a-form-item label="工作状态:已聘任,未聘任" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['workStatus']" placeholder="请输入工作状态:已聘任,未聘任"></a-input>
+        <a-form-item label="工作状态" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag type="list" v-decorator="['workStatus', { rules: [{ required: true}] }]" :trigger-change="true"
+                             dictCode="work_status" placeholder="请选择工作状态"/>
         </a-form-item>
 
       </a-form>
@@ -54,11 +63,16 @@
   import { validateDuplicateValue } from '@/utils/util'
   import JUpload from '@/components/jeecg/JUpload'
 
+  import JDictSelectTag from "@/components/dict/JDictSelectTag"
+  import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
+
 
   export default {
     name: "TeacherInfoModal",
     components: { 
       JUpload,
+      JDictSelectTag,
+      JSearchSelectTag,
     },
     data () {
       return {
@@ -81,10 +95,12 @@
         url: {
           add: "/manage/teacherInfo/add",
           edit: "/manage/teacherInfo/edit",
-        }
+        },
+        userOptions: []
       }
     },
     created () {
+      this.getUserList();
     },
     methods: {
       add () {
@@ -140,7 +156,18 @@
       popupCallback(row){
         this.form.setFieldsValue(pick(row,'baseInfoId','trialLecture','wages','evaluation','files','subject','education','workingYears','graduateSchoolType','workStatus'))
       },
-
+      getUserList() {
+        const that = this;
+        var httpurl = '/manage/teacherInfo/getUserList'
+        httpAction(httpurl, null, 'get').then((res) => {
+          if (res.success) {
+            that.userOptions = res.result
+            //that.$refs.teacherSelect.setCurrentDictOptions(this.teacherOptions);
+          } else {
+            that.$message.warning(res.message);
+          }
+        })
+      },
       
     }
   }

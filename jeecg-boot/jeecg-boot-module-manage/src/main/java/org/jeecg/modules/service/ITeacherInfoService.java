@@ -1,5 +1,6 @@
 package org.jeecg.modules.service;
 
+import org.jeecg.common.api.vo.Result;
 import org.jeecg.modules.entity.TeacherInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -11,4 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITeacherInfoService extends IService<TeacherInfo> {
 
+    Result<?> getTeacherListForSalary();
+
+    Result<?> getUserList();
 }

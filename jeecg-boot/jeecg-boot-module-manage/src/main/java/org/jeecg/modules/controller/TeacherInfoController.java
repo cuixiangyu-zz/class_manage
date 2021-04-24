@@ -9,6 +9,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.baomidou.mybatisplus.extension.api.R;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.util.oConvertUtils;
@@ -168,4 +170,13 @@ public class TeacherInfoController extends JeecgController<TeacherInfo, ITeacher
         return super.importExcel(request, response, TeacherInfo.class);
     }
 
+    @GetMapping("/getTeacherListForSalary")
+    public Result<?> getTeacherListForSalary(){
+		return teacherInfoService.getTeacherListForSalary();
+	}
+
+	 @GetMapping("/getUserList")
+	 public Result<?> getUserList(){
+		 return teacherInfoService.getUserList();
+	 }
 }
