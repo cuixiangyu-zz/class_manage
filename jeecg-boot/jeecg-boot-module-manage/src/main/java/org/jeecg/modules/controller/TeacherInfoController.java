@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.baomidou.mybatisplus.extension.api.R;
+import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
+import org.jeecg.common.system.vo.LoginUser;
 import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.entity.TeacherInfo;
 import org.jeecg.modules.service.ITeacherInfoService;
@@ -68,6 +71,11 @@ public class TeacherInfoController extends JeecgController<TeacherInfo, ITeacher
 								   @RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
 								   @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,
 								   HttpServletRequest req) {
+		LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+
+		if(teacherInfoService.checkIsTeacher(sysUser.getId())){
+			teacherInfo.setBaseInfoId(sysUser.getId());
+		}
 		QueryWrapper<TeacherInfo> queryWrapper = QueryGenerator.initQueryWrapper(teacherInfo, req.getParameterMap());
 		Page<TeacherInfo> page = new Page<TeacherInfo>(pageNo, pageSize);
 		IPage<TeacherInfo> pageList = teacherInfoService.page(page, queryWrapper);
@@ -84,6 +92,9 @@ public class TeacherInfoController extends JeecgController<TeacherInfo, ITeacher
 	@ApiOperation(value="教师信息-添加", notes="教师信息-添加")
 	@PostMapping(value = "/add")
 	public Result<?> add(@RequestBody TeacherInfo teacherInfo) {
+		if(StringUtils.isEmpty(teacherInfo.getWorkStatus())){
+			teacherInfo.setWorkStatus("quit");
+		}
 		teacherInfoService.save(teacherInfo);
 		return Result.ok("添加成功！");
 	}
@@ -178,5 +189,10 @@ public class TeacherInfoController extends JeecgController<TeacherInfo, ITeacher
 	 @GetMapping("/getUserList")
 	 public Result<?> getUserList(){
 		 return teacherInfoService.getUserList();
+	 }
+
+	 @GetMapping("/getAddTeacherList")
+	 public Result<?> getAddTeacherList(String recruitmentInformationId){
+		 return teacherInfoService.getAddTeacherList(recruitmentInformationId);
 	 }
 }

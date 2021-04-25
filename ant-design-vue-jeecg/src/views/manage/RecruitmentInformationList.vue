@@ -88,6 +88,8 @@
           <a @click="handleEdit(record)">编辑</a>
 
           <a-divider type="vertical" />
+          <a @click="chooseTeacher(record)">选择教师</a>
+           <a-divider type="vertical" />
           <a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
             <a-menu slot="overlay">
@@ -103,6 +105,8 @@
       </a-table>
     </div>
 
+    <addTeacherList-modal ref="addTeacherListForm" @ok="modalFormOk"></addTeacherList-modal>
+
     <recruitmentInformation-modal ref="modalForm" @ok="modalFormOk"></recruitmentInformation-modal>
   </a-card>
 </template>
@@ -113,12 +117,14 @@
   import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import RecruitmentInformationModal from './modules/RecruitmentInformationModal'
+  import AddTeacherListModal from './modules/AddTeacherListModal'
 
   export default {
     name: "RecruitmentInformationList",
     mixins:[JeecgListMixin, mixinDevice],
     components: {
-      RecruitmentInformationModal
+      RecruitmentInformationModal,
+      AddTeacherListModal
     },
     data () {
       return {
@@ -201,7 +207,12 @@
     },
     methods: {
       initDictConfig(){
-      }
+      },
+      chooseTeacher: function (record) {
+        this.$refs.addTeacherListForm.loadData(record.id);
+        this.$refs.addTeacherListForm.title = "新增";
+        this.$refs.addTeacherListForm.disableSubmit = false;
+      },
     }
   }
 </script>

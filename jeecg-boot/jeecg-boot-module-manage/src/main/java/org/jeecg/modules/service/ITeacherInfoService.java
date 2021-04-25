@@ -15,4 +15,8 @@ public interface ITeacherInfoService extends IService<TeacherInfo> {
     Result<?> getTeacherListForSalary();
 
     Result<?> getUserList();
+
+    boolean checkIsTeacher(String userId);
+
+    Result<?> getAddTeacherList(String recruitmentInformationId);
 }

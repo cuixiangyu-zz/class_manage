@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : LocalHost
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80019
+ Source Server Version : 50717
  Source Host           : localhost:3306
  Source Schema         : college_manage
 
  Target Server Type    : MySQL
- Target Server Version : 80019
+ Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 25/04/2021 00:01:01
+ Date: 25/04/2021 18:54:56
 */
 
 SET NAMES utf8mb4;
@@ -92,7 +92,7 @@ CREATE TABLE `ces_order_customer`  (
   `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '客户名字',
   `sex` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '客户性别',
   `birthday` datetime(0) NULL DEFAULT NULL COMMENT '客户生日',
-  `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
+  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
   `address` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '常用地址',
   `order_main_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '订单ID',
   PRIMARY KEY (`id`) USING BTREE
@@ -122,7 +122,7 @@ CREATE TABLE `ces_order_goods`  (
   `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   `good_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品名字',
   `price` double NULL DEFAULT NULL COMMENT '价格',
-  `num` int(0) NULL DEFAULT NULL COMMENT '数量',
+  `num` int(11) NULL DEFAULT NULL COMMENT '数量',
   `zong_price` double NULL DEFAULT NULL COMMENT '单品总价',
   `order_main_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '订单ID',
   PRIMARY KEY (`id`) USING BTREE
@@ -271,7 +271,7 @@ CREATE TABLE `demo`  (
   `salary_money` decimal(10, 3) NULL DEFAULT NULL COMMENT '工资',
   `bonus_money` double(10, 2) NULL DEFAULT NULL COMMENT '奖金',
   `sex` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别 {男:1,女:2}',
-  `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
+  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
   `birthday` date NULL DEFAULT NULL COMMENT '生日',
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `content` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '个人简介',
@@ -404,7 +404,7 @@ INSERT INTO `grade_rate` VALUES ('1382704642866716674', 'admin', '2021-04-15 22:
 -- ----------------------------
 DROP TABLE IF EXISTS `jeecg_monthly_growth_analysis`;
 CREATE TABLE `jeecg_monthly_growth_analysis`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `year` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `month` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '月份',
   `main_income` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '佣金/主营收入',
@@ -629,7 +629,7 @@ INSERT INTO `jeecg_order_ticket` VALUES ('ff197da84a9a3af53878eddc91afbb2e', '33
 -- ----------------------------
 DROP TABLE IF EXISTS `jeecg_project_nature_income`;
 CREATE TABLE `jeecg_project_nature_income`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nature` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目性质',
   `insurance_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '保险经纪佣金费',
   `risk_consulting_fee` decimal(18, 2) NULL DEFAULT 0.00 COMMENT '风险咨询费',
@@ -659,7 +659,7 @@ DROP TABLE IF EXISTS `joa_demo`;
 CREATE TABLE `joa_demo`  (
   `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ID',
   `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请假人',
-  `days` int(0) NULL DEFAULT NULL COMMENT '请假天数',
+  `days` int(11) NULL DEFAULT NULL COMMENT '请假天数',
   `begin_date` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
   `end_date` datetime(0) NULL DEFAULT NULL COMMENT '请假结束时间',
   `reason` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请假原因',
@@ -681,7 +681,7 @@ CREATE TABLE `onl_auth_data`  (
   `rule_column` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则列',
   `rule_operator` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则条件 大于小于like',
   `rule_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规则值',
-  `status` int(0) NULL DEFAULT NULL COMMENT '1有效 0无效',
+  `status` int(11) NULL DEFAULT NULL COMMENT '1有效 0无效',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -697,10 +697,10 @@ CREATE TABLE `onl_auth_page`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT ' 主键',
   `cgform_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'online表id',
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字段名/按钮编码',
-  `type` int(0) NULL DEFAULT NULL COMMENT '1字段 2按钮',
-  `control` int(0) NULL DEFAULT NULL COMMENT '3可编辑 5可见(仅支持两种状态值3,5)',
-  `page` int(0) NULL DEFAULT NULL COMMENT '3列表 5表单(仅支持两种状态值3,5)',
-  `status` int(0) NULL DEFAULT NULL COMMENT '1有效 0无效',
+  `type` int(11) NULL DEFAULT NULL COMMENT '1字段 2按钮',
+  `control` int(11) NULL DEFAULT NULL COMMENT '3可编辑 5可见(仅支持两种状态值3,5)',
+  `page` int(11) NULL DEFAULT NULL COMMENT '3列表 5表单(仅支持两种状态值3,5)',
+  `status` int(11) NULL DEFAULT NULL COMMENT '1有效 0无效',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -716,7 +716,7 @@ CREATE TABLE `onl_auth_relation`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `role_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色id',
   `auth_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '权限id',
-  `type` int(0) NULL DEFAULT NULL COMMENT '1字段 2按钮 3数据权限',
+  `type` int(11) NULL DEFAULT NULL COMMENT '1字段 2按钮 3数据权限',
   `cgform_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'online表单ID',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
@@ -735,7 +735,7 @@ CREATE TABLE `onl_cgform_button`  (
   `EXP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表达式',
   `CGFORM_HEAD_ID` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表单ID',
   `OPT_TYPE` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '按钮类型',
-  `ORDER_NUM` int(0) NULL DEFAULT NULL COMMENT '排序',
+  `ORDER_NUM` int(11) NULL DEFAULT NULL COMMENT '排序',
   `OPT_POSITION` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '按钮位置1侧面 2底部',
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `index_formid`(`CGFORM_HEAD_ID`) USING BTREE,
@@ -855,15 +855,15 @@ CREATE TABLE `onl_cgform_field`  (
   `db_is_key` tinyint(1) NULL DEFAULT NULL COMMENT '是否主键 0否 1是',
   `db_is_null` tinyint(1) NULL DEFAULT NULL COMMENT '是否允许为空0否 1是',
   `db_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '数据库字段类型',
-  `db_length` int(0) NOT NULL COMMENT '数据库字段长度',
-  `db_point_length` int(0) NULL DEFAULT NULL COMMENT '小数点',
+  `db_length` int(11) NOT NULL COMMENT '数据库字段长度',
+  `db_point_length` int(11) NULL DEFAULT NULL COMMENT '小数点',
   `db_default_val` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表字段默认值',
   `dict_field` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字典code',
   `dict_table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字典表',
   `dict_text` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字典Text',
   `field_show_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表单控件类型',
   `field_href` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '跳转URL',
-  `field_length` int(0) NULL DEFAULT NULL COMMENT '表单控件长度',
+  `field_length` int(11) NULL DEFAULT NULL COMMENT '表单控件长度',
   `field_valid_type` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表单字段校验规则',
   `field_must_input` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字段是否必填',
   `field_extend_json` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '扩展参数JSON',
@@ -875,7 +875,7 @@ CREATE TABLE `onl_cgform_field`  (
   `query_mode` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '查询模式',
   `main_table` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '外键主表名',
   `main_field` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '外键主键字段',
-  `order_num` int(0) NULL DEFAULT NULL COMMENT '排序',
+  `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
@@ -1728,8 +1728,8 @@ DROP TABLE IF EXISTS `onl_cgform_head`;
 CREATE TABLE `onl_cgform_head`  (
   `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键ID',
   `table_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '表名',
-  `table_type` int(0) NOT NULL COMMENT '表类型: 0单表、1主表、2附表',
-  `table_version` int(0) NULL DEFAULT 1 COMMENT '表版本',
+  `table_type` int(11) NOT NULL COMMENT '表类型: 0单表、1主表、2附表',
+  `table_version` int(11) NULL DEFAULT 1 COMMENT '表版本',
   `table_txt` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '表说明',
   `is_checkbox` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '是否带checkbox',
   `is_db_synch` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N' COMMENT '同步数据库状态',
@@ -1738,18 +1738,18 @@ CREATE TABLE `onl_cgform_head`  (
   `id_sequence` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '主键生成序列',
   `id_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '主键类型',
   `query_mode` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '查询模式',
-  `relation_type` int(0) NULL DEFAULT NULL COMMENT '映射关系 0一对多  1一对一',
+  `relation_type` int(11) NULL DEFAULT NULL COMMENT '映射关系 0一对多  1一对一',
   `sub_table_str` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '子表',
-  `tab_order_num` int(0) NULL DEFAULT NULL COMMENT '附表排序序号',
+  `tab_order_num` int(11) NULL DEFAULT NULL COMMENT '附表排序序号',
   `tree_parent_id_field` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '树形表单父id',
   `tree_id_field` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '树表主键字段',
   `tree_fieldname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '树开表单列字段',
   `form_category` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'bdfl_ptbd' COMMENT '表单分类',
   `form_template` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'PC表单模板',
   `form_template_mobile` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表单模板样式(移动端)',
-  `scroll` int(0) NULL DEFAULT 0 COMMENT '是否有横向滚动条',
-  `copy_version` int(0) NULL DEFAULT NULL COMMENT '复制版本号',
-  `copy_type` int(0) NULL DEFAULT 0 COMMENT '复制表类型1为复制表 0为原始表',
+  `scroll` int(11) NULL DEFAULT 0 COMMENT '是否有横向滚动条',
+  `copy_version` int(11) NULL DEFAULT NULL COMMENT '复制版本号',
+  `copy_type` int(11) NULL DEFAULT 0 COMMENT '复制表类型1为复制表 0为原始表',
   `physic_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '原始表ID',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
@@ -1822,7 +1822,7 @@ CREATE TABLE `onl_cgform_index`  (
   `update_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
   `is_db_synch` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'N' COMMENT '是否同步数据库 N未同步 Y已同步',
-  `del_flag` int(0) NULL DEFAULT 0 COMMENT '是否删除 0未删除 1删除',
+  `del_flag` int(11) NULL DEFAULT 0 COMMENT '是否删除 0未删除 1删除',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_table_id`(`cgform_head_id`) USING BTREE,
   INDEX `idx_oci_cgform_head_id`(`cgform_head_id`) USING BTREE
@@ -1868,15 +1868,15 @@ CREATE TABLE `onl_cgreport_item`  (
   `cgrhead_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '报表ID',
   `field_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字段名字',
   `field_txt` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字段文本',
-  `field_width` int(0) NULL DEFAULT NULL,
+  `field_width` int(11) NULL DEFAULT NULL,
   `field_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字段类型',
   `search_mode` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '查询模式',
-  `is_order` int(0) NULL DEFAULT 0 COMMENT '是否排序  0否,1是',
-  `is_search` int(0) NULL DEFAULT 0 COMMENT '是否查询  0否,1是',
+  `is_order` int(11) NULL DEFAULT 0 COMMENT '是否排序  0否,1是',
+  `is_search` int(11) NULL DEFAULT 0 COMMENT '是否查询  0否,1是',
   `dict_code` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字典CODE',
   `field_href` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '字段跳转URL',
-  `is_show` int(0) NULL DEFAULT 1 COMMENT '是否显示  0否,1显示',
-  `order_num` int(0) NULL DEFAULT NULL COMMENT '排序',
+  `is_show` int(11) NULL DEFAULT 1 COMMENT '是否显示  0否,1显示',
+  `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
   `replace_val` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '取值表达式',
   `is_total` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否合计 0否,1是（仅对数值有效）',
   `group_title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分组标题',
@@ -1929,7 +1929,7 @@ CREATE TABLE `onl_cgreport_param`  (
   `param_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '参数字段',
   `param_txt` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数文本',
   `param_value` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数默认值',
-  `order_num` int(0) NULL DEFAULT NULL COMMENT '排序',
+  `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
   `create_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
   `update_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人登录名称',
@@ -2009,9 +2009,9 @@ CREATE TABLE `qrtz_fired_triggers`  (
   `TRIGGER_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `INSTANCE_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `FIRED_TIME` bigint(0) NOT NULL,
-  `SCHED_TIME` bigint(0) NOT NULL,
-  `PRIORITY` int(0) NOT NULL,
+  `FIRED_TIME` bigint(20) NOT NULL,
+  `SCHED_TIME` bigint(20) NOT NULL,
+  `PRIORITY` int(11) NOT NULL,
   `STATE` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `JOB_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `JOB_GROUP` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -2079,15 +2079,15 @@ DROP TABLE IF EXISTS `qrtz_scheduler_state`;
 CREATE TABLE `qrtz_scheduler_state`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `INSTANCE_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `LAST_CHECKIN_TIME` bigint(0) NOT NULL,
-  `CHECKIN_INTERVAL` bigint(0) NOT NULL,
+  `LAST_CHECKIN_TIME` bigint(20) NOT NULL,
+  `CHECKIN_INTERVAL` bigint(20) NOT NULL,
   PRIMARY KEY (`SCHED_NAME`, `INSTANCE_NAME`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', 'cuixiangyu1619257784313', 1619279982013, 10000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('MyScheduler', 'DESKTOP-3OU267B1619348008796', 1619348094497, 10000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -2097,9 +2097,9 @@ CREATE TABLE `qrtz_simple_triggers`  (
   `SCHED_NAME` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `TRIGGER_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `TRIGGER_GROUP` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `REPEAT_COUNT` bigint(0) NOT NULL,
-  `REPEAT_INTERVAL` bigint(0) NOT NULL,
-  `TIMES_TRIGGERED` bigint(0) NOT NULL,
+  `REPEAT_COUNT` bigint(20) NOT NULL,
+  `REPEAT_INTERVAL` bigint(20) NOT NULL,
+  `TIMES_TRIGGERED` bigint(20) NOT NULL,
   PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
   CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'InnoDB free: 504832 kB; (`SCHED_NAME` `TRIGGER_NAME` `TRIGGE' ROW_FORMAT = Dynamic;
@@ -2115,10 +2115,10 @@ CREATE TABLE `qrtz_simprop_triggers`  (
   `STR_PROP_1` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `STR_PROP_2` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `STR_PROP_3` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `INT_PROP_1` int(0) NULL DEFAULT NULL,
-  `INT_PROP_2` int(0) NULL DEFAULT NULL,
-  `LONG_PROP_1` bigint(0) NULL DEFAULT NULL,
-  `LONG_PROP_2` bigint(0) NULL DEFAULT NULL,
+  `INT_PROP_1` int(11) NULL DEFAULT NULL,
+  `INT_PROP_2` int(11) NULL DEFAULT NULL,
+  `LONG_PROP_1` bigint(20) NULL DEFAULT NULL,
+  `LONG_PROP_2` bigint(20) NULL DEFAULT NULL,
   `DEC_PROP_1` decimal(13, 4) NULL DEFAULT NULL,
   `DEC_PROP_2` decimal(13, 4) NULL DEFAULT NULL,
   `BOOL_PROP_1` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -2138,15 +2138,15 @@ CREATE TABLE `qrtz_triggers`  (
   `JOB_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `JOB_GROUP` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `DESCRIPTION` varchar(250) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `NEXT_FIRE_TIME` bigint(0) NULL DEFAULT NULL,
-  `PREV_FIRE_TIME` bigint(0) NULL DEFAULT NULL,
-  `PRIORITY` int(0) NULL DEFAULT NULL,
+  `NEXT_FIRE_TIME` bigint(20) NULL DEFAULT NULL,
+  `PREV_FIRE_TIME` bigint(20) NULL DEFAULT NULL,
+  `PRIORITY` int(11) NULL DEFAULT NULL,
   `TRIGGER_STATE` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `TRIGGER_TYPE` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `START_TIME` bigint(0) NOT NULL,
-  `END_TIME` bigint(0) NULL DEFAULT NULL,
+  `START_TIME` bigint(20) NOT NULL,
+  `END_TIME` bigint(20) NULL DEFAULT NULL,
   `CALENDAR_NAME` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `MISFIRE_INSTR` smallint(0) NULL DEFAULT NULL,
+  `MISFIRE_INSTR` smallint(6) NULL DEFAULT NULL,
   `JOB_DATA` blob NULL,
   PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
   INDEX `SCHED_NAME`(`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) USING BTREE,
@@ -2336,7 +2336,7 @@ INSERT INTO `student_class` VALUES ('1362319742884057090', 'admin', '2021-02-18 
 -- ----------------------------
 DROP TABLE IF EXISTS `student_class_detail`;
 CREATE TABLE `student_class_detail`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -2612,7 +2612,7 @@ CREATE TABLE `sys_data_log`  (
   `data_table` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表名',
   `data_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '数据ID',
   `data_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '数据内容',
-  `data_version` int(0) NULL DEFAULT NULL COMMENT '版本号',
+  `data_version` int(11) NULL DEFAULT NULL COMMENT '版本号',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sindex`(`data_table`, `data_id`) USING BTREE,
   INDEX `idx_sdl_data_table_id`(`data_table`, `data_id`) USING BTREE
@@ -2679,7 +2679,7 @@ CREATE TABLE `sys_depart`  (
   `depart_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '机构/部门名称',
   `depart_name_en` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '英文名',
   `depart_name_abbr` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '缩写',
-  `depart_order` int(0) NULL DEFAULT 0 COMMENT '排序',
+  `depart_order` int(11) NULL DEFAULT 0 COMMENT '排序',
   `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `org_category` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1' COMMENT '机构类别 1组织机构，2岗位',
   `org_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '机构类型 1一级部门 2子部门',
@@ -2806,7 +2806,7 @@ CREATE TABLE `sys_dict`  (
   `dict_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典名称',
   `dict_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典编码',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
-  `del_flag` int(0) NULL DEFAULT NULL COMMENT '删除状态',
+  `del_flag` int(11) NULL DEFAULT NULL COMMENT '删除状态',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -2885,8 +2885,8 @@ CREATE TABLE `sys_dict_item`  (
   `item_text` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典项文本',
   `item_value` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典项值',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
-  `sort_order` int(0) NULL DEFAULT NULL COMMENT '排序',
-  `status` int(0) NULL DEFAULT NULL COMMENT '状态（1启用 0不启用）',
+  `sort_order` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `status` int(11) NULL DEFAULT NULL COMMENT '状态（1启用 0不启用）',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -3111,11 +3111,11 @@ CREATE TABLE `sys_gateway_route`  (
   `uri` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '服务地址',
   `predicates` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '断言',
   `filters` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '过滤器',
-  `retryable` int(0) NULL DEFAULT NULL COMMENT '是否重试:0-否 1-是',
-  `strip_prefix` int(0) NULL DEFAULT NULL COMMENT '是否忽略前缀0-否 1-是',
-  `persist` int(0) NULL DEFAULT NULL COMMENT '是否为保留数据:0-否 1-是',
-  `show_api` int(0) NULL DEFAULT NULL COMMENT '是否在接口文档中展示:0-否 1-是',
-  `status` int(0) NULL DEFAULT NULL COMMENT '状态:0-无效 1-有效',
+  `retryable` int(11) NULL DEFAULT NULL COMMENT '是否重试:0-否 1-是',
+  `strip_prefix` int(11) NULL DEFAULT NULL COMMENT '是否忽略前缀0-否 1-是',
+  `persist` int(11) NULL DEFAULT NULL COMMENT '是否为保留数据:0-否 1-是',
+  `show_api` int(11) NULL DEFAULT NULL COMMENT '是否在接口文档中展示:0-否 1-是',
+  `status` int(11) NULL DEFAULT NULL COMMENT '状态:0-无效 1-有效',
   `create_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
   `update_by` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -3138,9 +3138,9 @@ INSERT INTO `sys_gateway_route` VALUES ('jeecg-system', 'jeecg-system', 'jeecg-s
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log`  (
   `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `log_type` int(0) NULL DEFAULT NULL COMMENT '日志类型（1登录日志，2操作日志）',
+  `log_type` int(11) NULL DEFAULT NULL COMMENT '日志类型（1登录日志，2操作日志）',
   `log_content` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '日志内容',
-  `operate_type` int(0) NULL DEFAULT NULL COMMENT '操作类型',
+  `operate_type` int(11) NULL DEFAULT NULL COMMENT '操作类型',
   `userid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作用户账号',
   `username` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作用户名称',
   `ip` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'IP',
@@ -3148,7 +3148,7 @@ CREATE TABLE `sys_log`  (
   `request_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求路径',
   `request_param` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请求参数',
   `request_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求类型',
-  `cost_time` bigint(0) NULL DEFAULT NULL COMMENT '耗时',
+  `cost_time` bigint(20) NULL DEFAULT NULL COMMENT '耗时',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -3162,7 +3162,7 @@ CREATE TABLE `sys_log`  (
   INDEX `idx_sl_log_type`(`log_type`) USING BTREE,
   INDEX `idx_sl_operate_type`(`operate_type`) USING BTREE,
   INDEX `idx_sl_create_time`(`create_time`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_log
@@ -5775,6 +5775,22 @@ INSERT INTO `sys_log` VALUES ('1385891145180794882', 2, '职务表-分页列表�
 INSERT INTO `sys_log` VALUES ('1385891221630373889', 2, '教师信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TeacherInfoController.queryPageList()', NULL, '  teacherInfo: TeacherInfo(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, baseInfoId=null, trialLecture=null, wages=null, evaluation=null, files=null, subject=null, education=null, workingYears=null, graduateSchoolType=null, workStatus=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@193d8112', NULL, 10, 'admin', '2021-04-24 17:39:51', NULL, NULL);
 INSERT INTO `sys_log` VALUES ('1385892566559117314', 2, '教师信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TeacherInfoController.queryPageList()', NULL, '  teacherInfo: TeacherInfo(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, baseInfoId=null, trialLecture=null, wages=null, evaluation=null, files=null, subject=null, education=null, workingYears=null, graduateSchoolType=null, workStatus=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@3b739852', NULL, 12, 'admin', '2021-04-24 17:45:11', NULL, NULL);
 INSERT INTO `sys_log` VALUES ('1385893852968935426', 2, '教师信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TeacherInfoController.queryPageList()', NULL, '  teacherInfo: TeacherInfo(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, baseInfoId=null, trialLecture=null, wages=null, evaluation=null, files=null, subject=null, education=null, workingYears=null, graduateSchoolType=null, workStatus=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@21306e97', NULL, 168, 'admin', '2021-04-24 17:50:18', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386214728613347330', 2, '职务表-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.system.controller.SysPositionController.queryPageList()', NULL, '  sysPosition: SysPosition(id=null, code=null, name=null, postRank=null, companyId=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null)  pageNo: 1  pageSize: 5  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@811899', NULL, 29, 'admin', '2021-04-25 15:05:21', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386215082801348610', 1, '用户名: 管理员,退出成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-25 15:06:45', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386215143237074946', 1, '用户名: teacher,登录成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-25 15:06:59', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386215165517217793', 2, '教师信息-分页列表查询', 1, 'teacher', '教师', '127.0.0.1', 'org.jeecg.modules.controller.TeacherInfoController.queryPageList()', NULL, '  teacherInfo: TeacherInfo(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, baseInfoId=null, trialLecture=null, wages=null, evaluation=null, files=null, subject=null, education=null, workingYears=null, graduateSchoolType=null, workStatus=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@45c831aa', NULL, 51, 'teacher', '2021-04-25 15:07:05', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386224245694644226', 2, '教师信息-分页列表查询', 1, 'teacher', '教师', '127.0.0.1', 'org.jeecg.modules.controller.TeacherInfoController.queryPageList()', NULL, '  teacherInfo: TeacherInfo(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, baseInfoId=null, trialLecture=null, wages=null, evaluation=null, files=null, subject=null, education=null, workingYears=null, graduateSchoolType=null, workStatus=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@61dbc82e', NULL, 18, 'teacher', '2021-04-25 15:43:10', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386224873820995586', 2, '教师信息-分页列表查询', 1, 'teacher', '教师', '127.0.0.1', 'org.jeecg.modules.controller.TeacherInfoController.queryPageList()', NULL, '  teacherInfo: TeacherInfo(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, baseInfoId=1386215013050073089, trialLecture=null, wages=null, evaluation=null, files=null, subject=null, education=null, workingYears=null, graduateSchoolType=null, workStatus=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@93933b3', NULL, 56, 'teacher', '2021-04-25 15:45:39', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386225416530378753', 2, '教师信息-分页列表查询', 1, 'teacher', '教师', '127.0.0.1', 'org.jeecg.modules.controller.TeacherInfoController.queryPageList()', NULL, '  teacherInfo: TeacherInfo(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, baseInfoId=1386215013050073089, trialLecture=null, wages=null, evaluation=null, files=null, subject=null, education=null, workingYears=null, graduateSchoolType=null, workStatus=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@71b85ffe', NULL, 9, 'teacher', '2021-04-25 15:47:49', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386247951246508034', 1, '用户名: 教师,退出成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-25 17:17:21', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386247985522360322', 1, '用户名: admin,登录成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-25 17:17:30', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386247992539430913', 2, '教师信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TeacherInfoController.queryPageList()', NULL, '  teacherInfo: TeacherInfo(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, baseInfoId=null, trialLecture=null, wages=null, evaluation=null, files=null, subject=null, education=null, workingYears=null, graduateSchoolType=null, workStatus=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@4e3d27f2', NULL, 102, 'admin', '2021-04-25 17:17:31', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386251989904080897', 2, '教师信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.TeacherInfoController.queryPageList()', NULL, '  teacherInfo: TeacherInfo(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, baseInfoId=null, trialLecture=null, wages=null, evaluation=null, files=null, subject=null, education=null, workingYears=null, graduateSchoolType=null, workStatus=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@557ed96', NULL, 24, 'admin', '2021-04-25 17:33:24', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386267320626253826', 1, '用户名: 管理员,退出成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-25 18:34:19', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386267346232479746', 1, '用户名: admin,登录成功！', NULL, NULL, NULL, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, '2021-04-25 18:34:26', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386269814290976770', 2, '招聘信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.RecruitmentInformationController.queryPageList()', NULL, '  recruitmentInformation: RecruitmentInformation(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subject=null, age=null, education=null, sex=null, workingYears=null, graduateSchoolType=null, type=null, count=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@246479a8', NULL, 124, 'admin', '2021-04-25 18:44:14', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386270255900856321', 2, '招聘信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.RecruitmentInformationController.queryPageList()', NULL, '  recruitmentInformation: RecruitmentInformation(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subject=null, age=null, education=null, sex=null, workingYears=null, graduateSchoolType=null, type=null, count=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@6d90a2d3', NULL, 20, 'admin', '2021-04-25 18:45:59', NULL, NULL);
+INSERT INTO `sys_log` VALUES ('1386271135786143746', 2, '招聘信息-分页列表查询', 1, 'admin', '管理员', '127.0.0.1', 'org.jeecg.modules.controller.RecruitmentInformationController.queryPageList()', NULL, '  recruitmentInformation: RecruitmentInformation(id=null, createBy=null, createTime=null, updateBy=null, updateTime=null, sysOrgCode=null, subject=null, age=null, education=null, sex=null, workingYears=null, graduateSchoolType=null, type=null, count=null)  pageNo: 1  pageSize: 10  req: org.apache.shiro.web.servlet.ShiroHttpServletRequest@2dab807b', NULL, 17, 'admin', '2021-04-25 18:49:29', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_permission
@@ -5788,7 +5804,7 @@ CREATE TABLE `sys_permission`  (
   `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组件',
   `component_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组件名字',
   `redirect` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '一级菜单跳转地址',
-  `menu_type` int(0) NULL DEFAULT NULL COMMENT '菜单类型(0:一级菜单; 1:子菜单:2:按钮权限)',
+  `menu_type` int(11) NULL DEFAULT NULL COMMENT '菜单类型(0:一级菜单; 1:子菜单:2:按钮权限)',
   `perms` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单权限编码',
   `perms_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '权限策略1显示2禁用',
   `sort_no` double(8, 2) NULL DEFAULT NULL COMMENT '菜单排序',
@@ -5797,14 +5813,14 @@ CREATE TABLE `sys_permission`  (
   `is_route` tinyint(1) NULL DEFAULT 1 COMMENT '是否路由菜单: 0:不是  1:是（默认值1）',
   `is_leaf` tinyint(1) NULL DEFAULT NULL COMMENT '是否叶子节点:    1:是   0:不是',
   `keep_alive` tinyint(1) NULL DEFAULT NULL COMMENT '是否缓存该页面:    1:是   0:不是',
-  `hidden` int(0) NULL DEFAULT 0 COMMENT '是否隐藏路由: 0否,1是',
+  `hidden` int(11) NULL DEFAULT 0 COMMENT '是否隐藏路由: 0否,1是',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `del_flag` int(0) NULL DEFAULT 0 COMMENT '删除状态 0正常 1已删除',
-  `rule_flag` int(0) NULL DEFAULT 0 COMMENT '是否添加数据权限1是0否',
+  `del_flag` int(11) NULL DEFAULT 0 COMMENT '删除状态 0正常 1已删除',
+  `rule_flag` int(11) NULL DEFAULT 0 COMMENT '是否添加数据权限1是0否',
   `status` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '按钮权限状态(0无效1有效)',
   `internal_or_external` tinyint(1) NULL DEFAULT NULL COMMENT '外链菜单打开方式 0/内部打开 1/外部打开',
   PRIMARY KEY (`id`) USING BTREE,
@@ -5884,7 +5900,10 @@ INSERT INTO `sys_permission` VALUES ('1382670992339013634', '1344188141233852417
 INSERT INTO `sys_permission` VALUES ('1384897119741276162', '1344188141233852417', '聘任协议', '/manage/employmentAgreement', 'manage/EmploymentAgreementList', NULL, NULL, 1, NULL, '1', 1.00, 0, NULL, 1, 1, 0, 0, NULL, 'admin', '2021-04-21 23:49:38', NULL, NULL, 0, 0, '1', 0);
 INSERT INTO `sys_permission` VALUES ('1384897314193403906', '1344188141233852417', '招聘信息', '/manage/recruitmentInformation', 'manage/RecruitmentInformationList', NULL, NULL, 1, NULL, '1', 1.00, 0, NULL, 1, 1, 0, 0, NULL, 'admin', '2021-04-21 23:50:25', NULL, NULL, 0, 0, '1', 0);
 INSERT INTO `sys_permission` VALUES ('1384897451942735874', '1344188141233852417', '工资发放信息', '/manage/salaryPaymentInfo', 'manage/SalaryPaymentInfoList', NULL, NULL, 1, NULL, '1', 1.00, 0, NULL, 1, 1, 0, 0, NULL, 'admin', '2021-04-21 23:50:57', NULL, NULL, 0, 0, '1', 0);
-INSERT INTO `sys_permission` VALUES ('1384897604317605889', '1344188141233852417', '教师信息', '/manage/teacherInfo', 'manage/TeacherInfoList', NULL, NULL, 1, NULL, '1', 1.00, 0, NULL, 1, 1, 0, 0, NULL, 'admin', '2021-04-21 23:51:34', NULL, NULL, 0, 0, '1', 0);
+INSERT INTO `sys_permission` VALUES ('1384897604317605889', '1344188141233852417', '教师信息', '/manage/teacherInfo', 'manage/TeacherInfoList', NULL, NULL, 1, NULL, '1', 1.00, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2021-04-21 23:51:34', NULL, NULL, 0, 0, '1', 0);
+INSERT INTO `sys_permission` VALUES ('1386208973613023233', '1384897604317605889', 'teacher', NULL, NULL, NULL, NULL, 2, 'teacher:add', '1', 1.00, 0, NULL, 1, 1, 0, 0, NULL, 'admin', '2021-04-25 14:42:28', NULL, NULL, 0, 0, '0', 0);
+INSERT INTO `sys_permission` VALUES ('1386213900737429505', '1384897604317605889', 'college_director', NULL, NULL, NULL, NULL, 2, 'college_director:add', '1', 1.00, 0, NULL, 1, 1, 0, 0, NULL, 'admin', '2021-04-25 15:02:03', NULL, NULL, 0, 0, '1', 0);
+INSERT INTO `sys_permission` VALUES ('1386213996224954370', '1384897604317605889', 'schedul', NULL, NULL, NULL, NULL, 2, 'schedul:add', '1', 1.00, 0, NULL, 1, 1, 0, 0, NULL, 'admin', '2021-04-25 15:02:26', NULL, NULL, 0, 0, '1', 0);
 INSERT INTO `sys_permission` VALUES ('190c2b43bec6a5f7a4194a85db67d96a', 'd7d6e2e4e2934f2c9385a623fd98c6f3', '角色管理', '/isystem/roleUserList', 'system/RoleUserList', NULL, NULL, 1, NULL, NULL, 1.20, 0, NULL, 1, 1, 0, 0, NULL, 'admin', '2019-04-17 15:13:56', 'admin', '2019-12-25 09:36:31', 0, 0, NULL, 0);
 INSERT INTO `sys_permission` VALUES ('1a0811914300741f4e11838ff37a1d3a', '3f915b2769fc80648e92d04e84ca059d', '手机号禁用', NULL, NULL, NULL, NULL, 2, 'user:form:phone', '2', 1.00, 0, NULL, 0, 1, NULL, 0, NULL, 'admin', '2019-05-11 17:19:30', 'admin', '2019-05-11 18:00:22', 0, 0, '1', NULL);
 INSERT INTO `sys_permission` VALUES ('200006f0edf145a2b50eacca07585451', 'fb07ca05a3e13674dbf6d3245956da2e', '搜索列表（应用）', '/list/search/application', 'examples/list/TableList', NULL, NULL, 1, NULL, NULL, 1.00, 0, NULL, 1, 1, NULL, 0, NULL, 'admin', '2019-02-12 14:02:51', 'admin', '2019-02-12 14:14:01', 0, 0, NULL, NULL);
@@ -6053,17 +6072,17 @@ CREATE TABLE `sys_quartz_job`  (
   `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `del_flag` int(0) NULL DEFAULT NULL COMMENT '删除状态',
+  `del_flag` int(11) NULL DEFAULT NULL COMMENT '删除状态',
   `update_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   `job_class_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务类名',
   `cron_expression` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'cron表达式',
   `parameter` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
-  `status` int(0) NULL DEFAULT NULL COMMENT '状态 0正常 -1停止',
+  `status` int(11) NULL DEFAULT NULL COMMENT '状态 0正常 -1停止',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uniq_job_class_name`(`job_class_name`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_quartz_job
@@ -6188,6 +6207,40 @@ INSERT INTO `sys_role_permission` VALUES ('1384897793795289090', 'f6817f48af4fb3
 INSERT INTO `sys_role_permission` VALUES ('1384897793807872001', 'f6817f48af4fb3af11b9e8bf182f618b', '1384897314193403906', NULL, NULL, NULL);
 INSERT INTO `sys_role_permission` VALUES ('1384897793807872002', 'f6817f48af4fb3af11b9e8bf182f618b', '1384897451942735874', NULL, NULL, NULL);
 INSERT INTO `sys_role_permission` VALUES ('1384897793812066305', 'f6817f48af4fb3af11b9e8bf182f618b', '1384897604317605889', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214099677462530', '1385855021823029250', '1384897604317605889', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214099698434050', '1385855021823029250', '1386208973613023233', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214099698434051', '1385855021823029250', '1344188141233852417', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214503937064961', '1385855238341390337', '1344188141233852417', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214503945453570', '1385855238341390337', '1384897314193403906', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214554730086402', '1385854719631814658', '1344188141233852417', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214554738475009', '1385854719631814658', '1384897604317605889', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214554738475010', '1385854719631814658', '1386213996224954370', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687647580161', '1385854287186489346', '1384897604317605889', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687660163074', '1385854287186489346', '1386213900737429505', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687660163075', '1385854287186489346', '1344188141233852417', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687660163076', '1385854287186489346', '1346729903085105153', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687660163077', '1385854287186489346', '1346730205871910913', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687668551682', '1385854287186489346', '1346730558721929218', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687668551683', '1385854287186489346', '1346730687591919618', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687672745986', '1385854287186489346', '1346730867208794113', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687681134594', '1385854287186489346', '1346731044011290625', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687681134595', '1385854287186489346', '1382669993939472385', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687689523201', '1385854287186489346', '1382670347297001473', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687689523202', '1385854287186489346', '1382670751279779842', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687693717505', '1385854287186489346', '1382670992339013634', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687693717506', '1385854287186489346', '1384897119741276162', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687693717507', '1385854287186489346', '1384897314193403906', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687693717508', '1385854287186489346', '1384897451942735874', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687702106114', '1385854287186489346', 'd7d6e2e4e2934f2c9385a623fd98c6f3', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687702106115', '1385854287186489346', '3f915b2769fc80648e92d04e84ca059d', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687706300417', '1385854287186489346', '1260928341675982849', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687706300418', '1385854287186489346', '1260929666434318338', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687706300419', '1385854287186489346', '1260931366557696001', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687706300420', '1385854287186489346', '1260933542969458689', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687706300421', '1385854287186489346', '1a0811914300741f4e11838ff37a1d3a', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687706300422', '1385854287186489346', '190c2b43bec6a5f7a4194a85db67d96a', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687714689026', '1385854287186489346', '54dd5457a3190740005c1bfec55b1c34', NULL, NULL, NULL);
+INSERT INTO `sys_role_permission` VALUES ('1386214687714689027', '1385854287186489346', '9502685863ab87f0ad1134142788a385', NULL, NULL, NULL);
 INSERT INTO `sys_role_permission` VALUES ('145eac8dd88eddbd4ce0a800ab40a92c', 'e51758fa916c881624b046d26bd09230', '08e6b9dc3c04489c8e1ff2ce6f105aa4', NULL, NULL, NULL);
 INSERT INTO `sys_role_permission` VALUES ('154edd0599bd1dc2c7de220b489cd1e2', 'f6817f48af4fb3af11b9e8bf182f618b', '7ac9eb9ccbde2f7a033cd4944272bf1e', NULL, NULL, NULL);
 INSERT INTO `sys_role_permission` VALUES ('165acd6046a0eaf975099f46a3c898ea', 'f6817f48af4fb3af11b9e8bf182f618b', '4f66409ef3bbd69c1d80469d6e2a885e', NULL, NULL, NULL);
@@ -6521,7 +6574,7 @@ CREATE TABLE `sys_sms`  (
   `es_content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '推送内容',
   `es_send_time` datetime(0) NULL DEFAULT NULL COMMENT '推送时间',
   `es_send_status` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '推送状态 0未推送 1推送成功 2推送失败 -1失败不再发送',
-  `es_send_num` int(0) NULL DEFAULT NULL COMMENT '发送次数 超过5次不再发送',
+  `es_send_num` int(11) NULL DEFAULT NULL COMMENT '发送次数 超过5次不再发送',
   `es_result` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '推送失败原因',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   `create_by` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人登录名称',
@@ -6583,13 +6636,13 @@ INSERT INTO `sys_sms_template` VALUES ('4028608164691b000164693108140003', '催�
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_tenant`;
 CREATE TABLE `sys_tenant`  (
-  `id` int(0) NOT NULL COMMENT '租户编码',
+  `id` int(11) NOT NULL COMMENT '租户编码',
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '租户名称',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `begin_date` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
   `end_date` datetime(0) NULL DEFAULT NULL COMMENT '结束时间',
-  `status` int(0) NULL DEFAULT NULL COMMENT '状态 1正常 0冻结',
+  `status` int(11) NULL DEFAULT NULL COMMENT '状态 1正常 0冻结',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '多租户信息表' ROW_FORMAT = Dynamic;
 
@@ -6662,6 +6715,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
+INSERT INTO `sys_user` VALUES ('1386215013050073089', 'teacher', '教师', '589765ad7a774dfe', 'Xswf5gCk', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '000022', NULL, NULL, 'admin', '2021-04-25 15:06:28', NULL, NULL, 1, '', NULL, NULL);
 INSERT INTO `sys_user` VALUES ('3d464b4ea0d2491aab8a7bde74c57e95', 'zhangsan', '张三', '02ea098224c7d0d2077c14b9a3a1ed16', 'x5xRdeKB', 'https://static.jeecg.com/temp/jmlogo_1606575041993.png', NULL, NULL, NULL, NULL, '财务部', 1, 0, NULL, NULL, 1, '0005', '总经理', NULL, 'admin', '2020-05-14 21:26:24', 'admin', '2020-09-09 14:42:51', 1, '', '', NULL);
 INSERT INTO `sys_user` VALUES ('a75d45a015c44384a04449ee80dc3503', 'jeecg', 'jeecg', '58a714412072f0b9', 'mIgiYJow', 'https://static.jeecg.com/temp/国炬软件logo_1606575029126.png', NULL, 1, NULL, NULL, 'A02A01', 1, 0, NULL, NULL, 1, '00002', 'devleader', NULL, 'admin', '2019-02-13 16:02:36', 'admin', '2020-11-26 15:16:05', 1, '', NULL, NULL);
 INSERT INTO `sys_user` VALUES ('e9ca23d68d884d4ebb19d07889727dae', 'admin', '管理员', 'cb362cfeefbf3d8d', 'RCGTeGiH', 'https://static.jeecg.com/temp/国炬软件logo_1606575029126.png', '2018-12-05 00:00:00', 1, 'jeecg@163.com', '18611111111', 'A01', 1, 0, NULL, NULL, 1, '00001', '总经理', NULL, NULL, '2038-06-21 17:54:10', 'admin', '2020-07-10 15:27:10', 2, 'c6d7cb4deeac411cb3384b1b31278596', '', NULL);
@@ -6745,6 +6799,7 @@ CREATE TABLE `sys_user_role`  (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('b3ffd9311a1ca296c44e2409b547384f', '01b802058ea94b978a2c96f4807f6b48', '1');
+INSERT INTO `sys_user_role` VALUES ('1386215013075238914', '1386215013050073089', '1385855021823029250');
 INSERT INTO `sys_user_role` VALUES ('1303584634118918145', '3d464b4ea0d2491aab8a7bde74c57e95', 'ee8626f80f7c2619917b6236f3a7f02b');
 INSERT INTO `sys_user_role` VALUES ('0ede6d23d53bc7dc990346ff14faabee', '3db4cf42353f4e868b7ccfeef90505d2', 'ee8626f80f7c2619917b6236f3a7f02b');
 INSERT INTO `sys_user_role` VALUES ('e78d210d24aaff48e0a736e2ddff4cdc', '3e177fede453430387a8279ced685679', 'ee8626f80f7c2619917b6236f3a7f02b');
@@ -6826,7 +6881,7 @@ CREATE TABLE `test_demo`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
   `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
   `sex` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
-  `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
+  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
   `descc` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
   `user_code` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户编码',
@@ -6884,7 +6939,7 @@ CREATE TABLE `test_note`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
   `sys_org_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属部门',
   `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
-  `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
+  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
   `sex` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '性别',
   `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
   `contents` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请假原因',
@@ -6935,7 +6990,7 @@ CREATE TABLE `test_order_product`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
   `product_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品名字',
   `price` double(32, 0) NULL DEFAULT NULL COMMENT '价格',
-  `num` int(0) NULL DEFAULT NULL COMMENT '数量',
+  `num` int(11) NULL DEFAULT NULL COMMENT '数量',
   `descc` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `order_fk_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单外键ID',
   `pro_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品类型',
@@ -6980,7 +7035,7 @@ CREATE TABLE `test_person`  (
   `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
   `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请假原因',
   `be_date` datetime(0) NULL DEFAULT NULL COMMENT '请假时间',
-  `qj_days` int(0) NULL DEFAULT NULL COMMENT '请假天数',
+  `qj_days` int(11) NULL DEFAULT NULL COMMENT '请假天数',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 

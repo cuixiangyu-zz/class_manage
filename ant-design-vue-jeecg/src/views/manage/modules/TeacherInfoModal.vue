@@ -10,7 +10,7 @@
     cancelText="关闭">
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
-        <a-form-item label="用户" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="用户" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-search-select-tag
             ref="userSelect"
             placeholder="请选择用户"
@@ -19,35 +19,35 @@
             :dictOptions="userOptions">
           </j-search-select-tag>
         </a-form-item>
-        <a-form-item label="试讲结果" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="试讲结果" v-has="'schedul:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['trialLecture']" placeholder="请输入试讲结果"></a-input>
         </a-form-item>
-        <a-form-item label="月工资" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="月工资" v-has="'college_director:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input-number v-decorator="['wages']" placeholder="请输入月工资"></a-input-number>
         </a-form-item>
-        <a-form-item label="评价结果" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="评价结果" v-has="'college_director:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['evaluation']" placeholder="请输入评价结果"></a-input>
         </a-form-item>
-        <a-form-item label="上传文件" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="上传文件" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-upload v-decorator="['files']" :trigger-change="true"></j-upload>
         </a-form-item>
-        <a-form-item label="任教科目" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="任教科目" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-dict-select-tag type="list" v-decorator="['subject', { rules: [{ required: true}] }]" :trigger-change="true"
                              dictCode="subject" placeholder="请选择任教科目"/>
         </a-form-item>
-        <a-form-item label="学历" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="学历" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-dict-select-tag type="list" v-decorator="['education', { rules: [{ required: true}] }]" :trigger-change="true"
                              dictCode="education_type" placeholder="请选择学历"/>
         </a-form-item>
-        <a-form-item label="工龄" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="工龄" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input-number v-decorator="['workingYears']" placeholder="请输入工龄"></a-input-number>
         </a-form-item>
-        <a-form-item label="毕业学校类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="毕业学校类型" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-dict-select-tag type="list" v-decorator="['graduateSchoolType', { rules: [{ required: true}] }]" :trigger-change="true"
                              dictCode="school_type" placeholder="请选择毕业学校"/>
         </a-form-item>
-        <a-form-item label="工作状态" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['workStatus', { rules: [{ required: true}] }]" :trigger-change="true"
+        <a-form-item label="工作状态" v-has="'college_director:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <j-dict-select-tag type="list" v-decorator="['workStatus']" :trigger-change="true"
                              dictCode="work_status" placeholder="请选择工作状态"/>
         </a-form-item>
 
