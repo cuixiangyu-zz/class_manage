@@ -6,7 +6,7 @@
     :confirmLoading="confirmLoading"
     switchFullscreen
     @ok="handleCancel"
-    @cancel="handleCancel"
+    @cancel="visible=false"
     cancelText="关闭">
     <a-spin :spinning="confirmLoading">
     <!-- table区域-begin -->
@@ -44,7 +44,6 @@
     },
     data () {
       return {
-        selectedRowKeys: [],
         description: '教师信息管理页面',
         // 表头
         columns: [
@@ -151,6 +150,7 @@
           this.$message.error("请设置url.list属性!")
           return
         }
+        this.visible = true
         //加载数据 若传入参数1则加载第一页的内容
         var params = {
           id:id

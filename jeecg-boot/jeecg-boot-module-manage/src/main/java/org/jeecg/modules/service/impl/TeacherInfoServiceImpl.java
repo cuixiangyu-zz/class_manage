@@ -67,4 +67,9 @@ public class TeacherInfoServiceImpl extends ServiceImpl<TeacherInfoMapper, Teach
         List<TeacherInfo> teacherInfoList = teacherInfoMapper.getAddTeacherList(information);
         return Result.ok(teacherInfoList);
     }
+
+    @Override
+    public String getTeacherName(String baseInfoId) {
+        return teacherInfoMapper.getTeacherName(baseInfoId);
+    }
 }

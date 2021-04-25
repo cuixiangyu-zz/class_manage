@@ -54,6 +54,7 @@ import org.jeecg.common.aspect.annotation.AutoLog;
 public class TeacherInfoController extends JeecgController<TeacherInfo, ITeacherInfoService> {
 	@Autowired
 	private ITeacherInfoService teacherInfoService;
+
 	
 	/**
 	 * 分页列表查询
@@ -95,6 +96,10 @@ public class TeacherInfoController extends JeecgController<TeacherInfo, ITeacher
 		if(StringUtils.isEmpty(teacherInfo.getWorkStatus())){
 			teacherInfo.setWorkStatus("quit");
 		}
+		if(StringUtils.isEmpty(teacherInfo.getBaseInfoId())){
+			String teacherName = teacherInfoService.getTeacherName(teacherInfo.getBaseInfoId());
+			teacherInfo.setName(teacherName);
+		}
 		teacherInfoService.save(teacherInfo);
 		return Result.ok("添加成功！");
 	}
@@ -109,6 +114,10 @@ public class TeacherInfoController extends JeecgController<TeacherInfo, ITeacher
 	@ApiOperation(value="教师信息-编辑", notes="教师信息-编辑")
 	@PutMapping(value = "/edit")
 	public Result<?> edit(@RequestBody TeacherInfo teacherInfo) {
+		if(!StringUtils.isEmpty(teacherInfo.getBaseInfoId())){
+			String teacherName = teacherInfoService.getTeacherName(teacherInfo.getBaseInfoId());
+			teacherInfo.setName(teacherName);
+		}
 		teacherInfoService.updateById(teacherInfo);
 		return Result.ok("编辑成功!");
 	}

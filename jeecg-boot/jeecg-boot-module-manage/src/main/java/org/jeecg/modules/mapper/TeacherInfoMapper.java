@@ -56,4 +56,9 @@ public interface TeacherInfoMapper extends BaseMapper<TeacherInfo> {
             "</script>"
     })
     List<TeacherInfo> getAddTeacherList(@Param("information") RecruitmentInformation information);
+
+    @Select({
+            " select realname from sys_user where id = #{baseInfoId}"
+    })
+    String getTeacherName(String baseInfoId);
 }

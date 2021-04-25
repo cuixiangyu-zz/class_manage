@@ -58,6 +58,10 @@ public class TeacherInfo implements Serializable {
 	@Excel(name = "基础信息表id", width = 15)
     @ApiModelProperty(value = "基础信息表id")
     private String baseInfoId;
+
+    @Excel(name = "姓名", width = 15)
+    @ApiModelProperty(value = "姓名")
+    private String name;
 	/**试讲结果*/
 	@Excel(name = "试讲结果", width = 15)
     @ApiModelProperty(value = "试讲结果")

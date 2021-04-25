@@ -143,6 +143,11 @@
             }
           },
           {
+            title:'姓名',
+            align:"center",
+            dataIndex: 'name'
+          },
+          {
             title:'试讲结果',
             align:"center",
             dataIndex: 'trialLecture'
