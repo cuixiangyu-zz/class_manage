@@ -82,6 +82,7 @@ public class RecruitmentInformationController extends JeecgController<Recruitmen
 	@ApiOperation(value="招聘信息-添加", notes="招聘信息-添加")
 	@PostMapping(value = "/add")
 	public Result<?> add(@RequestBody RecruitmentInformation recruitmentInformation) {
+		recruitmentInformation.setStatus("1");
 		recruitmentInformationService.save(recruitmentInformation);
 		return Result.ok("添加成功！");
 	}

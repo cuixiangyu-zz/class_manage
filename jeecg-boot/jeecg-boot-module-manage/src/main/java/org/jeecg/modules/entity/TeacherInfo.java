@@ -57,6 +57,7 @@ public class TeacherInfo implements Serializable {
 	/**基础信息表id*/
 	@Excel(name = "基础信息表id", width = 15)
     @ApiModelProperty(value = "基础信息表id")
+    @Dict(dictTable = "sys_user",dicText = "realname",dicCode = "id")
     private String baseInfoId;
 
     @Excel(name = "姓名", width = 15)

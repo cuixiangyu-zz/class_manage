@@ -2,7 +2,7 @@
   <a-card :bordered="false">
     <!-- 查询区域 -->
     <div class="table-page-search-wrapper">
-      <a-form layout="inline" @keyup.enter.native="searchQuery">
+      <a-form layout="inline" @keyup.enter.native="searchQuery" v-has="'teacher:addClass'">
         <a-row :gutter="24">
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <a-form-item label="课程名称">
@@ -49,7 +49,7 @@
     <!-- 查询区域-END -->
     
     <!-- 操作按钮区域 -->
-    <div class="table-operator">
+    <div class="table-operator" v-has="'teacher:addClass'">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
       <a-button type="primary" icon="download" @click="handleExportXls('课程表')">导出</a-button>
       <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
@@ -104,10 +104,15 @@
         </template>
 
         <span slot="action" slot-scope="text, record">
-          <a @click="handleEdit(record)">编辑</a>
+          <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
+                  <a>删除</a>
+                </a-popconfirm>
           <a-divider type="vertical" />
-          <a @click="addTask(record)">添加作业</a>
+          <a @click="handleUpload(record)">文件上传</a>
+<!--          <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
+&lt;!&ndash;          <a @click="addTask(record)">添加作业</a>
+          <a-divider type="vertical" />&ndash;&gt;
           <a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
             <a-menu slot="overlay">
@@ -116,14 +121,14 @@
                   <a>删除</a>
                 </a-popconfirm>
               </a-menu-item>
-              <a-menu-item>
+&lt;!&ndash;              <a-menu-item>
                 <a @click="addRate(record)">添加作业成绩比例</a>
               </a-menu-item>
               <a-menu-item>
                 <a @click="addCheck(record)">添加考勤信息</a>
-              </a-menu-item>
+              </a-menu-item>&ndash;&gt;
             </a-menu>
-          </a-dropdown>
+          </a-dropdown>-->
         </span>
 
       </a-table>
@@ -136,6 +141,8 @@
     <gradeRate-modal ref="gradeRateForm" @ok="modalFormOk"></gradeRate-modal>
 
     <studentCheck-modal ref="studentCheckForm" @ok="modalFormOk"></studentCheck-modal>
+
+    <studentClassFile-modal ref="studentClassFileForm" @ok="modalFormOk"></studentClassFile-modal>
   </a-card>
 </template>
 
@@ -149,6 +156,9 @@
   import StudentTaskModal from './modules/StudentTaskModal'
   import GradeRateModal from './modules/GradeRateModal'
   import StudentCheckModal from './modules/StudentCheckModal'
+  import StudentClassFileModal from './modules/StudentClassFileModal'
+  import { httpAction } from '@/api/manage'
+  import {filterDictTextByCache} from "@comp/dict/JDictSelectUtil";
 
   export default {
     name: "StudentClassList",
@@ -158,7 +168,8 @@
       JSearchSelectTag,
       StudentTaskModal,
       GradeRateModal,
-      StudentCheckModal
+      StudentCheckModal,
+      StudentClassFileModal
     },
     data () {
       return {
@@ -188,12 +199,12 @@
           {
             title:'课程名称',
             align:"center",
-            dataIndex: 'subjectName'
+            dataIndex: 'subjectName_dictText'
           },
           {
             title:'老师',
             align:"center",
-            dataIndex: 'teacher_dictText'
+            dataIndex: 'teacherName',
           },
           {
             title:'课程详细周数',
@@ -286,6 +297,11 @@
         this.$refs.studentCheckForm.add(record.id);
         this.$refs.studentCheckForm.title = "新增";
         this.$refs.studentCheckForm.disableSubmit = false;
+      },
+      handleUpload: function (record) {
+        this.$refs.studentClassFileForm.add(record.id);
+        this.$refs.studentClassFileForm.title = "上传文件";
+        this.$refs.studentClassFileForm.disableSubmit = false;
       },
     }
   }

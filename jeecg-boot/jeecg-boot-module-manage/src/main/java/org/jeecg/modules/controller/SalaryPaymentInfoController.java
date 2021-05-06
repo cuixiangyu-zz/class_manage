@@ -9,8 +9,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.SecurityUtils;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
+import org.jeecg.common.system.vo.LoginUser;
 import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.entity.SalaryPaymentInfo;
 import org.jeecg.modules.service.ISalaryPaymentInfoService;
@@ -20,6 +23,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 
+import org.jeecg.modules.service.ITeacherInfoService;
 import org.jeecgframework.poi.excel.ExcelImportUtil;
 import org.jeecgframework.poi.excel.def.NormalExcelConstants;
 import org.jeecgframework.poi.excel.entity.ExportParams;
@@ -49,6 +53,9 @@ import org.jeecg.common.aspect.annotation.AutoLog;
 public class SalaryPaymentInfoController extends JeecgController<SalaryPaymentInfo, ISalaryPaymentInfoService> {
 	@Autowired
 	private ISalaryPaymentInfoService salaryPaymentInfoService;
+
+	@Autowired
+	private ITeacherInfoService teacherInfoService;
 	
 	/**
 	 * 分页列表查询
@@ -66,6 +73,13 @@ public class SalaryPaymentInfoController extends JeecgController<SalaryPaymentIn
 								   @RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
 								   @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,
 								   HttpServletRequest req) {
+		//如果是教师登录只能查看自己的工资发放信息
+		LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+		boolean collegeDirector = teacherInfoService.checkRole(sysUser.getUsername(), "teacher");
+		if(collegeDirector){
+			salaryPaymentInfo.setTercherId(teacherInfoService.getTeacherByUserId(sysUser.getId()).getId());
+		}
+
 		QueryWrapper<SalaryPaymentInfo> queryWrapper = QueryGenerator.initQueryWrapper(salaryPaymentInfo, req.getParameterMap());
 		Page<SalaryPaymentInfo> page = new Page<SalaryPaymentInfo>(pageNo, pageSize);
 		IPage<SalaryPaymentInfo> pageList = salaryPaymentInfoService.page(page, queryWrapper);

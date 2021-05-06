@@ -88,7 +88,7 @@
           <a @click="handleEdit(record)">编辑</a>
 
           <a-divider type="vertical" />
-          <a @click="chooseTeacher(record)">选择教师</a>
+          <a v-has="'enterprise:add'" @click="chooseTeacher(record)">选择教师</a>
            <a-divider type="vertical" />
           <a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
@@ -180,6 +180,11 @@
             title:'招聘数量',
             align:"center",
             dataIndex: 'count'
+          },
+          {
+            title:'状态',
+            align:"center",
+            dataIndex: 'status_dictText'
           },
           {
             title: '操作',

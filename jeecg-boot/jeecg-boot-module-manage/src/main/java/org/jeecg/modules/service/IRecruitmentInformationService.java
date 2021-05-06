@@ -11,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IRecruitmentInformationService extends IService<RecruitmentInformation> {
 
+    void updateRecruitmentByTeacherId(String id);
 }

@@ -10,7 +10,7 @@
     cancelText="关闭">
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
-        <a-form-item label="用户" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-form-item label="用户" v-has="'teacher:add'" v-if="title==='新增'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-search-select-tag
             ref="userSelect"
             placeholder="请选择用户"
@@ -32,18 +32,18 @@
           <j-upload v-decorator="['files']" :trigger-change="true"></j-upload>
         </a-form-item>
         <a-form-item label="任教科目" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['subject', { rules: [{ required: true}] }]" :trigger-change="true"
+          <j-dict-select-tag type="list" v-decorator="['subject' ]" :trigger-change="true"
                              dictCode="subject" placeholder="请选择任教科目"/>
         </a-form-item>
         <a-form-item label="学历" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['education', { rules: [{ required: true}] }]" :trigger-change="true"
+          <j-dict-select-tag type="list" v-decorator="['education' ]" :trigger-change="true"
                              dictCode="education_type" placeholder="请选择学历"/>
         </a-form-item>
         <a-form-item label="工龄" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input-number v-decorator="['workingYears']" placeholder="请输入工龄"></a-input-number>
         </a-form-item>
         <a-form-item label="毕业学校类型" v-has="'teacher:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag type="list" v-decorator="['graduateSchoolType', { rules: [{ required: true}] }]" :trigger-change="true"
+          <j-dict-select-tag type="list" v-decorator="['graduateSchoolType' ]" :trigger-change="true"
                              dictCode="school_type" placeholder="请选择毕业学校"/>
         </a-form-item>
         <a-form-item label="工作状态" v-has="'college_director:add'" :labelCol="labelCol" :wrapperCol="wrapperCol">

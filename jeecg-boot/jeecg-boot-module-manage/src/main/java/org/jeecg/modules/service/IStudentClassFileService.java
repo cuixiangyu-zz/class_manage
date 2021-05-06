@@ -2,6 +2,7 @@ package org.jeecg.modules.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.jeecg.modules.entity.StudentClass;
+import org.jeecg.modules.entity.StudentClassFile;
 
 import java.util.List;
 import java.util.Map;
@@ -12,9 +13,6 @@ import java.util.Map;
  * @Date:   2021-01-06
  * @Version: V1.0
  */
-public interface IStudentClassService extends IService<StudentClass> {
+public interface IStudentClassFileService extends IService<StudentClassFile> {
 
-    List<Map<String, String>> getClasses(String studentName, String week,String xn,String xq);
-
-    String getsubjectNameByCode(String subjectName);
 }

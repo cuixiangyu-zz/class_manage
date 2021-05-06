@@ -91,4 +91,7 @@ public class RecruitmentInformation implements Serializable {
 	@Excel(name = "招聘数量", width = 15)
     @ApiModelProperty(value = "招聘数量")
     private String count;
+
+	@Dict(dicCode = "valid_status")
+    private String status;
 }

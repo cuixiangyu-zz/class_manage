@@ -1,6 +1,8 @@
 package org.jeecg.modules.service.impl;
 
 import org.apache.commons.lang.StringUtils;
+import org.jeecg.common.system.api.ISysBaseAPI;
+import org.jeecg.common.system.vo.DictModel;
 import org.jeecg.modules.entity.Student;
 import org.jeecg.modules.entity.StudentClass;
 import org.jeecg.modules.mapper.StudentClassMapper;
@@ -29,6 +31,9 @@ public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, Stu
     @Autowired
     StudentMapper studentMapper;
 
+    @Autowired
+    ISysBaseAPI sysBaseAPI;
+
 
     @Override
     public boolean save(StudentClass entity) {
@@ -48,6 +53,17 @@ public class StudentClassServiceImpl extends ServiceImpl<StudentClassMapper, Stu
     public List<Map<String, String>> getClasses(String studentName, String week,String xn,String xq) {
         Student student = studentMapper.selectByName(studentName);
         return getClassesByStudent(student.getId(),week,xn,xq);
+    }
+
+    @Override
+    public String getsubjectNameByCode(String subjectName) {
+        List<DictModel> dictModelList = sysBaseAPI.queryDictItemsByCode("subject");
+        for (DictModel dictModel : dictModelList) {
+            if(dictModel.getValue().equals(subjectName)){
+                return dictModel.getText();
+            }
+        }
+        return null;
     }
 
     private List<Map<String, String>> getClassesByStudent(String studentId, String week,String xn,String xq){

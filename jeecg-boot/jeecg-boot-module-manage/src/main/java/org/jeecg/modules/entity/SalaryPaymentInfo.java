@@ -57,7 +57,7 @@ public class SalaryPaymentInfo implements Serializable {
 	/**教师id*/
 	@Excel(name = "教师", width = 15)
     @ApiModelProperty(value = "教师id")
-    @Dict(dicCode = "id",dictTable = "sys_user",dicText = "realname")
+    @Dict(dicCode = "id",dictTable = "teacher_info",dicText = "name")
     private String tercherId;
 	/**月份:yyyy-mm*/
 	@Excel(name = "月份:yyyy-mm", width = 15)

@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -16,6 +17,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.persistence.Transient;
 
 /**
  * @Description: 课程表
@@ -68,13 +71,18 @@ public class StudentClass implements Serializable {
 	/**课程名称*/
 	@Excel(name = "课程名称", width = 15)
     @ApiModelProperty(value = "课程名称")
+    @Dict(dicCode = "subject")
     private String subjectName;
 
 	/**老师*/
 	@Excel(name = "老师", width = 15)
     @ApiModelProperty(value = "老师")
-    @Dict(dicCode = "id",dictTable="sys_user",dicText="realname")
+    @Dict(dicCode = "id",dictTable="teacher_info",dicText="base_info_id")
     private String teacher;
+
+    @TableField(exist = false)
+	private String teacherName;
+
 	/**课程详细周数*/
 	@Excel(name = "课程详细周数", width = 15)
     @ApiModelProperty(value = "课程详细周数")

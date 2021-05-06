@@ -11,10 +11,9 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
 
-        <a-form-item label="学院" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag @change="changeMajor" :triggerChange="true" v-decorator="['institute', { rules: [{ required: true}] }]"
+        <a-form-item label="学院" :labelCol="labelCol" :wrapperCol="wrapperCol" >
+          <j-dict-select-tag @change="changeMajor"  :triggerChange="true" v-decorator="['institute', { rules: [{ required: true}] }]"
                              placeholder="请选择用户名称" dictCode="college_class,name,code,type = 'institute'"/>
-          <!--          <j-search-select-tag v-decorator="['institute']" dict="" />-->
         </a-form-item>
         <a-form-item label="专业" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-search-select-tag
@@ -49,17 +48,25 @@
 <!--          <a-input v-decorator="['section']" placeholder="请输入第几节课程"></a-input>-->
         </a-form-item>
         <a-form-item label="课程名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input v-decorator="['subjectName', { rules: [{ required: true}] }]" placeholder="请输入课程名称"></a-input>
+          <j-dict-select-tag @change="changeSubject" :triggerChange="true" v-decorator="['subjectName', { rules: [{ required: true}] }]"
+                             placeholder="请选择课程" dictCode="subject"/>
+<!--          <a-input v-decorator="['subjectName', { rules: [{ required: true}] }]" placeholder="请输入课程名称"></a-input>-->
         </a-form-item>
 
         <a-form-item label="老师" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-search-select-tag
+            ref="teacherSelect"
+            placeholder="请选择专业"
+            v-decorator="['teacher']"
+            :triggerChange="true"
+            :dictOptions="teacherOptions">
+          </j-search-select-tag>
+<!--          <j-search-select-tag
             placeholder="请选择审批教师"
             v-decorator="['teacher', { rules: [{ required: true}] }]"
             dict="sys_user,realname,id"
             :async="false">
-          </j-search-select-tag>
-<!--          <a-input v-decorator="['teacher']" placeholder="请输入老师"></a-input>-->
+          </j-search-select-tag>-->
         </a-form-item>
         <a-form-item label="课程详细周数" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="['weekSeq']" placeholder="请输入课程详细周数"></a-input>
@@ -134,6 +141,7 @@
         },
         majorOptions: [],
         classOptions: [],
+        teacherOptions: [],
       }
     },
     created () {
@@ -220,6 +228,21 @@
               this.classOptions = res.result
               this.$refs.classSelect.setCurrentDictOptions(this.classOptions);
               console.log(this.classOptions)
+            } else {
+              that.$message.warning(res.message);
+            }
+          })
+        }
+      },
+      changeSubject(e) {
+        this.form.setFieldsValue({teacher:''})
+        if (e!==undefined&&e!== null && e !== '') {
+          var httpurl = '/manage/teacherInfo/getTeacherOption?subject=' + e
+          httpAction(httpurl, null, 'get').then((res) => {
+            if (res.success) {
+              this.teacherOptions = res.result
+              this.$refs.teacherSelect.setCurrentDictOptions(this.teacherOptions);
+              console.log(this.teacherOptions)
             } else {
               that.$message.warning(res.message);
             }

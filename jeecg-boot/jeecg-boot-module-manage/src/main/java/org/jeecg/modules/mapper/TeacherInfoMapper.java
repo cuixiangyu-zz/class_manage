@@ -2,8 +2,10 @@ package org.jeecg.modules.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.jeecg.common.system.vo.DictModel;
 import org.jeecg.modules.entity.RecruitmentInformation;
 import org.jeecg.modules.entity.TeacherInfo;
@@ -23,7 +25,9 @@ public interface TeacherInfoMapper extends BaseMapper<TeacherInfo> {
     List<DictModel> getTeacherListForSalary();
 
     @Select({
-            "select user.realname as 'text',user.id as 'value' from sys_user user left join teacher_info info on info.base_info_id = user.id where info.id is null "
+            "select user.realname as 'text',user.id as 'value' from sys_user user left join teacher_info info on info.base_info_id = user.id " ,
+            " left join sys_user_role userRole on user.id = userRole.user_id left join sys_role role on userRole.role_id",
+            " = role.id where info.id is null and role.role_code = 'teacher' "
     })
     List<DictModel> getUserList();
 
@@ -53,6 +57,7 @@ public interface TeacherInfoMapper extends BaseMapper<TeacherInfo> {
             " and  user.sex = #{information.sex}",
             "  </if> ",
             " and  tea.work_status = 'quit' ",
+            " and tea.id not in(select teacher_id from recruitment_teacher where recruitment_id = #{information.id}) ",
             "</script>"
     })
     List<TeacherInfo> getAddTeacherList(@Param("information") RecruitmentInformation information);
@@ -61,4 +66,42 @@ public interface TeacherInfoMapper extends BaseMapper<TeacherInfo> {
             " select realname from sys_user where id = #{baseInfoId}"
     })
     String getTeacherName(String baseInfoId);
+
+    @Insert({
+            "<script>",
+            " insert into recruitment_teacher VALUES ",
+            " <foreach collection='list' item='id' index='index' open='' separator=',' close='' > ",
+            " (#{recruitmentId},#{id}) ",
+            " </foreach> ",
+            " </script> "
+    })
+    void confirmTeacher(@Param("recruitmentId") String recruitmentId,@Param("list") List<String> list);
+
+    @Update({
+            "<script>",
+            " update teacher_info set work_status = #{status} where id in ",
+            " <foreach collection='list' item='id' index='index' open='(' separator=',' close=')' > ",
+            " #{id} ",
+            " </foreach> ",
+            " </script> "
+    })
+    void updateStatus(@Param("list") List<String> list, @Param("status") String status);
+
+    @Select({
+            " select user.realname as 'text',tea.id as 'value' from teacher_info tea left join sys_user user on ",
+            " tea.base_info_id = user.id where tea.subject=#{subject} and tea.work_status = 'on_job'"
+    })
+    List<DictModel> getByCode(String subject);
+
+    @Select({
+            " select user.realname as 'text' from teacher_info tea left join sys_user user on ",
+            " tea.base_info_id = user.id where tea.id=#{id} "
+    })
+    String getNameByTeacherId(String id);
+
+    @Select({
+            " select tea.* from teacher_info tea left join sys_user user on ",
+            " tea.base_info_id = user.id where user.id=#{userId} "
+    })
+    TeacherInfo getTeacherByUserId(String userId);
 }

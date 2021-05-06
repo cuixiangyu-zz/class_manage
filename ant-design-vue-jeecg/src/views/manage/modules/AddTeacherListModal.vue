@@ -5,26 +5,17 @@
     :visible="visible"
     :confirmLoading="confirmLoading"
     switchFullscreen
-    @ok="handleCancel"
+    @ok="confirmUser"
     @cancel="visible=false"
     cancelText="关闭">
     <a-spin :spinning="confirmLoading">
     <!-- table区域-begin -->
       <div>
-        <div style="margin-bottom: 16px">
-          <a-button type="primary" :disabled="!hasSelected" :loading="confirmLoading" @click="batchDel">
-            Reload
-          </a-button>
-          <span style="margin-left: 8px">
-        <template v-if="hasSelected">
-          {{ `Selected ${selectedRowKeys.length} items` }}
-        </template>
-      </span>
-        </div>
         <a-table
           :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
           :columns="columns"
           :data-source="dataSource"
+          row-key="id"
         />
       </div>
     </a-spin>
@@ -47,7 +38,11 @@
         description: '教师信息管理页面',
         // 表头
         columns: [
-
+          {
+            title:'姓名',
+            align:"center",
+            dataIndex: 'baseInfoId_dictText'
+          },
           {
             title:'任教科目',
             align:"center",
@@ -75,6 +70,7 @@
           deleteBatch: "/manage/teacherInfo/deleteBatch",
           exportXlsUrl: "/manage/teacherInfo/exportXls",
           importExcelUrl: "manage/teacherInfo/importExcel",
+          confirm:"/manage/teacherInfo/confirmTeacher",
         },
         dictOptions:{},
         title:"操作",
@@ -85,11 +81,15 @@
         selectedRowKeys: [],
         /* table选中records*/
         selectionRows: [],
-        dataSource:[]
+        dataSource:[],
+        chooseTeacher:{
+          recruitmentId:'',
+          teacherList:[]
+        }
       }
     },
     created() {
-      //this.loadData();
+      this.selectedRowKeys = [];
     },
     computed: {
       importExcelUrl: function(){
@@ -110,9 +110,16 @@
           this.selectedRowKeys = [];
         }, 1000);
       },
-      onSelectChange(selectedRowKeys) {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
+      onSelectChange(selectedRowKeys, selectedRows) {
+        console.log('selectedRows changed: ', selectedRows);
         this.selectedRowKeys = selectedRowKeys;
+        let idList = [];
+        if(selectedRows!==undefined&&selectedRows.length>0){
+          selectedRows.forEach(function(element){
+            idList.push(element.id)
+          })
+        }
+        this.chooseTeacher.teacherList = idList;
       },
       batchDel: function () {
         if (this.selectedRowKeys.length <= 0) {
@@ -146,6 +153,7 @@
         }
       },
       loadData(id) {
+        this.chooseTeacher.recruitmentId = id;
         if(!this.url.list){
           this.$message.error("请设置url.list属性!")
           return
@@ -159,7 +167,7 @@
         var url = this.url.list+ '?recruitmentInformationId='+id;
         httpAction(url,params,'get').then((res) => {
           if (res.success) {
-            this.dataSource = res.result;
+            this.dataSource = res.result.records;
             //this.ipagination.total = res.result.total;
           }
           if(res.code===510){
@@ -170,6 +178,15 @@
       },
       handleCancel () {
         this.close()
+      },
+      confirmUser () {
+        this.chooseTeacher.teacherList = this.selectedRowKeys
+        httpAction(this.url.confirm,this.chooseTeacher,'post').then((res) => {
+          if (res.success) {
+            this.$message.info("添加成功!")
+            this.visible = false;
+          }
+        })
       },
     }
   }
