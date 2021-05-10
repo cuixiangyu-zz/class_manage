@@ -44,6 +44,14 @@
           <a-input placeholder="请输入工号" v-decorator.trim="[ 'workNo', validatorRules.workNo]" />
         </a-form-item>
 
+        <a-form-item label="问题" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <a-input placeholder="请输入问题" v-decorator.trim="[ 'question', validatorRules.question]" />
+        </a-form-item>
+
+        <a-form-item label="答案" :labelCol="labelCol" :wrapperCol="wrapperCol">
+          <a-input placeholder="请输入答案" v-decorator.trim="[ 'answer', validatorRules.answer]" />
+        </a-form-item>
+
         <a-form-item label="职务" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <j-select-position placeholder="请选择职务" :multiple="false" v-decorator="['post', {}]"/>
         </a-form-item>
@@ -222,6 +230,16 @@
               { validator: this.validateWorkNo }
             ]
           },
+          answer: {
+            rules: [
+              { required: true, message: '请输入答案' }
+            ]
+          },
+          question: {
+            rules: [
+              { required: true, message: '请输入问题' }
+            ]
+          },
           telephone: {
             rules: [
               { pattern: /^0\d{2,3}-[1-9]\d{6,7}$/, message: '请输入正确的座机号码' },
@@ -330,7 +348,7 @@
         that.visible = true;
         that.model = Object.assign({}, record);
         that.$nextTick(() => {
-          that.form.setFieldsValue(pick(this.model,'username','sex','realname','email','phone','activitiSync','workNo','telephone','post'))
+          that.form.setFieldsValue(pick(this.model,'username','sex','realname','email','phone','activitiSync','workNo','telephone','post','question','answer'))
         });
         //身份为上级显示负责部门，否则不显示
         if(this.model.userIdentity=="2"){

@@ -182,4 +182,8 @@ public class SysUser implements Serializable {
      * （github/github，wechat_enterprise/企业微信，dingtalk/钉钉）
      */
     private String thirdType;
+
+    private String question;
+
+    private String answer;
 }

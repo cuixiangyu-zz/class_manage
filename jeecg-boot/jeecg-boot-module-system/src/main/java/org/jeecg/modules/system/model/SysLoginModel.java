@@ -20,6 +20,16 @@ public class SysLoginModel {
 	@ApiModelProperty(value = "验证码key")
     private String checkKey;
 
+    private String answer;
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
     public String getUsername() {
         return username;
     }

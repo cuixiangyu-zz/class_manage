@@ -6,17 +6,18 @@
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
         @change="handleTabClick">
         <a-tab-pane key="tab1" tab="账号密码登陆">
-          <a-form-item>
+          <a-form-item >
             <a-input
               size="large"
               v-decorator="['username',{initialValue:'admin', rules: validatorRules.username.rules}]"
               type="text"
+              @change="changeQuestion"
               placeholder="请输入帐户名 / admin">
               <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
             </a-input>
           </a-form-item>
 
-          <a-form-item>
+          <a-form-item v-show="showForgetPassword">
             <a-input
               v-decorator="['password',{initialValue:'123456', rules: validatorRules.password.rules}]"
               size="large"
@@ -27,9 +28,28 @@
             </a-input>
           </a-form-item>
 
-          <a-row :gutter="0">
+          <a-form-item v-show="!showForgetPassword">
+            <a-input
+              size="large"
+              v-decorator="['question']"
+              type="text"
+              :disabled="true"
+              placeholder="问题">
+            </a-input>
+          </a-form-item>
+
+          <a-form-item v-show="!showForgetPassword">
+            <a-input
+              size="large"
+              v-decorator="['answer',{ rules: validatorRules.answer.rules}]"
+              type="text"
+              placeholder="请输入答案">
+            </a-input>
+          </a-form-item>
+
+          <a-row :gutter="0" >
             <a-col :span="16">
-              <a-form-item>
+              <a-form-item >
                 <a-input
                   v-decorator="['inputCode',validatorRules.inputCode]"
                   size="large"
@@ -40,7 +60,7 @@
                 </a-input>
               </a-form-item>
             </a-col>
-            <a-col :span="8" style="text-align: right">
+            <a-col :span="8" style="text-align: right" >
               <img v-if="requestCodeSuccess" style="margin-top: 2px;" :src="randCodeImage" @click="handleChangeCheckCode"/>
               <img v-else style="margin-top: 2px;" src="../../assets/checkcode.png" @click="handleChangeCheckCode"/>
             </a-col>
@@ -83,7 +103,7 @@
         </a-tab-pane>-->
       </a-tabs>
 
-      <a-form-item>
+      <a-form-item v-show="showForgetPassword">
         <a-checkbox v-decorator="['rememberMe', {initialValue: true, valuePropName: 'checked'}]" >自动登陆</a-checkbox>
 <!--        <router-link :to="{ name: 'alteration'}" class="forge-password" style="float: right;">
           忘记密码
@@ -93,7 +113,7 @@
         </router-link>-->
       </a-form-item>
 
-      <a-form-item style="margin-top:24px">
+      <a-form-item style="margin-top:24px" v-show="showForgetPassword">
         <a-button
           size="large"
           type="primary"
@@ -101,7 +121,40 @@
           class="login-button"
           :loading="loginBtn"
           @click.stop.prevent="handleSubmit"
+
           :disabled="loginBtn">确定
+        </a-button>
+      </a-form-item>
+      <a-form-item style="margin-top:24px" v-show="!showForgetPassword">
+      <a-button
+          size="large"
+          type="primary"
+          htmlType="submit"
+          class="login-button"
+          :loading="loginBtn"
+
+          @click.stop.prevent="resetPassword"
+          :disabled="loginBtn">确定
+        </a-button>
+      </a-form-item>
+      <a-form-item style="margin-top:24px" v-show="!showForgetPassword">
+        <a-button
+          size="large"
+          type="primary"
+          htmlType="submit"
+          class="login-button"
+          @click.stop.prevent="cancel"
+          >取消
+        </a-button>
+      </a-form-item>
+      <a-form-item style="margin-top:24px" v-show="showForgetPassword">
+        <a-button
+          size="large"
+          type="primary"
+          htmlType="submit"
+          class="login-button"
+          @click.stop.prevent="forgetPassword"
+        >忘记密码
         </a-button>
       </a-form-item>
 
@@ -200,7 +253,17 @@
           password:{rules: [{ required: true, message: '请输入密码!',validator: 'click'}]},
           mobile:{rules: [{validator:this.validateMobile}]},
           captcha:{rule: [{ required: true, message: '请输入验证码!'}]},
-          inputCode:{rules: [{ required: true, message: '请输入验证码!'}]}
+          inputCode:{rules: [{ required: true, message: '请输入验证码!'}]},
+          answer:{rules: [{ required: true, message: '请输入答案!'}]},
+        },
+
+        resetValidatorRules:{
+          username:{rules: [{ required: true, message: '请输入用户名!'},{validator: this.handleUsernameOrEmail}]},
+          password:{rules: [{ required: true, message: '请输入密码!',validator: 'click'}]},
+          mobile:{rules: [{validator:this.validateMobile}]},
+          captcha:{rule: [{ required: true, message: '请输入验证码!'}]},
+          inputCode:{rules: [{ required: true, message: '请输入验证码!'}]},
+          answer:{rules: [{ required: true, message: '请输入答案!'}]},
         },
         verifiedCode:"",
         inputCodeContent:"",
@@ -213,7 +276,9 @@
         validate_status:"",
         currdatetime:'',
         randCodeImage:'',
-        requestCodeSuccess:false
+        requestCodeSuccess:false,
+        showForgetPassword: true,
+        resetParam:{}
       }
     },
     created () {
@@ -261,6 +326,62 @@
       handleTabClick (key) {
         this.customActiveKey = key
         // this.form.resetFields()
+      },
+      forgetPassword () {
+        this.changeQuestion();
+        this.showForgetPassword = false;
+      },
+      cancel () {
+        this.showForgetPassword = true;
+      },
+      resetPassword () {
+        let that = this
+        that.form.validateFields([ 'username', 'answer','inputCode'], { force: true }, (err, values) => {
+          if (!err) {
+            this.resetParam.username = values.username
+
+            this.resetParam.answer = values.answer
+
+            this.resetParam.captcha = that.inputCodeContent
+            this.resetParam.checkKey = that.currdatetime
+            postAction('/sys/resetPassword',this.resetParam).then(res=>{
+              if(res.success){
+                this.$notification.success({
+                  message: '修改成功',
+                  description: `默认密码:123456`,
+                });
+                this.showForgetPassword = true;
+                console.log(res)
+              }else{
+                this.$notification[ 'error' ]({
+                  message: "修改失败",
+                  description:res.message,
+                  duration: 4,
+                });
+              }
+            })
+          }else {
+            that.loginBtn = false;
+          }
+        })
+      },
+      changeQuestion () {
+        var username = this.form.getFieldValue("username");
+        if(username ===undefined||username===null||username===''){
+          this.form.setFieldsValue({'question':''})
+          return;
+        }
+        getAction('/sys/getQuestion?userName='+username).then(res=>{
+          if(res.success){
+            if(res.result.question!==undefined&&res.result.question!==null&&res.result.question!==''){
+              this.form.setFieldsValue({'question':res.result.question})
+            }else{
+              this.form.setFieldsValue({'question':''})
+            }
+          }else{
+            this.form.setFieldsValue({'question':''})
+          }
+        })
       },
       handleSubmit () {
         let that = this

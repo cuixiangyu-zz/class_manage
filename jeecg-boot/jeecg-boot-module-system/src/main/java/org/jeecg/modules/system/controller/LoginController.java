@@ -3,9 +3,11 @@ package org.jeecg.modules.system.controller;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.exceptions.ClientException;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.jeecg.common.api.vo.Result;
@@ -478,4 +480,43 @@ public class LoginController {
 		return Result.ok();
 	}
 
+	@GetMapping("/getQuestion")
+	public Result<?> getQuestion(String userName){
+		if(StringUtils.isEmpty(userName)){
+			return Result.ok();
+		}
+
+		SysUser userByName = sysUserService.getUserByName(userName);
+		if(userByName!=null){
+			Map<String,String> map = new HashMap<>();
+			map.put("question",userByName.getQuestion());
+			return Result.ok(map);
+		}
+		return Result.ok();
+	}
+
+	@PostMapping("/resetPassword")
+	public Result<?> resetPassword(@RequestBody SysLoginModel sysLoginModel){
+		Result result = new Result();
+		if(sysLoginModel.getCaptcha()==null){
+			result.error500("验证码无效");
+			return result;
+		}
+		String lowerCaseCaptcha = sysLoginModel.getCaptcha().toLowerCase();
+		String realKey = MD5Util.MD5Encode(lowerCaseCaptcha+sysLoginModel.getCheckKey(), "utf-8");
+		Object checkCode = redisUtil.get(realKey);
+		if(checkCode==null || !checkCode.equals(lowerCaseCaptcha)) {
+			result.error500("验证码错误");
+			return result;
+		}
+		SysUser userByName = sysUserService.getUserByName(sysLoginModel.getUsername());
+		if(userByName==null){
+			return Result.error("用户不存在!");
+		}
+		if(!userByName.getAnswer().equals(sysLoginModel.getAnswer())){
+			return Result.error("答案错误!");
+		}
+		userByName.setPassword("123456");
+		return sysUserService.changePassword(userByName);
+	}
 }
