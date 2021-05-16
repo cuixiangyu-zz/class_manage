@@ -84,7 +84,9 @@
         </span>
 
         <span slot="action" slot-scope="text, record">
-          <a href="javascript:;" @click="handleDetail(record)">详情</a>
+<!--          <a href="javascript:;" @click="handleDetail(record)">详情</a>
+          <a-divider type="vertical"/>-->
+          <a href="javascript:;" @click="reply(record)">回复</a>
           <a-divider type="vertical"/>
           <a-dropdown>
             <a class="ant-dropdown-link">更多<a-icon type="down"/></a>
@@ -126,7 +128,7 @@
       return {
         description: '消息管理页面',
         // 新增修改按钮是否显示
-        show: false,
+        show: true,
         // 表头
         columns: [
           {
@@ -194,9 +196,16 @@
     computed: {
       importExcelUrl: function () {
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
-      }
+      },
+
     },
-    methods: {}
+    methods: {
+      reply: function (record) {
+        this.$refs.modalForm.reply(record);
+        this.$refs.modalForm.title="回复";
+        this.$refs.modalForm.disableSubmit = true;
+      }
+    }
   }
 </script>
 <style lang="less" scoped>

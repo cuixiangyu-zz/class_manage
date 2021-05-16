@@ -2,25 +2,13 @@
   <a-card :bordered="false">
     <!-- 查询区域 -->
     <div class="table-page-search-wrapper">
-      <a-form layout="inline" v-has="'college_director:add'" @keyup.enter.native="searchQuery">
+      <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-form-item label="学历">
-              <a-input placeholder="请输入学历" v-model="queryParam.education"></a-input>
+            <a-form-item label="名称">
+              <a-input placeholder="请输入名称" v-model="queryParam.name"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-form-item label="毕业学校类型:">
-              <a-input placeholder="请输入毕业学校类型:985,211,一本" v-model="queryParam.graduateSchoolType"></a-input>
-            </a-form-item>
-          </a-col>
-          <template v-if="toggleSearchStatus">
-            <a-col :xl="6" :lg="7" :md="8" :sm="24">
-              <a-form-item label="工作状态:">
-                <a-input placeholder="请输入工作状态:已聘任,未聘任" v-model="queryParam.workStatus"></a-input>
-              </a-form-item>
-            </a-col>
-          </template>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
@@ -37,9 +25,9 @@
     <!-- 查询区域-END -->
     
     <!-- 操作按钮区域 -->
-    <div class="table-operator" v-has="'college_director:add'">
-      <a-button @click="handleAdd" v-has="'teacher:add'" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('教师信息')">导出</a-button>
+    <div class="table-operator">
+      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
+      <a-button type="primary" icon="download" @click="handleExportXls('发票信息')">导出</a-button>
       <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
       </a-upload>
@@ -92,7 +80,7 @@
         </template>
 
         <span slot="action" slot-scope="text, record">
-          <a @click="handleEdit(record)" v-if="record.workStatus==='testing'">编辑</a>
+          <a @click="handleEdit(record)">编辑</a>
 
           <a-divider type="vertical" />
           <a-dropdown>
@@ -110,7 +98,7 @@
       </a-table>
     </div>
 
-    <teacherInfo-modal ref="modalForm" @ok="modalFormOk"></teacherInfo-modal>
+    <invoiceInfo-modal ref="modalForm" @ok="modalFormOk"></invoiceInfo-modal>
   </a-card>
 </template>
 
@@ -119,17 +107,17 @@
   import '@/assets/less/TableExpand.less'
   import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import TeacherInfoModal from './modules/TeacherInfoModal'
+  import InvoiceInfoModal from './modules/InvoiceInfoModal'
 
   export default {
-    name: "TeacherInfoList",
+    name: "InvoiceInfoList",
     mixins:[JeecgListMixin, mixinDevice],
     components: {
-      TeacherInfoModal
+      InvoiceInfoModal
     },
     data () {
       return {
-        description: '教师信息管理页面',
+        description: '发票信息管理页面',
         // 表头
         columns: [
           {
@@ -143,55 +131,20 @@
             }
           },
           {
-            title:'姓名',
+            title:'名称',
             align:"center",
-            dataIndex: 'baseInfoId_dictText'
+            dataIndex: 'name'
           },
           {
-            title:'试讲结果',
+            title:'发票',
             align:"center",
-            dataIndex: 'trialLecture'
-          },
-          {
-            title:'月工资',
-            align:"center",
-            dataIndex: 'wages'
-          },
-          {
-            title:'评价结果',
-            align:"center",
-            dataIndex: 'evaluation'
-          },
-          {
-            title:'上传文件',
-            align:"center",
-            dataIndex: 'files',
+            dataIndex: 'file',
             scopedSlots: {customRender: 'fileSlot'}
           },
           {
-            title:'任教科目',
+            title:'金额',
             align:"center",
-            dataIndex: 'subject_dictText'
-          },
-          {
-            title:'学历',
-            align:"center",
-            dataIndex: 'education_dictText'
-          },
-          {
-            title:'工龄',
-            align:"center",
-            dataIndex: 'workingYears'
-          },
-          {
-            title:'毕业学校类型',
-            align:"center",
-            dataIndex: 'graduateSchoolType_dictText'
-          },
-          {
-            title:'工作状态',
-            align:"center",
-            dataIndex: 'workStatus_dictText'
+            dataIndex: 'money'
           },
           {
             title: '操作',
@@ -203,11 +156,11 @@
           }
         ],
         url: {
-          list: "/manage/teacherInfo/list",
-          delete: "/manage/teacherInfo/delete",
-          deleteBatch: "/manage/teacherInfo/deleteBatch",
-          exportXlsUrl: "/manage/teacherInfo/exportXls",
-          importExcelUrl: "manage/teacherInfo/importExcel",
+          list: "/manage/invoiceInfo/list",
+          delete: "/manage/invoiceInfo/delete",
+          deleteBatch: "/manage/invoiceInfo/deleteBatch",
+          exportXlsUrl: "/manage/invoiceInfo/exportXls",
+          importExcelUrl: "manage/invoiceInfo/importExcel",
         },
         dictOptions:{},
       }

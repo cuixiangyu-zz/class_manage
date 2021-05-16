@@ -95,6 +95,7 @@
           <j-dict-select-tag type="list" v-decorator="['xq', { rules: [{ required: true}] }]" :triggerChange="true" placeholder="请输入学期"
                              dictCode="xq"/>
         </a-form-item>
+
       </a-form>
     </a-spin>
   </j-modal>

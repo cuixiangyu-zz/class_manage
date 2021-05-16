@@ -25,6 +25,7 @@
           <a-input placeholder="请输入发送内容" v-decorator="['esContent', {}]"/>
         </a-form-item>
         <a-form-item
+          v-if="title==='编辑'"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="发送所需参数">
@@ -34,9 +35,16 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="接收人">
-          <a-input placeholder="请输入接收人" v-decorator="['esReceiver', {}]"/>
+          <j-search-select-tag
+            placeholder="请选择接收人"
+            v-decorator="['esReceiver', { rules: [{ required: true}] }]"
+            dict="sys_user,realname,username"
+          >
+          </j-search-select-tag>
+<!--          <a-input placeholder="请输入接收人" v-decorator="['esReceiver', {}]"/>-->
         </a-form-item>
         <a-form-item
+          v-if="title==='编辑'"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="发送方式">
@@ -44,12 +52,14 @@
           </j-dict-select-tag>
         </a-form-item>
         <a-form-item
+          v-if="title==='编辑'"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="发送时间">
           <a-date-picker showTime format='YYYY-MM-DD HH:mm:ss' v-decorator="[ 'esSendTime', {}]"/>
         </a-form-item>
         <a-form-item
+          v-if="title==='编辑'"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="发送状态">
@@ -57,12 +67,14 @@
           </j-dict-select-tag>
         </a-form-item>
         <a-form-item
+          v-if="title==='编辑'"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="发送次数">
           <a-input-number v-decorator="[ 'esSendNum', {}]"/>
         </a-form-item>
         <a-form-item
+          v-if="title==='编辑'"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="发送失败原因">
@@ -88,8 +100,12 @@
   import pick from 'lodash.pick'
   import moment from "moment"
 
+  import JSearchSelectTag from '@/components/dict/JSearchSelectTag'
   export default {
     name: "SysMessageModal",
+    components: {
+      JSearchSelectTag
+    },
     data() {
       return {
         title: "操作",
@@ -131,6 +147,14 @@
         });
 
       },
+      reply(record) {
+        this.form.resetFields();
+        this.visible = true;
+        var esTitle = "回复:"+record.esTitle
+        this.$nextTick(() => {
+        this.form.setFieldsValue({esReceiver:record.createBy,esTitle:esTitle});
+        });
+      },
       close() {
         this.$emit('close');
         this.visible = false;
@@ -166,15 +190,12 @@
               that.confirmLoading = false;
               that.close();
             })
-
-
           }
         })
       },
       handleCancel() {
         this.close()
       },
-
 
     }
   }

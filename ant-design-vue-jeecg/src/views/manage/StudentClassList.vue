@@ -109,10 +109,11 @@
                 </a-popconfirm>
           <a-divider type="vertical" />
           <a @click="handleUpload(record)">文件上传</a>
-<!--          <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
-&lt;!&ndash;          <a @click="addTask(record)">添加作业</a>
-          <a-divider type="vertical" />&ndash;&gt;
+          <a @click="handleEdit(record)">编辑</a>
+          <a-divider type="vertical" />
+<!--          <a @click="addTask(record)">添加作业</a>
+          <a-divider type="vertical" />-->
           <a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
             <a-menu slot="overlay">
@@ -121,14 +122,14 @@
                   <a>删除</a>
                 </a-popconfirm>
               </a-menu-item>
-&lt;!&ndash;              <a-menu-item>
+<!--              <a-menu-item>
                 <a @click="addRate(record)">添加作业成绩比例</a>
               </a-menu-item>
               <a-menu-item>
                 <a @click="addCheck(record)">添加考勤信息</a>
-              </a-menu-item>&ndash;&gt;
+              </a-menu-item>-->
             </a-menu>
-          </a-dropdown>-->
+          </a-dropdown>
         </span>
 
       </a-table>

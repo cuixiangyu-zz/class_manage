@@ -1,9 +1,6 @@
 package org.jeecg.modules.controller;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -88,10 +85,14 @@ public class TeacherInfoController extends JeecgController<TeacherInfo, ITeacher
 
         if (teacherInfoService.checkIsTeacher(sysUser.getId())) {
             teacherInfo.setBaseInfoId(sysUser.getId());
-        }else if(teacherInfoService.checkIsSchedul(sysUser.getUsername())){
-            teacherInfo.setWorkStatus("testing");
         }
         QueryWrapper<TeacherInfo> queryWrapper = QueryGenerator.initQueryWrapper(teacherInfo, req.getParameterMap());
+        if(teacherInfoService.checkIsSchedul(sysUser.getUsername())){
+            List<String> roleList = new ArrayList<>();
+            roleList.add("on_job");
+            roleList.add("testing");
+            queryWrapper.in("work_status",roleList);
+        }
         Page<TeacherInfo> page = new Page<TeacherInfo>(pageNo, pageSize);
         IPage<TeacherInfo> pageList = teacherInfoService.page(page, queryWrapper);
         return Result.ok(pageList);
