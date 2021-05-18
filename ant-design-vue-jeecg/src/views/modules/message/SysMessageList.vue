@@ -203,7 +203,7 @@
       reply: function (record) {
         this.$refs.modalForm.reply(record);
         this.$refs.modalForm.title="回复";
-        this.$refs.modalForm.disableSubmit = true;
+        this.$refs.modalForm.disableSubmit = false;
       }
     }
   }
